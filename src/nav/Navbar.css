@@ -1,0 +1,19 @@
+.Navbar {
+  padding: 10px;
+  width: calc(100%);
+  /* margin: 5px; */
+  background-color: rgb(192, 222, 222);
+  box-sizing: border-box;
+}
+
+.logo {
+  font-size: 30px;
+}
+
+.UserNCart {
+  gap: 30px;
+}
+
+.search {
+  width: 40vw;
+}

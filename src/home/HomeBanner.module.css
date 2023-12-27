@@ -1,0 +1,10 @@
+.HomeBanner {
+  margin: auto;
+  padding: 10px;
+  width: 90vw;
+  background-color: rgb(74, 115, 236);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}

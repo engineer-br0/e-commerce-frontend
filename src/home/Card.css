@@ -1,0 +1,25 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 320px;
+  width: 180px;
+  padding: 10px;
+  /* box-sizing: border-box; */
+}
+
+.imageContainer {
+  height: 200px;
+  width: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.stars {
+  display: flex;
+  flex-direction: row;
+  color: rgb(255, 191, 0);
+  font-size: 18px;
+  align-items: center;
+}
