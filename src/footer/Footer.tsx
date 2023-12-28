@@ -1,7 +1,7 @@
 import Container from "../Container";
 import "./Footer.css"
 import List from "../utils/List";
-//import Link from "next/link";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
     return (
@@ -9,20 +9,20 @@ const Footer = () => {
             <div className="Footer">
                 <List>
                     <h1>Shop Categories:</h1>
-                    {/* <Link href='/'>Phones</Link>
-                    <Link href='/'>Laptops</Link>
-                    <Link href='/'>Desktops</Link>
-                    <Link href='/'>Watches</Link>
-                    <Link href='/'>Accessories</Link> */}
+                    <Link to='/'>Phones</Link>
+                    <Link to='/'>Laptops</Link>
+                    <Link to='/'>Desktops</Link>
+                    <Link to='/'>Watches</Link>
+                    <Link to='/'>Accessories</Link>
                 </List>
 
                 <List>
                     <h1>Customer Services:</h1>
-                    {/* <Link href='/'>Contact Us</Link>
-                    <Link href='/'>Shipping Policy</Link>
-                    <Link href='/'>Returns and Exchanges</Link>
-                    <Link href='/'>Watches</Link>
-                    <Link href='/'>FAQs</Link> */}
+                    <Link to='/'>Contact Us</Link>
+                    <Link to='/'>Shipping Policy</Link>
+                    <Link to='/'>Returns and Exchanges</Link>
+                    <Link to='/'>Watches</Link>
+                    <Link to='/'>FAQs</Link>
                 </List>
 
                 <List>
@@ -33,11 +33,11 @@ const Footer = () => {
 
                 <List>
                     <p>hello</p>
-                    {/* <Link href='/'></Link>
-                    <Link href='/'>FB</Link>
-                    <Link href='/'>INSTA</Link>
-                    <Link href='/'></Link>
-                    <Link href='/'></Link> */}
+                    <Link to='/'></Link>
+                    <Link to='/'>FB</Link>
+                    <Link to='/'>INSTA</Link>
+                    <Link to='/'></Link>
+                    <Link to='/'></Link>
                 </List>
             </div>
         </Container>

@@ -1,24 +1,25 @@
-"use client"
 
 //import Image from "next/image";
 import "./Card.css"
 import Stars from "../utils/Stars"
+import { Link, useNavigate } from "react-router-dom"
+import { useState } from "react"
 
 const Card: React.FC<{
     product: {
         [key: string]: any,
     }
 }> = ({ product }) => {
+    const [son, setSon] = useState("yash")
     console.log(product);
+    const navigate = useNavigate();
     //const router = useRouter();
 
     return (
-        // <Link href={{
-        //     pathname: `/components/products/[productId]`,
-        //     query: { productId: product.id }
-        // }} >
-        <div className="card" >
-            {/* onClick={() => router.push(`./components/products/${product.id}`)} */}
+
+        <div className="card" onClick={(e) => {
+            navigate(`/products/${product.id}`, { state: { name: "mridul", age: 30, son: son, product } })
+        }}>
 
             <div className="imageContainer">
                 <img className="image" src={product.thumbnail} width={150} height={150} alt="image" />
@@ -29,7 +30,6 @@ const Card: React.FC<{
             <p className="stars"><Stars rating={product.rating} /></p>
             <p className="flex justify-start font-bold text-xm"> &#8377;{product.price} </p>
         </div>
-        // </Link>
     );
 }
 
