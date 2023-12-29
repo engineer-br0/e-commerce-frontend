@@ -9,6 +9,7 @@ import { createContext, useState } from 'react';
 import CartContext from './context/Context';
 import ContextWrapper from './context/Context';
 import Login from './user/Login';
+import Signup from './user/Signup';
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
             <Route path='/cart' element={<Carta />} />
             <Route path='/products/:ProductId' element={<Product />} />
             <Route path='/login' element={<Login />} />
+            <Route path='/signup' element={<Signup />} />
           </Routes>
 
           <Footer />
