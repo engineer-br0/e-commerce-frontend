@@ -5,22 +5,29 @@ import Home from './home/Home';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Carta from './Cart';
 import Product from './products/[ProductId]';
+import { createContext, useState } from 'react';
+import CartContext from './context/Context';
+import ContextWrapper from './context/Context';
+
 
 function App() {
+
   return (
-    <div className="App">
-      <BrowserRouter>
-        <Navbar />
+    <ContextWrapper>
+      <div className="App">
+        <BrowserRouter>
+          <Navbar />
 
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/cart' element={<Product />} />
-          <Route path='/products/:ProductId' element={<Product />} />
-        </Routes>
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/cart' element={<Carta />} />
+            <Route path='/products/:ProductId' element={<Product />} />
+          </Routes>
 
-        <Footer />
-      </BrowserRouter>
-    </div>
+          <Footer />
+        </BrowserRouter>
+      </div>
+    </ContextWrapper>
   );
 }
 

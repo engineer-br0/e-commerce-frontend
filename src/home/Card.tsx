@@ -10,15 +10,13 @@ const Card: React.FC<{
         [key: string]: any,
     }
 }> = ({ product }) => {
-    const [son, setSon] = useState("yash")
-    console.log(product);
     const navigate = useNavigate();
     //const router = useRouter();
 
     return (
 
         <div className="card" onClick={(e) => {
-            navigate(`/products/${product.id}`, { state: { name: "mridul", age: 30, son: son, product } })
+            navigate(`/products/${product.id}`) // not working , { state: { name: "mridul", age: 30, son: son, product } }
         }}>
 
             <div className="imageContainer">
