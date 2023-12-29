@@ -4,11 +4,12 @@ import Container from "../Container";
 import { IoCartOutline } from "react-icons/io5";
 import { FaRegUserCircle } from "react-icons/fa";
 import { CiSearch } from "react-icons/ci";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 //const rubik = Dancing_Script({ subsets: ["latin"], weight: ['400'] })
 
 const Navbar = () => {
+    const navigation = useNavigate();
     return (
         <Container>
             <div className="Navbar">
@@ -32,9 +33,9 @@ const Navbar = () => {
                                 Cart
                             </div>
                         </Link>
-                        <div style={{ fontSize: "35px" }}>
+                        <div onClick={() => navigation("/login")} style={{ fontSize: "35px" }}>
                             <FaRegUserCircle />
-                            circle
+                            User
                         </div>
                     </div>
 
