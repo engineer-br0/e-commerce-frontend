@@ -67,7 +67,7 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
 
     const addToCart = async (id: number, quantity: number) => {
         try {
-            const response = await fetch("http://localhost:4000/manageCart/addToCart", {
+            const response = await fetch("https://e-commerce-backend-3smn.onrender.com/manageCart/addToCart", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -98,7 +98,7 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
 
     const removeFromCart = async (id: number, quantity: number) => {
         try {
-            const response = await fetch("http://localhost:4000/manageCart/removeFromCart", {
+            const response = await fetch("https://e-commerce-backend-3smn.onrender.com/manageCart/removeFromCart", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

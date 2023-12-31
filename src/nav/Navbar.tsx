@@ -65,7 +65,7 @@ const Navbar = () => {
                         </div>
                         <div>
                             {
-                                userDropdown && <Dropdown arr={[{ field: "Signup", path: "/signup" }, { field: "Login", path: "/login" }, { field: "Profile", path: "/" }, { field: "Logout", path: "/" }]} />
+                                userDropdown && <Dropdown arr={[{ field: "Signup", path: "/signup" }, { field: "Login", path: "/login" }, { field: "Profile", path: "/profile" }, { field: "Logout", path: "/" }]} />
                             }
                         </div>
                     </div>

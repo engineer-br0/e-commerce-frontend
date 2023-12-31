@@ -10,6 +10,7 @@ import CartContext from './context/Context';
 import ContextWrapper from './context/Context';
 import Login from './user/Login';
 import Signup from './user/Signup';
+import Profile from './user/Profle';
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
             <Route path='/products/:ProductId' element={<Product />} />
             <Route path='/login' element={<Login />} />
             <Route path='/signup' element={<Signup />} />
+            <Route path='/profile' element={<Profile />} />
           </Routes>
 
           <Footer />
