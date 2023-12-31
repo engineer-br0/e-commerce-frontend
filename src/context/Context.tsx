@@ -137,6 +137,7 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
             }
             catch (er) {
                 console.log("error in cart fetch", er);
+                alert("Error in cart fetch!");
 
             }
         }
