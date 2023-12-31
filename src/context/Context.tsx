@@ -2,16 +2,18 @@ import { useContext, useEffect, useState } from "react";
 import { createContext } from "react";
 
 interface CartItem {
-    id: number,
+    productId: number,
     quantity: number
 }
 
 interface ContextItems {
     products: { [key: string]: any }[],
     cart: CartItem[],
+    isLogin: boolean,
+    token: string,
     //setCart: React.Dispatch<React.SetStateAction<CartItem[]>>,
-    addToCart: (id: number) => void,
-    removeFromCart: (id: number) => void
+    addToCart: (id: number, quantity: number) => void,
+    removeFromCart: (id: number, quantity: number) => void
 }
 
 export const Context = createContext<ContextItems | undefined>(undefined);
@@ -19,6 +21,9 @@ export const Context = createContext<ContextItems | undefined>(undefined);
 const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [cart, setCart] = useState<CartItem[]>([]);
     const [products, setProducts] = useState<{ [key: string]: any }[]>([]);
+    const [isLogin, setIsLogin] = useState<boolean>(false);
+    const [token, setToken] = useState<string>("");
+    const [rerender, setRerender] = useState<boolean>(true);
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -35,29 +40,108 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
             }
         }
 
-        fetchProducts();
-    }, [])
-
-    const addToCart = (id: number) => {
-        let itemInCartIndex = cart.findIndex((item: CartItem) => item.id === id);
-        if (itemInCartIndex === -1) setCart([...cart, { id: id, quantity: 1 }]);
-        else {
-            let newCart = cart;
-            newCart[itemInCartIndex].quantity += 1;
-            setCart(newCart);
+        const checkLogin = () => {
+            const cookies = (document.cookie)?.split(";");
+            if (!cookies || !cookies[0]) return false;
+            cookies.forEach(cookie => {
+                if (cookie.includes("token=")) {
+                    let tokenValue = cookie.replace("token=", "").trim();
+                    if (tokenValue.length === 0) return false;
+                    setIsLogin(true);
+                    setToken(cookie.split("=")[1]);
+                }
+            })
         }
+
+        fetchProducts();
+        checkLogin();
+    }, []);
+
+
+
+    console.log(isLogin, token);
+
+
+    const addToCart = async (id: number, quantity: number) => {
+        try {
+            const response = await fetch("http://localhost:4000/manageCart/addToCart", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    productId: id,
+                    quantity: quantity
+                })
+            });
+            const res = await response.json();
+            console.log("cart res", res);
+            //setCart(res.)
+
+        }
+        catch (er) {
+            console.log(`ERROR! ${er}`);
+        }
+        // let itemInCartIndex = cart.findIndex((item: CartItem) => item.id === id);
+        // if (itemInCartIndex === -1) setCart([...cart, { id: id, quantity: 1 }]);
+        // else {
+        //     let newCart = cart;
+        //     newCart[itemInCartIndex].quantity += 1;
+        //     setCart(newCart);
+        // }
+        rerender ? setRerender(false) : setRerender(true);
     }
 
-    const removeFromCart = (id: number) => {
-        let itemInCartIndex = cart.findIndex((item: CartItem) => item.id === id);
-        let newCart = [...cart];
-        if (newCart[itemInCartIndex].quantity > 1) newCart[itemInCartIndex].quantity--;
-        else newCart.splice(itemInCartIndex, 1);
-        setCart(newCart);
+    const removeFromCart = async (id: number, quantity: number) => {
+        try {
+            const response = await fetch("http://localhost:4000/manageCart/removeFromCart", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify({ productId: id, quantity })
+            });
+            const res = response.json();
+            rerender ? setRerender(false) : setRerender(true);
+        }
+        catch (er) {
+            console.log(er);
+
+        }
+        // let itemInCartIndex = cart.findIndex((item: CartItem) => item.productId === id);
+        // let newCart = [...cart];
+        // if (newCart[itemInCartIndex].quantity > 1) newCart[itemInCartIndex].quantity--;
+        // else newCart.splice(itemInCartIndex, 1);
+        // setCart(newCart);
     }
+
+    useEffect(() => {
+        const fetchCart = async () => {
+            try {
+                const response = await fetch("https://e-commerce-backend-3smn.onrender.com/manageCart/getCart", {
+                    method: "GET",
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                const res = await response.json();
+                console.log("caart res", res);
+                if (response.status === 200) setCart(res.products);
+
+            }
+            catch (er) {
+                console.log("error in cart fetch", er);
+
+            }
+        }
+        if (isLogin) fetchCart();
+    }, [isLogin, rerender])
 
     return (
-        <Context.Provider value={{ products, cart, addToCart, removeFromCart }}>
+        <Context.Provider value={{ products, cart, isLogin, token, addToCart, removeFromCart }}>
             {children}
         </Context.Provider>
     );

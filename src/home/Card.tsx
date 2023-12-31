@@ -29,7 +29,7 @@ const Card: React.FC<{
                 <p className="stars"><Stars rating={product.rating} /></p>
                 <p className="flex justify-start font-bold text-xm"> &#8377;{product.price} </p>
             </div>
-            <button onClick={() => addToCart(product.id)} className="text-blue-500 text-left">Add to Cart</button>
+            <button onClick={() => addToCart(product.id, 1)} className="text-blue-500 text-left">Add to Cart</button>
         </div>
     );
 }

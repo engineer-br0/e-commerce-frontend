@@ -30,7 +30,7 @@ const Product = () => {
                 <p className="stars"><Stars rating={product.rating} /></p>
                 <p className="flex justify-start font-bold text-xm"> &#8377;{product.price} </p>
                 <button className="bg-blue-200" onClick={() => {
-                    addToCart(product.id);
+                    addToCart(product.id, 1);
                     console.log(cart);
                 }}>Add to Cart</button>
             </div>

@@ -12,7 +12,7 @@ const Carta = () => {
         <div>
             {
                 cart.map((obj) => {
-                    let product = products.find(product => obj.id === product.id);
+                    let product = products.find(product => obj.productId == product.id); // matching only value, not data type
                     return (
                         product ?
                             <div>
@@ -25,7 +25,7 @@ const Carta = () => {
                                 <p className="stars"><Stars rating={product.rating} /></p>
                                 <p className="flex justify-start font-bold text-xm"> &#8377;{product.price} </p>
                                 <button className="bg-red-200" onClick={() => {
-                                    if (product) removeFromCart(product.id);
+                                    if (product) removeFromCart(product.id, 1);
                                     console.log(cart);
                                 }}>Remove from Cart</button>
                             </div>

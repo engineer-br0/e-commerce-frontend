@@ -2,7 +2,7 @@ import "./Navbar.css";
 import Container from "../Container";
 //import { Dancing_Script } from "next/font/google";
 import { IoCartOutline } from "react-icons/io5";
-import { FaRegUserCircle } from "react-icons/fa";
+import { HiOutlineUserCircle } from "react-icons/hi2";
 import { CiSearch } from "react-icons/ci";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -12,15 +12,14 @@ const Navbar = () => {
     const navigation = useNavigate();
     return (
         <Container>
-            <div className="Navbar">
+            <div className="Navbar h-20">
                 <div style={{ display: "flex", justifyContent: "space-between" }}>
                     <Link to='/' className="logo">
                         E--Shop
                     </Link>
                     <div className="flex row">
-                        <input className="search" placeholder="Search" />
+                        <input className="search h-20" placeholder="Search" />
                         <div style={{ fontSize: "35px", padding: "3px" }}>
-                            search
                             <CiSearch />
                         </div>
 
@@ -33,8 +32,8 @@ const Navbar = () => {
                                 Cart
                             </div>
                         </Link>
-                        <div onClick={() => navigation("/login")} style={{ fontSize: "35px" }}>
-                            <FaRegUserCircle />
+                        <div onClick={() => navigation("/login")} className="text-xl text-black font-medium">
+                            <HiOutlineUserCircle className="text-5xl" />
                             User
                         </div>
                     </div>
