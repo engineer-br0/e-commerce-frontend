@@ -11,6 +11,8 @@ interface ContextItems {
     cart: CartItem[],
     isLogin: boolean,
     token: string,
+    searchValue: string,
+    setSearchValue: (str: string) => void,
     //setCart: React.Dispatch<React.SetStateAction<CartItem[]>>,
     addToCart: (id: number, quantity: number) => void,
     removeFromCart: (id: number, quantity: number) => void
@@ -24,6 +26,7 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
     const [isLogin, setIsLogin] = useState<boolean>(false);
     const [token, setToken] = useState<string>("");
     const [rerender, setRerender] = useState<boolean>(true);
+    const [searchValue, setSearchValue] = useState<string>("");
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -141,7 +144,7 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
     }, [isLogin, rerender])
 
     return (
-        <Context.Provider value={{ products, cart, isLogin, token, addToCart, removeFromCart }}>
+        <Context.Provider value={{ products, cart, isLogin, token, addToCart, removeFromCart, searchValue, setSearchValue }}>
             {children}
         </Context.Provider>
     );

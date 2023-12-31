@@ -2,8 +2,13 @@
   padding: 10px;
   width: calc(100%);
   /* margin: 5px; */
-  background-color: rgb(192, 222, 222);
+  background-color: rgb(246, 249, 249);
   box-sizing: border-box;
+  box-shadow: 0 5px 15px 1px rgb(235, 234, 234);
+
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0; /* required */
 }
 
 .logo {
@@ -12,8 +17,21 @@
 
 .UserNCart {
   gap: 30px;
+  height: 100%;
 }
 
 .search {
-  width: 40vw;
+  width: 50vw;
+}
+
+.userContainer {
+  width: 50px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  box-sizing: border-box;
+}
+.userContainer:hover {
+  border-bottom: 2px solid red;
 }
