@@ -8,6 +8,8 @@ import { useState } from "react";
 
 const Carta = () => {
     const [quant, setQuant] = useState<number>(1);
+    //const [MRP, setMRP] = useState<number>(0);
+    let MRP: number = 0;
     const { products, cart, addToCart, removeFromCart } = ContextInit();
     console.log(products);
     console.log(cart);
@@ -19,7 +21,8 @@ const Carta = () => {
             {
                 cart.map((obj) => {
                     let product = products.find(product => obj.productId == product.id); // matching only value, not data type
-
+                    //setMRP(Number(product?.price))
+                    MRP += Number(product?.price) * Number(obj.quantity);
                     return (
                         product ?
                             <div className="h-40 relative border w-96 flex flex-row justify-around items-center">
@@ -67,13 +70,29 @@ const Carta = () => {
                     )
                 })
             }
-            <div className="border border-red-700 w-96 text-sm p-5">
-                <p className="font-bold">Price details: (x items)</p>
-                <p >Total MRP: 5000</p>
-                <p>Shipping Fee: 100</p>
-                <p>Total Discound: -400</p>
-                <h2 className="text-lg font-bold border-t">Total Amount: 1250</h2>
-                <button className="bg-red-500 w-80">Place Order</button>
+            <div className="border border-red-700 w-96 text-sm p-5 ">
+                <div className="flex justify-between">
+                    <p className="font-bold">Price details: </p>
+                    <p className="font-bold">({cart.length} items)</p>
+                </div>
+                <div className="flex justify-between">
+                    <p >Total MRP:</p>
+                    <p > &#8377;{MRP}</p>
+                </div>
+                <div className="flex justify-between">
+                    <p>Shipping Fee:</p>
+                    <p>&#8377;100</p>
+                </div>
+                <div className="flex justify-between">
+                    <p>Total Discount(10%): </p>
+                    <p>-&#8377;{MRP / 10}</p>
+                </div>
+                <div className="flex justify-between border-t mt-3">
+                    <h2 className="text-lg font-bold ">Total Amount: </h2>
+                    <h2 className="text-lg font-bold ">&#8377;{MRP + 100 - MRP / 10}</h2>
+                </div>
+
+                <button className="bg-green-500 w-80 mt-2">Place Order</button>
             </div>
         </div>);
 }
