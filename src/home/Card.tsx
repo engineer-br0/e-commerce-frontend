@@ -3,7 +3,7 @@
 import "./Card.css"
 import Stars from "../utils/Stars"
 import { Link, useNavigate } from "react-router-dom"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { ContextInit } from "../context/Context"
 
 const Card: React.FC<{
@@ -12,7 +12,15 @@ const Card: React.FC<{
     }
 }> = ({ product }) => {
     const navigate = useNavigate();
-    const { addToCart } = ContextInit();
+    const { cart, addToCart, removeFromCart } = ContextInit();
+    const [checkItemInCart, setCheck] = useState<boolean>(false);
+
+    useEffect(() => {
+        if (cart.find(item => item.productId == product.id)) setCheck(true);
+        else setCheck(false)
+
+    }, [cart])
+
 
     return (
         <div className="card">
@@ -29,7 +37,11 @@ const Card: React.FC<{
                 <p className="stars"><Stars rating={product.rating} /></p>
                 <p className="flex justify-start font-bold text-xm"> &#8377;{product.price} </p>
             </div>
-            <button onClick={() => addToCart(product.id, 1)} className="text-blue-500 text-left">Add to Cart</button>
+            {checkItemInCart ?
+                <button onClick={() => { removeFromCart(product.id, 1) }} className="text-white text-left bg-red-400 text-center">Remove from cart</button>
+                :
+                <button onClick={() => { addToCart(product.id, 1) }} className="text-white text-left bg-blue-400 text-center">Add to cart</button>
+            }
         </div>
     );
 }

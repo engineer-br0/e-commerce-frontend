@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
 import Container from "../Container";
 import { useState } from "react";
+import { ContextInit } from "../context/Context";
 
 const Login = () => {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
+    const { isLogin, setIsLogin } = ContextInit();
 
     const handleLogin = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault();
@@ -28,9 +30,9 @@ const Login = () => {
             if (response.status === 200) {
                 document.cookie = `token=${res.token};`;
                 console.log(document.cookie);
+                setIsLogin(true);
             }
-
-
+            alert(res.message)
         }
         catch (er) {
             console.log("error hai", er);

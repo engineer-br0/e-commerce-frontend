@@ -16,7 +16,7 @@ interface ContextItems {
     setSearchValue: (str: string) => void,
     //setCart: React.Dispatch<React.SetStateAction<CartItem[]>>,
     addToCart: (id: number, quantity: number) => void,
-    removeFromCart: (id: number, quantity: number) => void
+    removeFromCart: (id: number, quantity: number) => void,
 }
 
 export const Context = createContext<ContextItems | undefined>(undefined);
@@ -44,7 +44,14 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
             }
         }
 
-        const checkLogin = () => {
+        fetchProducts();
+
+    }, []);
+
+    useEffect(() => {
+        console.log(document.cookie);
+
+        const getCookie = () => {
             const cookies = (document.cookie)?.split(";");
             if (!cookies || !cookies[0]) return false;
             cookies.forEach(cookie => {
@@ -56,10 +63,8 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
                 }
             })
         }
-
-        fetchProducts();
-        checkLogin();
-    }, []);
+        getCookie();
+    }, [isLogin])
 
 
 
@@ -67,6 +72,12 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
 
 
     const addToCart = async (id: number, quantity: number) => {
+        if (!isLogin) {
+            alert("Login to use cart!")
+
+            return;
+        }
+
         try {
             const response = await fetch("https://e-commerce-backend-3smn.onrender.com/manageCart/addToCart", {
                 method: "POST",
@@ -108,7 +119,6 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
                 body: JSON.stringify({ productId: id, quantity })
             });
             const res = response.json();
-            rerender ? setRerender(false) : setRerender(true);
         }
         catch (er) {
             console.log(er);
@@ -119,6 +129,7 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
         // if (newCart[itemInCartIndex].quantity > 1) newCart[itemInCartIndex].quantity--;
         // else newCart.splice(itemInCartIndex, 1);
         // setCart(newCart);
+        setRerender(!rerender);
     }
 
     useEffect(() => {
@@ -148,6 +159,7 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
     return (
         <Context.Provider value={{ products, cart, isLogin, setIsLogin, token, addToCart, removeFromCart, searchValue, setSearchValue }}>
             {children}
+            {/* <CustomAlert isOpen={isNotification} message={notification} /> */}
         </Context.Provider>
     );
 }
