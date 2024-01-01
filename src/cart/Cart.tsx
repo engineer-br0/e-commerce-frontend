@@ -72,8 +72,10 @@ const Carta = () => {
                 })
             }
 
-            <TotalPrice MRP={MRP} />
-            <button onClick={() => navigate("/checkout")} className="bg-green-500 w-96 mt-2">Place Order</button>
+            <div className="border border-red-500">
+                <TotalPrice MRP={MRP} />
+                <button onClick={() => navigate("/checkout")} className="bg-green-500 w-96 mt-2">Place Order</button>
+            </div>
 
         </div>);
 }

@@ -35,7 +35,7 @@ const Navbar = () => {
             <div className="Navbar h-20 border-b border-black-300 flex flex-row justify-between items-center">
                 {/* <div className="border border-blue-400" style={{ display: "flex", justifyContent: "space-between" }}> */}
                 <Link to='/' className="logo">
-                    <p className="font-sans"> Amazon</p>
+                    <p className="font-sans font-bold"> Amazon</p>
                 </Link>
 
                 <div className="flex row items-center">

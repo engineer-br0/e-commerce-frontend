@@ -11,11 +11,22 @@ const Checkout: React.FC<any> = ({ props }) => {
     });
 
     return (
-        <div className="">
-            <div className='flex flex-col items-center'>
-                <h1>Checkout</h1>
-                <TotalPrice MRP={MRP} />
+        <div className="flex justify-center gap-5 flex-wrap p-10">
+            <div className='flex flex-col items-center '>
+                <div className="flex flex-col gap-5 border w-96 text-xs p-5 text-left font-bold box-border">
+                    <h1>CONTACT DETAILS</h1>
+                    <input placeholder='Name*' className='border h-10 p-2' required />
+                    <input placeholder='Mobile No*' className='border h-10 p-2' required />
+
+                    <h1>ADDRESS DETAILS</h1>
+                    <input placeholder='Address' className='border h-10 p-2' required />
+
+
+                </div>
+                <button className="bg-green-500 w-96 mt-2 text-sm p-1">SAVE DETAILS</button>
+
             </div>
+            <TotalPrice MRP={MRP} />
         </div>
     );
 }
