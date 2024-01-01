@@ -19,22 +19,31 @@ const Product = () => {
     console.log(cart);
 
     return (
-        product ?
-            <div>
-                <div className="imageContainer">
-                    <img className="image" src={product.thumbnail} width={150} height={150} alt="image" />
-                </div>
+        <div className="min-h-screen flex justify-center p-10 ">
+            {product ?
+                <div className=" p-5 relative border w-4/5 flex flex-row justify-around items-center">
+                    <div className="w-1/2 flex flex-wrap gap-5 items-center">
+                        {product?.images?.map((image: string) => {
+                            return (
+                                <img className="image" src={image} width={250} height={250} alt="image" />
+                            );
+                        })}
 
-                <h1 className="text-left text-xs font-bold">{product.title?.length > 20 ? product.title.slice(0, 20) + "..." : product.title}</h1>
-                <p className="text-xs text-left">{product.description?.length > 20 ? product.description.slice(0, 20) + "..." : product.description}</p>
-                <p className="stars"><Stars rating={product.rating} /></p>
-                <p className="flex justify-start font-bold text-xm"> &#8377;{product.price} </p>
-                <button className="bg-blue-200" onClick={() => {
-                    addToCart(product.id, 1);
-                    console.log(cart);
-                }}>Add to Cart</button>
-            </div>
-            : <div></div>
+                    </div>
+                    <div className=" flex flex-col gap-1 justify-center">
+                        <h1 className="text-left text-2xl font-bold">{product.title}</h1>
+                        <p className="text-sm text-left">{product.description}</p>
+                        <p className="stars"><Stars rating={product.rating} /></p>
+                        <p className="flex justify-start font-bold text-xl"> &#8377;{product.price} </p>
+                        <button className="bg-red-400" onClick={() => {
+                            addToCart(product.id, 1);
+                            console.log(cart);
+                        }}>Add to Cart</button>
+                    </div>
+                </div>
+                : <div></div>
+            }
+        </div>
     );
 }
 

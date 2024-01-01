@@ -51,14 +51,14 @@ const Signup = () => {
             <Container>
                 <div className=" flex flex-col gap-10 bg-blue-100 justify-center items-center py-20">
                     <div className="w-96 border  shadow-2xl backdrop-blur flex flex-col gap-10 bg-white py-10">
-                        <h1>Login</h1>
+                        <h1>Signup</h1>
                         <form className=" w-96 flex flex-col items-center">
                             <div className="flex flex-col w-72 gap-5 ">
                                 <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" className="outline-0 border-b border-gray-400 focus:border-black " />
                                 <input value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" className="outline-0 border-b border-gray-400 focus:border-black"></input>
                             </div>
-                            <button onClick={handleSignup} className="w-2/3 bg-red-400 mt-10">Login</button>
-                            <p>Forgot password <Link to='/signup' className="text-blue-500">Register here</Link></p>
+                            <button onClick={handleSignup} className="w-2/3 bg-red-400 mt-10">Signup</button>
+                            <p>Already registered <Link to='/signup' className="text-blue-500">Login here</Link></p>
 
                         </form>
                     </div>

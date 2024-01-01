@@ -10,6 +10,7 @@ interface ContextItems {
     products: { [key: string]: any }[],
     cart: CartItem[],
     isLogin: boolean,
+    setIsLogin: (isLogin: boolean) => void,
     token: string,
     searchValue: string,
     setSearchValue: (str: string) => void,
@@ -145,7 +146,7 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
     }, [isLogin, rerender])
 
     return (
-        <Context.Provider value={{ products, cart, isLogin, token, addToCart, removeFromCart, searchValue, setSearchValue }}>
+        <Context.Provider value={{ products, cart, isLogin, setIsLogin, token, addToCart, removeFromCart, searchValue, setSearchValue }}>
             {children}
         </Context.Provider>
     );

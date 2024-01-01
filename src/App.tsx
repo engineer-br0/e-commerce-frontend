@@ -17,7 +17,7 @@ function App() {
 
   return (
     <ContextWrapper>
-      <div className="App">
+      <div className="App " >
         <BrowserRouter>
           <Navbar />
 

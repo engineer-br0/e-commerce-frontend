@@ -30,7 +30,7 @@ export default function Home() {
 
     return (
         <Container>
-            <div className="p-10">
+            <div className="p-10 ">
                 <HomeBanner />
                 <div className="products">
                     {
