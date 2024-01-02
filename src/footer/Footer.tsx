@@ -9,11 +9,12 @@ const Footer = () => {
             <div className="Footer">
                 <List>
                     <h1>Shop Categories:</h1>
-                    <Link to='/'>Phones</Link>
-                    <Link to='/'>Laptops</Link>
-                    <Link to='/'>Desktops</Link>
-                    <Link to='/'>Watches</Link>
-                    <Link to='/'>Accessories</Link>
+                    <Link to='/smartphones'>Phones</Link>
+                    <Link to='/laptops'>Laptops</Link>
+                    <Link to='/fragrances'>Fragrances</Link>
+                    <Link to='/skincare'>Skincare</Link>
+                    <Link to='/groceries'>Groceries</Link>
+                    <Link to='/home-decoration'>Home Decor</Link>
                 </List>
 
                 <List>

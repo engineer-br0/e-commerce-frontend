@@ -27,6 +27,7 @@ function App() {
 
         <Routes>
           <Route path='/' element={<Home />} />
+          <Route path='/:category' element={<Home />} />
           <Route path='/cart' element={isLogin ? <Carta /> : <Login />} />
           <Route path='/products/:ProductId' element={<Product />} />
           <Route path='/login' element={<Login />} />

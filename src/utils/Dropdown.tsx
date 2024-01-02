@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 
 const Dropdown = (props:
     {
+        toggleFunc: () => void,
         arr:
         {
             field: string,
@@ -15,7 +16,7 @@ const Dropdown = (props:
                     {
                         props.arr.map((item, index) => {
                             return <>
-                                <div key={index}>
+                                <div onClick={props.toggleFunc} key={index}>
                                     <Link to={item.path} className="hover:text-black hover:font-bold">{item.field}</Link>
                                 </div>
                             </>

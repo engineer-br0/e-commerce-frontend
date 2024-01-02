@@ -4,16 +4,16 @@ import { ContextInit } from "../context/Context";
 import Container from "../Container";
 
 const Signup = () => {
+    const navigate = useNavigate();
     const [name, setName] = useState<string>("");
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
-    const navigation = useNavigate();
     const { isLogin, setIsLogin, token, setUser } = ContextInit();
 
     useEffect(() => {
         if (isLogin) {
             alert("already logged in!!!");
-            navigation("/");
+            navigate("/");
         }
         // const cookies = (document.cookie).split(";");
         // cookies.forEach(cookie => {
@@ -48,10 +48,11 @@ const Signup = () => {
             console.log("signup res", res);
             document.cookie = `token=${res.token};`;
             console.log(document.cookie);
-
+            alert(res.message)
             setUser(res.user);
-            setIsLogin(false);
-            //setIsLogin(true)
+            //setIsLogin(false);
+            setIsLogin(true)
+            navigate("/")
         }
         catch (er) {
             console.log("error hai", er);

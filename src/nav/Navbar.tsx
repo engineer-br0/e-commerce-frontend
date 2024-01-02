@@ -54,7 +54,7 @@ const Navbar = () => {
                             <p className="text-base text-black font-bold">Cart</p>
                         </div>
                         {
-                            cartDropdown && <Dropdown arr={[{ field: "My cart", path: "/cart" }, { field: "Wishlisht", path: "/" }]} />
+                            cartDropdown && <Dropdown toggleFunc={toggleCartDropdown} arr={[{ field: "My cart", path: "/cart" }, { field: "Wishlisht", path: "/" }]} />
                         }
                     </div>
                     <div className="">
@@ -65,7 +65,7 @@ const Navbar = () => {
                         </div>
                         <div>
                             {
-                                userDropdown && <Dropdown arr={[{ field: "Signup", path: "/signup" }, { field: "Login", path: "/login" }, { field: "Profile", path: "/profile" }]} />
+                                userDropdown && <Dropdown toggleFunc={toggleUserDropdown} arr={[{ field: "Signup", path: "/signup" }, { field: "Login", path: "/login" }, { field: "Profile", path: "/profile" }]} />
                             }
                         </div>
                     </div>
