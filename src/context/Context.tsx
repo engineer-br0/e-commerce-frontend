@@ -6,17 +6,30 @@ interface CartItem {
     quantity: number
 }
 
+interface userInterface {
+    name: string,
+    email: string,
+    gender: string,
+    mobile: string,
+    address: string,
+    orderedProducts: string[]
+}
+
 interface ContextItems {
     products: { [key: string]: any }[],
     cart: CartItem[],
     isLogin: boolean,
+    user: userInterface,
     setIsLogin: (isLogin: boolean) => void,
     token: string,
     searchValue: string,
     setSearchValue: (str: string) => void,
+    setUser: (obj: userInterface) => void,
     //setCart: React.Dispatch<React.SetStateAction<CartItem[]>>,
     addToCart: (id: number, quantity: number) => void,
     removeFromCart: (id: number, quantity: number) => void,
+    rerender: boolean,
+    setRerender: (state: boolean) => void
 }
 
 export const Context = createContext<ContextItems | undefined>(undefined);
@@ -28,48 +41,45 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
     const [token, setToken] = useState<string>("");
     const [rerender, setRerender] = useState<boolean>(true);
     const [searchValue, setSearchValue] = useState<string>("");
+    const [user, setUser] = useState<userInterface>({
+        name: "",
+        email: "",
+        gender: "",
+        mobile: "",
+        address: "",
+        orderedProducts: []
+    });
 
-    useEffect(() => {
-        const fetchProducts = async () => {
-            try {
-                const response = await fetch('https://dummyjson.com/products');
-                const res = await response.json();
-                //console.log(res.products);
-                setProducts(res.products);
-                //console.log(dummyProducts);
-
-            }
-            catch (er) {
-                console.log(er);
-            }
-        }
-
-        fetchProducts();
-
-    }, []);
-
-    useEffect(() => {
+    const getUserData = async () => {
         console.log(document.cookie);
-
-        const getCookie = () => {
-            const cookies = (document.cookie)?.split(";");
-            if (!cookies || !cookies[0]) return false;
-            cookies.forEach(cookie => {
-                if (cookie.includes("token=")) {
-                    let tokenValue = cookie.replace("token=", "").trim();
-                    if (tokenValue.length === 0) return false;
-                    setIsLogin(true);
-                    setToken(cookie.split("=")[1]);
-                }
-            })
-        }
-        getCookie();
-    }, [isLogin])
+        console.log("get user k anar", token);
 
 
+        const response = await fetch("http://localhost:4000/user/getUserData", {
+            method: 'GET',
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json"
+            }
+        });
+        const res = await response.json();
+        console.log("user aya", res);
+        setUser(res.user)
 
-    console.log(isLogin, token);
+    }
 
+    const getCookie = () => {
+        const cookies = (document.cookie)?.split(";");
+        if (!cookies || !cookies[0]) return false;
+        cookies.forEach(cookie => {
+            if (cookie.includes("token=")) {
+                let tokenValue = cookie.replace("token=", "").trim();
+                if (tokenValue.length === 0) return false;
+                setIsLogin(true);
+                setToken(cookie.split("=")[1]);
+            }
+        })
+    }
 
     const addToCart = async (id: number, quantity: number) => {
         if (!isLogin) {
@@ -134,32 +144,53 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
         setRerender(!rerender);
     }
 
-    useEffect(() => {
-        const fetchCart = async () => {
-            try {
-                const response = await fetch("https://e-commerce-backend-3smn.onrender.com/manageCart/getCart", {
-                    method: "GET",
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                    }
-                });
-                const res = await response.json();
-                console.log("caart res", res);
-                if (response.status === 200) setCart(res.products);
+    const fetchCart = async () => {
+        try {
+            const response = await fetch("https://e-commerce-backend-3smn.onrender.com/manageCart/getCart", {
+                method: "GET",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            const res = await response.json();
+            console.log("caart res", res);
+            if (response.status === 200) setCart(res.products);
 
-            }
-            catch (er) {
-                console.log("error in cart fetch", er);
-                alert("Error in cart fetch!");
-
-            }
         }
-        if (isLogin) fetchCart();
-    }, [isLogin, rerender])
+        catch (er) {
+            console.log("error in cart fetch", er);
+            alert("Error in cart fetch!");
+
+        }
+    }
+
+    const fetchProducts = async () => {
+        try {
+            const response = await fetch('https://dummyjson.com/products');
+            const res = await response.json();
+            //console.log(res.products);
+            setProducts(res.products);
+            //console.log(dummyProducts);
+
+        }
+        catch (er) {
+            console.log(er);
+        }
+    }
+
+    useEffect(() => {
+        fetchProducts();
+    }, []);
+
+    useEffect(() => {
+        getCookie();
+        (token && getUserData());
+        if (isLogin && token) fetchCart();
+    }, [isLogin, rerender, token])
 
     return (
-        <Context.Provider value={{ products, cart, isLogin, setIsLogin, token, addToCart, removeFromCart, searchValue, setSearchValue }}>
+        <Context.Provider value={{ products, cart, user, setUser, isLogin, setIsLogin, token, addToCart, removeFromCart, searchValue, setSearchValue, rerender, setRerender }}>
             {children}
             {/* <CustomAlert isOpen={isNotification} message={notification} /> */}
         </Context.Provider>

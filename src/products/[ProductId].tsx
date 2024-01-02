@@ -21,7 +21,7 @@ const Product = () => {
     return (
         <div className="min-h-screen flex justify-center p-10 ">
             {product ?
-                <div className=" p-5 relative border w-4/5 flex flex-row justify-around items-center">
+                <div key={product.rating + Math.random} className=" p-5 relative border w-4/5 flex flex-row justify-around items-center">
                     <div className="w-1/2 flex flex-wrap gap-5 items-center">
                         {product?.images?.map((image: string) => {
                             return (

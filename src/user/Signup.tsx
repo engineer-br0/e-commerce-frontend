@@ -4,10 +4,11 @@ import { ContextInit } from "../context/Context";
 import Container from "../Container";
 
 const Signup = () => {
+    const [name, setName] = useState<string>("");
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const navigation = useNavigate();
-    const { isLogin, token } = ContextInit();
+    const { isLogin, setIsLogin, token, setUser } = ContextInit();
 
     useEffect(() => {
         if (isLogin) {
@@ -25,21 +26,32 @@ const Signup = () => {
 
     const handleSignup = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault();
+        if (!name || !email || !password) {
+            alert("Fill all the mandatory details!");
+            return;
+        }
         try {
-            const response = await fetch("https://e-commerce-backend-3smn.onrender.com/auth/signup",
+            //const response = await fetch("https://e-commerce-backend-3smn.onrender.com/auth/signup",
+            const response = await fetch("http://localhost:4000/auth/signup",
                 {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
                     },
                     body: JSON.stringify({
+                        name,
                         email,
                         password
                     })
                 });
             const res = await response.json();
             console.log("signup res", res);
+            document.cookie = `token=${res.token};`;
+            console.log(document.cookie);
 
+            setUser(res.user);
+            setIsLogin(false);
+            //setIsLogin(true)
         }
         catch (er) {
             console.log("error hai", er);
@@ -54,11 +66,12 @@ const Signup = () => {
                         <h1>Signup</h1>
                         <form className=" w-96 flex flex-col items-center">
                             <div className="flex flex-col w-72 gap-5 ">
+                                <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" className="outline-0 border-b border-gray-400 focus:border-black " />
                                 <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" className="outline-0 border-b border-gray-400 focus:border-black " />
                                 <input value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" className="outline-0 border-b border-gray-400 focus:border-black"></input>
                             </div>
                             <button onClick={handleSignup} className="w-2/3 bg-red-400 mt-10">Signup</button>
-                            <p>Already registered <Link to='/signup' className="text-blue-500">Login here</Link></p>
+                            <p>Already registered <Link to='/login' className="text-blue-500">Login here</Link></p>
 
                         </form>
                     </div>

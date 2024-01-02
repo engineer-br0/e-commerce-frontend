@@ -6,14 +6,15 @@ import { ContextInit } from "../context/Context";
 const Login = () => {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
-    const { isLogin, setIsLogin } = ContextInit();
+    const { isLogin, setIsLogin, setUser } = ContextInit();
 
     const handleLogin = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault();
         console.log("handle login clikked");
 
         try {
-            const response = await fetch("https://e-commerce-backend-3smn.onrender.com/auth/login",
+            //const response = await fetch("https://e-commerce-backend-3smn.onrender.com/auth/login",
+            const response = await fetch("http://localhost:4000/auth/login",
                 {
                     method: "POST",
                     headers: {
@@ -33,6 +34,9 @@ const Login = () => {
                 setIsLogin(true);
             }
             alert(res.message)
+            console.log(res);
+
+            setUser(res.user);
         }
         catch (er) {
             console.log("error hai", er);

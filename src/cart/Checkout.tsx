@@ -3,7 +3,7 @@ import { ContextInit } from '../context/Context';
 import TotalPrice from './TotalPrice';
 
 const Checkout: React.FC<any> = ({ props }) => {
-    const { cart, products } = ContextInit();
+    const { cart, products, user, setUser } = ContextInit();
     let MRP = 0;
     cart.map((obj) => {
         let product = products.find(product => obj.productId == product.id);
@@ -15,7 +15,7 @@ const Checkout: React.FC<any> = ({ props }) => {
             <div className='flex flex-col items-center '>
                 <div className="flex flex-col gap-5 border w-96 text-xs p-5 text-left font-bold box-border">
                     <h1>CONTACT DETAILS</h1>
-                    <input placeholder='Name*' className='border h-10 p-2' required />
+                    <input value={user.name} placeholder='Name*' className='border h-10 p-2' required />
                     <input placeholder='Mobile No*' className='border h-10 p-2' required />
 
                     <h1>ADDRESS DETAILS</h1>
