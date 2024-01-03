@@ -12,7 +12,7 @@ interface userInterface {
     gender: string,
     mobile: string,
     address: string,
-    orderedProducts: string[]
+    orders: { products: [], shippingAddress: string }[],
 }
 
 interface ContextItems {
@@ -47,12 +47,10 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
         gender: "",
         mobile: "",
         address: "",
-        orderedProducts: []
+        orders: []
     });
 
     const getUserData = async () => {
-        console.log(document.cookie);
-        console.log("get user k anar", token);
 
 
         const response = await fetch("http://localhost:4000/user/getUserData", {
@@ -104,7 +102,7 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
             const res = await response.json();
             console.log("cart res", res);
             //setCart(res.)
-
+            setRerender(!rerender)
         }
         catch (er) {
             console.log(`ERROR! ${er}`);
@@ -156,7 +154,6 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
             const res = await response.json();
             console.log("caart res", res);
             if (response.status === 200) setCart(res.products);
-
         }
         catch (er) {
             console.log("error in cart fetch", er);

@@ -13,11 +13,11 @@ import Signup from './user/Signup';
 import Profile from './user/Profle';
 import Checkout from './cart/Checkout';
 import ProfileEdit from './user/ProfileEdit';
+import Payment from './cart/Payment';
 
 
 function App() {
   const { isLogin } = ContextInit();
-  console.log(isLogin);
 
 
   return (
@@ -35,6 +35,7 @@ function App() {
           <Route path='/profile' element={isLogin ? <Profile /> : <Login />} />
           <Route path='/checkout' element={isLogin ? <Checkout /> : <Login />} />
           <Route path='/profile/edit' element={isLogin ? <ProfileEdit /> : <Login />} />
+          <Route path='payment/:shippingDetails' element={isLogin ? <Payment /> : <Login />} />
         </Routes>
 
         <Footer />

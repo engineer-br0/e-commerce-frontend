@@ -11,8 +11,8 @@ const Dropdown = (props:
     }) => {
     return (
         <div>
-            <div className="relative">
-                <ul className="border border-black-200 rounded-sm bg-white p-2 absolute right-0 p-4 text-left pr-20 font-medium font-serif text-gray-500 w-52 flex flex-col">
+            <div className="relative" key={Math.random()}>
+                <div className="border border-black-200 rounded-sm bg-white p-2 absolute right-0 p-4 text-left pr-20 font-medium font-serif text-gray-500 w-52 flex flex-col">
                     {
                         props.arr.map((item, index) => {
                             return <>
@@ -22,7 +22,7 @@ const Dropdown = (props:
                             </>
                         })
                     }
-                </ul>
+                </div>
             </div>
         </div>
     );

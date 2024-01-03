@@ -8,21 +8,16 @@ import { useParams } from "react-router-dom";
 
 export default function Home() {
     const params = useParams();
-    console.log("cat", params);
 
     const [dummyProducts, setDummyProducts] = useState<{ [key: string]: any }[]>([]);
     const { searchValue } = ContextInit();
-    const h = "iphone";
 
     useEffect(() => {
         const fetchProducts = async () => {
             try {
                 const response = await fetch('https://dummyjson.com/products');
                 const res = await response.json();
-                console.log(res);
                 setDummyProducts(res.products);
-                console.log(dummyProducts);
-
             }
             catch (er) {
                 console.log(er);
