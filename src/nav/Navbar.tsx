@@ -65,7 +65,7 @@ const Navbar = () => {
                         </div>
                         <div>
                             {
-                                userDropdown && <Dropdown toggleFunc={toggleUserDropdown} arr={[{ field: "Signup", path: "/signup" }, { field: "Login", path: "/login" }, { field: "Profile", path: "/profile" }]} />
+                                userDropdown && <Dropdown toggleFunc={toggleUserDropdown} arr={[{ field: "Signup", path: "/signup" }, { field: "Login", path: "/login" }, { field: "Profile", path: "/profile" }, { field: "Orders", path: "/profile/orders" }]} />
                             }
                         </div>
                     </div>

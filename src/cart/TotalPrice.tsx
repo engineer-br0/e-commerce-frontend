@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { ContextInit } from "../context/Context";
+import { totalmem } from "os";
 
-const TotalPrice: React.FC<{ MRP: number }> = ({ MRP }) => {
+const TotalPrice: React.FC<{ MRP: number, totalItems: number }> = ({ MRP, totalItems }) => {
     const { cart } = ContextInit();
     const navigate = useNavigate();
 
@@ -10,7 +11,7 @@ const TotalPrice: React.FC<{ MRP: number }> = ({ MRP }) => {
             <div className=" w-96 text-sm p-5 text-sm">
                 <div className="flex justify-between">
                     <p className="font-bold">Price details: </p>
-                    <p className="font-bold">({cart.length} items)</p>
+                    <p className="font-bold">({totalItems} items)</p>
                 </div>
                 <div className="flex justify-between font-light">
                     <p >Total MRP:</p>

@@ -43,6 +43,7 @@ const Checkout: React.FC<any> = ({ props }) => {
                         <h1>Name</h1>
                         <input value={name} onChange={(e) => setName(e.target.value)} placeholder='Name*' className='border w-3/4 h-10 p-2' required />
                     </div>
+
                     <div className="flex justify-between">
                         <h1>Mobile No.</h1>
                         <input value={mobile} onChange={(e) => setMobile(e.target.value)} placeholder='Mobile No*' className='border w-3/4  h-10 p-2' required />
@@ -52,8 +53,6 @@ const Checkout: React.FC<any> = ({ props }) => {
                         <h1>Adress</h1>
                         <input value={address} onChange={(e) => setAddress(e.target.value)} placeholder='Address' className='border w-3/4  h-10 p-2' required />
                     </div>
-
-
                 </div>
                 <button type='submit' className="bg-green-500 w-96 mt-2 text-sm p-1">SAVE DETAILS AND CONTINUE</button>
 

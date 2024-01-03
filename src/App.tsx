@@ -14,6 +14,7 @@ import Profile from './user/Profle';
 import Checkout from './cart/Checkout';
 import ProfileEdit from './user/ProfileEdit';
 import Payment from './cart/Payment';
+import Orders from './user/Orders';
 
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
           <Route path='/profile' element={isLogin ? <Profile /> : <Login />} />
           <Route path='/checkout' element={isLogin ? <Checkout /> : <Login />} />
           <Route path='/profile/edit' element={isLogin ? <ProfileEdit /> : <Login />} />
+          <Route path='/profile/orders' element={isLogin ? <Orders /> : <Login />} />
           <Route path='payment/:shippingDetails' element={isLogin ? <Payment /> : <Login />} />
         </Routes>
 

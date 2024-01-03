@@ -12,7 +12,20 @@ interface userInterface {
     gender: string,
     mobile: string,
     address: string,
-    orders: { products: [], shippingAddress: string }[],
+}
+
+interface ordersInterface {
+    products: [
+        {
+            productId: number,
+            quantity: number
+        }],
+    shippingDetails: {
+        name: string,
+        address: string,
+        mobile: string
+    },
+    bill: { [key: string]: any }
 }
 
 interface ContextItems {
@@ -20,6 +33,7 @@ interface ContextItems {
     cart: CartItem[],
     isLogin: boolean,
     user: userInterface,
+    orders: ordersInterface[],
     setIsLogin: (isLogin: boolean) => void,
     token: string,
     searchValue: string,
@@ -46,9 +60,9 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
         email: "",
         gender: "",
         mobile: "",
-        address: "",
-        orders: []
+        address: ""
     });
+    const [orders, setOrders] = useState<ordersInterface[]>([]);
 
     const getUserData = async () => {
 
@@ -64,6 +78,25 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
         console.log("user aya", res);
         setUser(res.user)
 
+    }
+
+    const getOrders = async () => {
+        try {
+            const response = await fetch("http://localhost:4000/orders/getOrders", {
+                method: 'GET',
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "Content-Type": "application/json"
+                }
+            });
+            const res = await response.json();
+            console.log("orders aya", res);
+            setOrders(res.orders)
+        }
+        catch (er) {
+            console.log("error ocured", er);
+
+        }
     }
 
     const getCookie = () => {
@@ -157,7 +190,7 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
         }
         catch (er) {
             console.log("error in cart fetch", er);
-            alert("Error in cart fetch!");
+            //alert("Error in cart fetch!");
 
         }
     }
@@ -184,10 +217,11 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
         getCookie();
         (token && getUserData());
         if (isLogin && token) fetchCart();
+        if (isLogin && token) getOrders();
     }, [isLogin, rerender, token])
 
     return (
-        <Context.Provider value={{ products, cart, user, setUser, isLogin, setIsLogin, token, addToCart, removeFromCart, searchValue, setSearchValue, rerender, setRerender }}>
+        <Context.Provider value={{ products, cart, user, setUser, orders, isLogin, setIsLogin, token, addToCart, removeFromCart, searchValue, setSearchValue, rerender, setRerender }}>
             {children}
             {/* <CustomAlert isOpen={isNotification} message={notification} /> */}
         </Context.Provider>
