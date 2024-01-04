@@ -76,7 +76,7 @@ const Payment = () => {
         }
 
         const options = {
-            key: "rzp_test_nLbPhcMjLRno0Y",
+            key: "rzp_test_l7uJveL5gevgqk",
             currency: "INR",
             amount: MRP * 100,
             name: "Amazon",
@@ -92,7 +92,7 @@ const Payment = () => {
             },
             prefill: {
                 name:
-                    "FixedGrow"
+                    "Amazon"
             }
         };
 
