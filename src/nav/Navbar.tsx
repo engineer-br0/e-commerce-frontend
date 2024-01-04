@@ -10,6 +10,7 @@ import { RiDeleteBack2Line } from "react-icons/ri";
 import { useEffect, useRef, useState } from "react";
 import Dropdown from "../utils/Dropdown";
 import SearchBar from "../home/SearchBar";
+import { FaListUl } from "react-icons/fa";
 //import { Dropdown } from 'flowbite-react';
 
 //const rubik = Dancing_Script({ subsets: ["latin"], weight: ['400'] })
@@ -42,29 +43,23 @@ const Navbar = () => {
                 </div>
 
 
-                <div className="UserNCart flex flex-row cursor-pointer self-start">
-                    <div onClick={toggleCartDropdown}>
-                        <div className="userContainer">
-                            <IoCartOutline className="text-2xl self-center" />
-                            <p className="text-base text-black font-bold">Cart</p>
-                        </div>
-                        {
-                            cartDropdown && <Dropdown toggleFunc={toggleCartDropdown} arr={[{ field: "My cart", path: "/cart" }, { field: "Wishlisht", path: "/" }]} />
-                        }
+                <div className="UserNCart flex flex-row cursor-pointer self-start items-center">
+                    <Dropdown toggleFunc={toggleCartDropdown} arr={[{ field: "My cart", path: "/cart" }, { field: "Wishlisht", path: "/" }]} >
+                        <IoCartOutline className="text-2xl self-center" />
+                        <p className="text-base text-black font-bold">Cart</p>
+                    </Dropdown>
+                    <Dropdown toggleFunc={toggleUserDropdown} arr={[{ field: "Signup", path: "/signup" }, { field: "Login", path: "/login" }, { field: "Profile", path: "/profile" }, { field: "Orders", path: "/profile/orders" }]} >
+                        <HiOutlineUserCircle className="text-2xl" />
+                        <p className="text-base text-black font-bold">User</p>
+                    </Dropdown>
+                    <div >
+                        <FaListUl className="sm:hidden text-2xl mr-4" />
+
                     </div>
-                    <div className="">
-                        {/* onClick={() => navigation("/login")} */}
-                        <div onClick={toggleUserDropdown} className="userContainer flex flex-col items-center">
-                            <HiOutlineUserCircle className="text-2xl" />
-                            <p className="text-base text-black font-bold">User</p>
-                        </div>
-                        <div>
-                            {
-                                userDropdown && <Dropdown toggleFunc={toggleUserDropdown} arr={[{ field: "Signup", path: "/signup" }, { field: "Login", path: "/login" }, { field: "Profile", path: "/profile" }, { field: "Orders", path: "/profile/orders" }]} />
-                            }
-                        </div>
-                    </div>
+
                 </div>
+
+
 
 
 

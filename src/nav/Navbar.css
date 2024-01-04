@@ -25,7 +25,10 @@
     display: none;
   }
 
-  .UserNCart {
+  .userContainers {
+    display: none;
+  }
+  .cartContainer {
     display: none;
   }
 }
