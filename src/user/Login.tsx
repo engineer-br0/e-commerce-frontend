@@ -28,6 +28,7 @@ const Login = () => {
                 });
             const res = await response.json();
             console.log("login res", res, response.status);
+            alert(res.message);
             //localStorage.setItem("token", res.access_token);
             if (response.status === 200) {
                 document.cookie = `token=${res.token};`;
@@ -35,7 +36,7 @@ const Login = () => {
                 setIsLogin(true);
                 setUser(res.user);
                 console.log(res);
-                alert("Login Successfully!");
+
                 navigate("/");
             }
         }
@@ -54,7 +55,7 @@ const Login = () => {
                                 <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" className="outline-0 border-b border-gray-400 focus:border-black " />
                                 <input value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" className="outline-0 border-b border-gray-400 focus:border-black"></input>
                             </div>
-                            <button onClick={handleLogin} className="w-2/3 bg-red-400 mt-10">Login</button>
+                            <button onClick={handleLogin} className="w-2/3 p-2 text-white bg-red-400 hover:bg-red-300 mt-10">Login</button>
                             <p>Forgot password <Link to='/signup' className="text-blue-500">Register here</Link></p>
 
                         </form>

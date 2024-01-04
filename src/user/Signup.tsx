@@ -72,7 +72,7 @@ const Signup = () => {
                                 <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" className="outline-0 border-b border-gray-400 focus:border-black " />
                                 <input value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" className="outline-0 border-b border-gray-400 focus:border-black"></input>
                             </div>
-                            <button onClick={handleSignup} className="w-2/3 bg-red-400 mt-10">Signup</button>
+                            <button onClick={handleSignup} className="w-2/3 p-2 text-white bg-red-400 hover:bg-red-300 mt-10">Signup</button>
                             <p>Already registered <Link to='/login' className="text-blue-500">Login here</Link></p>
 
                         </form>
