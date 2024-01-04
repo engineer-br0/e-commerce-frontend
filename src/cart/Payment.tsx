@@ -19,8 +19,8 @@ const Payment = () => {
         totalItems += Number(obj.quantity);
     });
 
-    const addNewProduct = async (e: any) => {
-        e.preventDefault();
+    const addNewProduct = async () => {
+        //e.preventDefault();
         try {
             const response = await fetch("http://localhost:4000/orders/addNewOrder", {
                 method: 'POST',
@@ -38,7 +38,9 @@ const Payment = () => {
                 })
             });
             const res = await response.json();
-            if (response.ok) alert("Order placed successfully!");
+            if (response.ok) {
+                alert("Order placed successfully!");
+            }
             console.log(res);
             setRerender(!rerender);
             console.log(cart);
@@ -51,6 +53,53 @@ const Payment = () => {
         }
     }
 
+    const loadScript = (src: any) => {
+        return new Promise((resovle) => {
+            const script = document.createElement('script');
+            script.src = src;
+            script.onload = () => {
+                resovle(true)
+            }
+            script.onerror = () => {
+                resovle(false)
+            }
+            document.body.appendChild(script)
+        });
+    }
+    const razorPay = async () => {
+        const res: any = await loadScript("https://checkout.razorpay.com/v1/checkout.js")
+
+        if (!res) {
+            alert('You are offline... Failed to load Razorpay SDK');
+            return;
+        }
+
+        const options = {
+            key: "rzp_test_nLbPhcMjLRno0Y",
+            currency: "INR",
+            amount: MRP * 100,
+            name: "Amazon",
+            description: `Ordering ${totalItems} Items`,
+            image: '../public/a.png',
+
+            handler: function (response: any) {
+                console.log(response)
+                alert("Payment Successfully");
+                //sendMail();
+                //alert("payment id: " + response.razorpay_payment_id)
+                addNewProduct();
+            },
+            prefill: {
+                name:
+                    "FixedGrow"
+            }
+        };
+
+        const paymentObject = (window as any).Razorpay(options)
+        paymentObject.open()
+    }
+
+
     return (
 
         <div>
@@ -58,7 +107,7 @@ const Payment = () => {
                 <div className="flex flex-col justify-center items-center">
                     <h1 className="text-center">Payment</h1>
                     <TotalPrice MRP={MRP} totalItems={totalItems} />
-                    <button onClick={addNewProduct} className="bg-green-500 w-96 mt-2 text-sm p-1">SAVE DETAILS AND CONTINUE</button>
+                    <button onClick={razorPay} className="bg-green-500 w-96 mt-2 text-sm p-1">SAVE DETAILS AND CONTINUE</button>
                 </div>
                 : ""
             }

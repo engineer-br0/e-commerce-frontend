@@ -8,3 +8,43 @@
   flex-direction: row;
   justify-content: space-around;
 }
+/* 
+.HomeBanner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+} */
+
+.textContainer {
+  text-align: center;
+  justify-content: center;
+}
+
+.title {
+  font-size: 4vw; /* Responsive font size */
+  color: white;
+  font-weight: 600;
+}
+
+.subtitle {
+  font-size: 2vw; /* Responsive font size */
+  color: white;
+}
+
+.discount {
+  font-size: 4vw; /* Responsive font size */
+  color: yellow;
+  font-weight: 600;
+}
+
+.imageContainer {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.bannerImage {
+  width: 30vw;
+}

@@ -5,6 +5,7 @@ import "./Home.css"
 import { useEffect, useState } from "react";
 import { ContextInit } from "../context/Context";
 import { useParams } from "react-router-dom";
+import SearchBar from "./SearchBar";
 
 export default function Home() {
     const params = useParams();
@@ -30,6 +31,10 @@ export default function Home() {
     return (
         <Container>
             <div className="p-10 ">
+                <div className=" sm:hidden flex justify-center pb-5">
+                    <SearchBar />
+                </div>
+
                 <HomeBanner />
                 <div className="products">
                     {
