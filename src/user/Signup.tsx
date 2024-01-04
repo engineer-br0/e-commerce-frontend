@@ -52,6 +52,7 @@ const Signup = () => {
             setUser(res.user);
             //setIsLogin(false);
             setIsLogin(true)
+            alert("User Signup successful!")
             navigate("/")
         }
         catch (er) {
