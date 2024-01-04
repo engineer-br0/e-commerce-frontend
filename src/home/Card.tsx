@@ -29,7 +29,7 @@ const Card: React.FC<{
             }}>
 
                 <div className="imageContainer">
-                    <img className="image" src={product.thumbnail} width={150} height={150} alt="image" />
+                    <img className="image" src={product.thumbnail} alt="image" />
                 </div>
 
                 <h1 className="text-left text-xs font-bold">{product.title.length > 20 ? product.title.slice(0, 20) + "..." : product.title}</h1>

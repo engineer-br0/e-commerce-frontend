@@ -7,6 +7,14 @@
   /* box-sizing: border-box; */
 }
 
+@media (max-width: 500px) {
+  .card {
+    padding: 0;
+    width: 150px;
+    height: auto;
+  }
+}
+
 .imageContainer {
   height: 200px;
   width: 150px;

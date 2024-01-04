@@ -30,8 +30,8 @@ export default function Home() {
 
     return (
         <Container>
-            <div className="p-10 ">
-                <div className=" sm:hidden flex justify-center pb-5">
+            <div className="sm:p-10">
+                <div className=" sm:hidden flex justify-center p-5">
                     <SearchBar />
                 </div>
 

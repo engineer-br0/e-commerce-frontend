@@ -2,11 +2,14 @@ import Container from "../Container";
 import "./Footer.css"
 import List from "../utils/List";
 import { Link } from "react-router-dom";
+import { IoLogoFacebook } from "react-icons/io5";
+import { FaInstagram } from "react-icons/fa6";
+import { HiOutlineMail } from "react-icons/hi";
 
 const Footer = () => {
     return (
         <Container>
-            <div className="Footer">
+            <div className="Footer text-xs">
                 <List>
                     <h1>Shop Categories:</h1>
                     <Link to='/smartphones'>Phones</Link>
@@ -18,6 +21,7 @@ const Footer = () => {
                 </List>
 
                 <List>
+
                     <h1>Customer Services:</h1>
                     <Link to='/'>Contact Us</Link>
                     <Link to='/'>Shipping Policy</Link>
@@ -27,18 +31,23 @@ const Footer = () => {
                 </List>
 
                 <List>
-                    <h1>About Us:</h1>
-                    <p>At our electronics store, we are dedicated to providing the latest and greatest devices and accessories to our customers. With a wide selection of phones, TVs, laptops, watches, and accessories.</p>
-                    <p>© 2023 E-Shop. All rights reserved.</p>
-                </List>
+                    <h1>Contact us:</h1>
+                    <div className="flex justify-around">
 
-                <List>
-                    <p>hello</p>
-                    <Link to='/'></Link>
-                    <Link to='/'>FB</Link>
-                    <Link to='/'>INSTA</Link>
-                    <Link to='/'></Link>
-                    <Link to='/'></Link>
+                        <Link to='/'></Link>
+                        <Link to='/'>
+                            <IoLogoFacebook className="text-3xl" />
+                        </Link>
+                        <Link to='/' >
+                            <FaInstagram className="text-3xl" />
+                        </Link>
+                        <Link to='/'>
+                            <HiOutlineMail className="text-3xl" />
+                        </Link>
+                        <Link to='/'></Link>
+
+                    </div>
+                    <p>© 2023 E-Shop. All rights reserved.</p>
                 </List>
             </div>
         </Container>

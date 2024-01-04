@@ -21,6 +21,7 @@ const Navbar = () => {
     const navigation = useNavigate();
     const [userDropdown, setUserDropdown] = useState<boolean>(false);
     const [cartDropdown, setCartDropdown] = useState<boolean>(false);
+    const [navList, setNavList] = useState<boolean>(false);
 
 
     const toggleUserDropdown = () => {
@@ -28,6 +29,10 @@ const Navbar = () => {
     }
     const toggleCartDropdown = () => {
         setCartDropdown(!cartDropdown);
+    }
+
+    const toggleNavList = () => {
+        setNavList(!navList);
     }
 
     return (
@@ -57,8 +62,11 @@ const Navbar = () => {
                         </Dropdown>
                     </div>
 
-                    <div >
-                        <FaListUl className="sm:hidden text-2xl mr-4" />
+                    <div className="sm:hidden text-2xl mr-4 z-20" >
+                        <Dropdown toggleFunc={toggleNavList} arr={[{ field: "My cart", path: "/cart" }, { field: "Wishlisht", path: "/" }, { field: "Signup", path: "/signup" }, { field: "Login", path: "/login" }, { field: "Profile", path: "/profile" }, { field: "Orders", path: "/profile/orders" }]}>
+                            <FaListUl />
+                        </Dropdown>
+
 
                     </div>
 
