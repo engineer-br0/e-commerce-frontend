@@ -22,7 +22,8 @@ const Payment = () => {
     const addNewProduct = async () => {
         //e.preventDefault();
         try {
-            const response = await fetch("http://localhost:4000/orders/addNewOrder", {
+            //const response = await fetch("http://localhost:4000/orders/addNewOrder", {
+            const response = await fetch("https://e-commerce-backend-3smn.onrender.com/orders/addNewOrder", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -13,7 +13,8 @@ const ProfileEdit = () => {
     const updateUser = async (e: any) => {
         e.preventDefault();
         try {
-            const response = await fetch("http://localhost:4000/user/updateUserData", {
+            //const response = await fetch("http://localhost:4000/user/updateUserData", {
+            const response = await fetch("https://e-commerce-backend-3smn.onrender.com/user/updateUserData", {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

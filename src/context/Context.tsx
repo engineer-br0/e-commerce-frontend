@@ -67,7 +67,8 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
     const getUserData = async () => {
 
 
-        const response = await fetch("http://localhost:4000/user/getUserData", {
+        //const response = await fetch("http://localhost:4000/user/getUserData", {
+        const response = await fetch("https://e-commerce-backend-3smn.onrender.com/user/getUserData", {
             method: 'GET',
             headers: {
                 "Authorization": `Bearer ${token}`,
@@ -82,7 +83,8 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
 
     const getOrders = async () => {
         try {
-            const response = await fetch("http://localhost:4000/orders/getOrders", {
+            //const response = await fetch("http://localhost:4000/orders/getOrders", {
+            const response = await fetch("https://e-commerce-backend-3smn.onrender.com/orders/getOrders", {
                 method: 'GET',
                 headers: {
                     "Authorization": `Bearer ${token}`,
@@ -120,8 +122,8 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
         }
 
         try {
-            //const response = await fetch("https://e-commerce-backend-3smn.onrender.com/manageCart/addToCart", {
-            const response = await fetch("http://localhost:4000/manageCart/addToCart", {
+            const response = await fetch("https://e-commerce-backend-3smn.onrender.com/manageCart/addToCart", {
+                //const response = await fetch("http://localhost:4000/manageCart/addToCart", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -152,8 +154,8 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
 
     const removeFromCart = async (id: number, quantity: number) => {
         try {
-            // const response = await fetch("https://e-commerce-backend-3smn.onrender.com/manageCart/removeFromCart", {
-            const response = await fetch("http://localhost:4000/manageCart/removeFromCart", {
+            const response = await fetch("https://e-commerce-backend-3smn.onrender.com/manageCart/removeFromCart", {
+                //const response = await fetch("http://localhost:4000/manageCart/removeFromCart", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -177,6 +179,7 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
 
     const fetchCart = async () => {
         try {
+            //const response = await fetch("http://localhost:4000/manageCart/getCart", {
             const response = await fetch("https://e-commerce-backend-3smn.onrender.com/manageCart/getCart", {
                 method: "GET",
                 headers: {

@@ -31,8 +31,8 @@ const Signup = () => {
             return;
         }
         try {
-            //const response = await fetch("https://e-commerce-backend-3smn.onrender.com/auth/signup",
-            const response = await fetch("http://localhost:4000/auth/signup",
+            const response = await fetch("https://e-commerce-backend-3smn.onrender.com/auth/signup",
+                //const response = await fetch("http://localhost:4000/auth/signup",
                 {
                     method: "POST",
                     headers: {
