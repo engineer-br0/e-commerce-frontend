@@ -38,20 +38,25 @@ const Navbar = () => {
                     <p className="font-sans font-bold"> Amazon</p>
                 </Link>
 
-                <div className="searchBar">
+                <div className="searchBar hidden lg:block ">
                     <SearchBar />
                 </div>
 
-
                 <div className="UserNCart flex flex-row cursor-pointer self-start items-center">
-                    <Dropdown toggleFunc={toggleCartDropdown} arr={[{ field: "My cart", path: "/cart" }, { field: "Wishlisht", path: "/" }]} >
-                        <IoCartOutline className="text-2xl self-center" />
-                        <p className="text-base text-black font-bold">Cart</p>
-                    </Dropdown>
-                    <Dropdown toggleFunc={toggleUserDropdown} arr={[{ field: "Signup", path: "/signup" }, { field: "Login", path: "/login" }, { field: "Profile", path: "/profile" }, { field: "Orders", path: "/profile/orders" }]} >
-                        <HiOutlineUserCircle className="text-2xl" />
-                        <p className="text-base text-black font-bold">User</p>
-                    </Dropdown>
+                    <div className="hidden sm:block text-2xl mr-4">
+                        <Dropdown toggleFunc={toggleCartDropdown} arr={[{ field: "My cart", path: "/cart" }, { field: "Wishlisht", path: "/" }]} >
+                            <IoCartOutline className="text-2xl self-center" />
+                            <p className="text-base text-black font-bold">Cart</p>
+                        </Dropdown>
+                    </div>
+
+                    <div className="hidden sm:block text-2xl mr-4">
+                        <Dropdown toggleFunc={toggleUserDropdown} arr={[{ field: "Signup", path: "/signup" }, { field: "Login", path: "/login" }, { field: "Profile", path: "/profile" }, { field: "Orders", path: "/profile/orders" }]} >
+                            <HiOutlineUserCircle className="text-2xl" />
+                            <p className="text-base text-black font-bold">User</p>
+                        </Dropdown>
+                    </div>
+
                     <div >
                         <FaListUl className="sm:hidden text-2xl mr-4" />
 
