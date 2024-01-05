@@ -10,7 +10,7 @@ const HomeBanner = () => {
             </div>
 
             <div className={styles.imageContainer}>
-                <img src="/yash.jpeg"
+                <img src="/chamiya.png"
                     className={styles.bannerImage}
                     width={300}
                     height={300}
