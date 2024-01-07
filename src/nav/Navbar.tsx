@@ -11,7 +11,7 @@ import { useEffect, useRef, useState } from "react";
 import Dropdown from "../utils/Dropdown";
 import SearchBar from "../home/SearchBar";
 import { FaListUl } from "react-icons/fa";
-//import { Dropdown } from 'flowbite-react';
+import { CiShop } from "react-icons/ci";
 
 //const rubik = Dancing_Script({ subsets: ["latin"], weight: ['400'] })
 
@@ -47,7 +47,7 @@ const Navbar = () => {
                     <SearchBar />
                 </div>
 
-                <div className="UserNCart flex flex-row cursor-pointer self-start items-center">
+                <div className="UserNCart flex flex-row cursor-pointer  items-center">
                     <div className="hidden sm:block text-2xl mr-4">
                         <Dropdown toggleFunc={toggleCartDropdown} arr={[{ field: "My cart", path: "/cart" }, { field: "Wishlisht", path: "/" }]} >
                             <IoCartOutline className="text-2xl self-center" />
@@ -59,6 +59,13 @@ const Navbar = () => {
                         <Dropdown toggleFunc={toggleUserDropdown} arr={[{ field: "Signup", path: "/signup" }, { field: "Login", path: "/login" }, { field: "Profile", path: "/profile" }, { field: "Orders", path: "/profile/orders" }]} >
                             <HiOutlineUserCircle className="text-2xl" />
                             <p className="text-base text-black font-bold">User</p>
+                        </Dropdown>
+                    </div>
+
+                    <div className="hidden sm:block text-2xl mr-4">
+                        <Dropdown toggleFunc={toggleUserDropdown} arr={[{ field: "Signup", path: "/signup" }, { field: "Login", path: "seller/login" }, { field: "Profile", path: "/profile" }, { field: "Orders", path: "/profile/orders" }]} >
+                            <CiShop className="text-2xl" />
+                            <p className="text-base text-black font-bold">Become a Seller</p>
                         </Dropdown>
                     </div>
 

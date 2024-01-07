@@ -15,6 +15,8 @@ import Checkout from './cart/Checkout';
 import ProfileEdit from './user/ProfileEdit';
 import Payment from './cart/Payment';
 import Orders from './user/Orders';
+import SellerLogin from './seller/SellerLogin';
+import SellerSignup from './seller/SellerSignup';
 
 
 function App() {
@@ -38,6 +40,9 @@ function App() {
           <Route path='/profile/edit' element={isLogin ? <ProfileEdit /> : <Login />} />
           <Route path='/profile/orders' element={isLogin ? <Orders /> : <Login />} />
           <Route path='payment/:shippingDetails' element={isLogin ? <Payment /> : <Login />} />
+          {/* Seller */}
+          <Route path='/seller/login' element={<SellerLogin />} />
+          <Route path='/seller/signup' element={<SellerSignup />} />
         </Routes>
 
         <Footer />
