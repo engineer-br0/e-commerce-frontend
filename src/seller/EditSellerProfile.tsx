@@ -1,9 +1,8 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ContextItems, SellerContext } from "../context/SellerContext";
 
 const EditSellerProfile = () => {
     const { sellerDetails, setSellerDetails } = useContext(SellerContext) as ContextItems;
-
     const [name, setName] = useState<string>(sellerDetails.name || "");
     const [gstNumber, setGstNumber] = useState<string>(sellerDetails.gstNumber || "");
     const [mobile, setMobile] = useState<string>(sellerDetails.mobile || "");
@@ -21,12 +20,22 @@ const EditSellerProfile = () => {
                 body: JSON.stringify({ userData: { name, gstNumber, mobile, address } })
             });
             const res = await response.json();
+            //setSellerDetails({ name: "papa" }) // just for invoking the useEffect on sellercontext
             console.log(res);
         }
         catch (er) {
             console.log(er);
         }
     }
+
+    useEffect(() => {
+        console.log(sellerDetails);
+
+        setName(sellerDetails.name || "");
+        setGstNumber((sellerDetails.gstNumber || ""));
+        setMobile(sellerDetails.mobile || "");
+        setAddress(sellerDetails.address || "");
+    }, [sellerDetails])
 
     return (
         <div className="flex justify-center gap-5 flex-wrap p-10">

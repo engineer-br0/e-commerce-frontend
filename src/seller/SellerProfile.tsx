@@ -30,6 +30,14 @@ const SellerProfile = () => {
                     <p > {sellerDetails.email || "Not provided"}</p>
                 </div>
                 <div className="flex justify-between font-light">
+                    <p >GST Number:</p>
+                    <p > {sellerDetails.gstNumber || "Not provided"}</p>
+                </div>
+                <div className="flex justify-between font-light">
+                    <p >Mobile:</p>
+                    <p > {sellerDetails.mobile || "Not provided"}</p>
+                </div>
+                <div className="flex justify-between font-light">
                     <p>Address:</p>
                     <p>{sellerDetails.address || "Not provided"}</p>
                 </div>

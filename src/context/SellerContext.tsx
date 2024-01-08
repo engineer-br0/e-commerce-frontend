@@ -72,10 +72,16 @@ const SellerContextWrapper: React.FC<{ children: ReactElement }> = ({ children }
 
     useEffect(() => {
         getToken();
+    }, [sellerLogin])
+
+    useEffect(() => {
         fetchSeller();
         console.log(sellerDetails);
+    }, [sellerLogin, sellerDetails.sellerToken]);
 
-    }, [sellerLogin, sellerDetails.sellerToken])
+    useEffect(() => {
+        console.log(sellerDetails);
+    }, [sellerDetails]);
 
 
     return (
