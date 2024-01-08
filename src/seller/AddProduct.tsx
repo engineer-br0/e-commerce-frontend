@@ -11,17 +11,29 @@ const AddProduct = () => {
     const [category, setCategory] = useState<string>("");
     console.log(sellerDetails);
 
-    const AddProduct = async () => {
+    const AddProduct = async (e: any) => {
+        e.preventDefault();
+        if (!title || !description || !price || !rating || !category) {
+            alert("Fill all the mandatory details!");
+            return;
+        }
         try {
-            const response = await fetch("", {
+            const response = await fetch("http://localhost:4000/seller/details/addProduct", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
-                    'Cookie': `${sellerDetails.sellerToken}`
-                }
-            })
+                    'Authorization': `Bearer ${sellerDetails.sellerToken}`
+                },
+                body: JSON.stringify({ product: { title, description, price, rating, category } })
+            });
+            const res = await response.json();
+            console.log(res);
+            alert(res.message)
+
         }
         catch (er) {
+            console.log("errro rr aa gyy");
+
             console.log(`Error: ${er}`);
         }
     }
@@ -67,10 +79,14 @@ const AddProduct = () => {
                                     <option value="watches">watches</option>
                                 </select>
                             </div>
+                            {/* <div className="flex justify-between">
+                                <label>Select image</label>
+                                <input type="file" />
+                            </div> */}
 
 
                         </div>
-                        <button className="bg-green-500 w-96 mt-2 text-sm p-1">Add Product</button>
+                        <button onClick={AddProduct} className="bg-green-500 w-96 mt-2 text-sm p-1">Add Product</button>
 
                     </div>
                 </div>
