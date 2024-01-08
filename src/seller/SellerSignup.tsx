@@ -8,6 +8,7 @@ const SellerSignup = () => {
     const [name, setName] = useState<string>("");
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
+    const [gstNumber, setGstNumber] = useState<string>("");
 
     // useEffect(() => {
     //     if (isLogin) {
@@ -23,41 +24,42 @@ const SellerSignup = () => {
     //     // });
     // }, [])
 
-    // const handleSignup = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    //     e.preventDefault();
-    //     if (!name || !email || !password) {
-    //         alert("Fill all the mandatory details!");
-    //         return;
-    //     }
-    //     try {
-    //         const response = await fetch("https://e-commerce-backend-3smn.onrender.com/auth/signup",
-    //             //const response = await fetch("http://localhost:4000/auth/signup",
-    //             {
-    //                 method: "POST",
-    //                 headers: {
-    //                     "Content-Type": "application/json"
-    //                 },
-    //                 body: JSON.stringify({
-    //                     name,
-    //                     email,
-    //                     password
-    //                 })
-    //             });
-    //         const res = await response.json();
-    //         console.log("signup res", res);
-    //         document.cookie = `token=${res.token};`;
-    //         console.log(document.cookie);
-    //         alert(res.message)
-    //         setUser(res.user);
-    //         //setIsLogin(false);
-    //         setIsLogin(true)
-    //         alert("User Signup successful!")
-    //         navigate("/")
-    //     }
-    //     catch (er) {
-    //         console.log("error hai", er);
-    //     }
-    // }
+    const handleSignup = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        e.preventDefault();
+        if (!name || !email || !password || !gstNumber) {
+            alert("Fill all the mandatory details!");
+            return;
+        }
+        try {
+            //const response = await fetch("https://e-commerce-backend-3smn.onrender.com/auth/signup",
+            const response = await fetch("http://localhost:4000/seller/auth/signup",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        name,
+                        email,
+                        password,
+                        gstNumber
+                    })
+                });
+            const res = await response.json();
+            console.log("signup res", res);
+            // document.cookie = `token=${res.token};`;
+            // console.log(document.cookie);
+            alert(res.message)
+            //setUser(res.user);
+            //setIsLogin(false);
+            //setIsLogin(true)
+            //alert("User Signup successful!")
+            //navigate("/")
+        }
+        catch (er) {
+            console.log("error hai", er);
+        }
+    }
 
     return (
         <>
@@ -70,8 +72,9 @@ const SellerSignup = () => {
                                 <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" className="outline-0 border-b border-gray-400 focus:border-black " />
                                 <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" className="outline-0 border-b border-gray-400 focus:border-black " />
                                 <input value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" className="outline-0 border-b border-gray-400 focus:border-black"></input>
+                                <input value={gstNumber} onChange={(e) => setGstNumber(e.target.value)} placeholder="GST number" className="outline-0 border-b border-gray-400 focus:border-black"></input>
                             </div>
-                            <button className="w-2/3 p-2 text-white bg-red-400 hover:bg-red-300 mt-10">Signup</button>
+                            <button onClick={handleSignup} className="w-2/3 p-2 text-white bg-red-400 hover:bg-red-300 mt-10">Signup</button>
                             <p>Already registered <Link to='/seller/login' className="text-blue-500">Login here</Link></p>
 
                         </form>

@@ -5,7 +5,7 @@ import Home from './home/Home';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Carta from './cart/Cart';
 import Product from './products/[ProductId]';
-import { createContext, useState } from 'react';
+import { createContext, useContext, useState } from 'react';
 import CartContext, { ContextInit } from './context/Context';
 import ContextWrapper from './context/Context';
 import Login from './user/Login';
@@ -17,10 +17,15 @@ import Payment from './cart/Payment';
 import Orders from './user/Orders';
 import SellerLogin from './seller/SellerLogin';
 import SellerSignup from './seller/SellerSignup';
+import SellerProfile from './seller/SellerProfile';
+import { SellerContext } from './context/SellerContext';
+import AddProduct from './seller/AddProduct';
+import EditSellerProfile from './seller/EditSellerProfile';
 
 
 function App() {
   const { isLogin } = ContextInit();
+  const sellerContext = useContext(SellerContext);
 
 
   return (
@@ -43,6 +48,9 @@ function App() {
           {/* Seller */}
           <Route path='/seller/login' element={<SellerLogin />} />
           <Route path='/seller/signup' element={<SellerSignup />} />
+          <Route path='/seller/profile' element={<SellerProfile />} />
+          <Route path='/seller/addProduct' element={<AddProduct />} />
+          <Route path='/seller/editSellerProfile' element={<EditSellerProfile />} />
         </Routes>
 
         <Footer />
