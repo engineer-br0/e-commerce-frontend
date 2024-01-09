@@ -25,7 +25,8 @@ const Card: React.FC<{
     return (
         <div className="card">
             <div onClick={(e) => {
-                navigate(`/products/${product.id}`) // not working , { state: { name: "mridul", age: 30, son: son, product } }
+                product.id ? navigate(`/products/${product.id}`) // not working , { state: { name: "mridul", age: 30, son: son, product } }
+                    : navigate(`/products/${product._id}`)
             }}>
 
                 <div className="imageContainer">

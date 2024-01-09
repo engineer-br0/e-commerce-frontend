@@ -8,9 +8,11 @@ const Login = () => {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const { isLogin, setIsLogin, setUser } = ContextInit();
+    const [loading, setLoading] = useState<boolean>(false);
 
     const handleLogin = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault();
+        setLoading(true);
         console.log("handle login clikked");
 
         try {
@@ -27,6 +29,7 @@ const Login = () => {
                     })
                 });
             const res = await response.json();
+            setLoading(false)
             console.log("login res", res, response.status);
             alert(res.message);
             //localStorage.setItem("token", res.access_token);
@@ -41,11 +44,13 @@ const Login = () => {
             }
         }
         catch (er) {
+            setLoading(false)
             console.log("error hai", er);
         }
     }
     return (
         <>
+            {loading && <h1>Loading... Please wait</h1>}
             <Container>
                 <div className=" flex flex-col gap-10 bg-blue-100 justify-center items-center py-20">
                     <div className="w-96 border  shadow-2xl backdrop-blur flex flex-col gap-10 bg-white py-10">

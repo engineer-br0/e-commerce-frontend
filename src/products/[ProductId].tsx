@@ -14,9 +14,18 @@ const Product = () => {
         if (foundProduct) {
             setProduct(foundProduct);
         }
+        else {
+            console.log("not found");
+
+            const foundProductWith_id = products.find((obj) => (obj._id) === (param.ProductId));
+            if (foundProductWith_id) {
+                console.log("found with _id");
+                console.log(foundProductWith_id);
+                setProduct(foundProductWith_id);
+            }
+        }
     }, [products, param.ProductId]);
 
-    console.log(cart);
 
     return (
         <div className="min-h-screen flex justify-center p-10 ">
