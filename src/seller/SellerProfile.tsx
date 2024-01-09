@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import { ContextItems, SellerContext } from "../context/SellerContext";
 import Card from "../home/Card";
+import { FaRegUser } from "react-icons/fa";
 
 const SellerProfile = () => {
     const navigate = useNavigate();
@@ -20,32 +21,40 @@ const SellerProfile = () => {
 
     return (
         <>
-            <div className="flex flex-col items-center">
-                <div className=" w-96 text-sm p-5 text-sm">
-                    <h1>PROFILE DETAILS</h1>
-                    <div className="flex justify-between">
-                        <p className="font-bold">Full Name: </p>
-                        <p className="font-bold">{sellerDetails.name || "Not provided"}</p>
+            <div className="flex justify-center">
+                <div className="CARD w-96 flex flex-col items-center rounded-lg border bg-white p-4 my-10  shadow-lg">
+                    <div className=" w-40 text-sm p-5 text-sm">
+                        {/* <h1>PROFILE DETAILS</h1> */}
+                        <div className="relative flex justify-center">
+                            <span className="absolute right-0 m-3 h-3 w-3 rounded-full bg-green-500 ring-2 ring-green-300 ring-offset-2"></span>
+                            <FaRegUser className=" mx-auto h-auto w-32 border rounded-full" />
+                        </div>
                     </div>
-                    <div className="flex justify-between font-light">
-                        <p >Email ID:</p>
-                        <p > {sellerDetails.email || "Not provided"}</p>
+                    <div className="LIST w-full mt-3 divide-y rounded bg-gray-100 py-2 px-3 text-gray-600 shadow-sm hover:text-gray-700 hover:shadow">
+                        <div className="w-full flex justify-between py-3">
+                            <p className="font-bold">Full Name: </p>
+                            <p className="font-bold">{sellerDetails.name || "Not provided"}</p>
+                        </div>
+                        <div className="w-full flex justify-between text-sm font-medium py-3">
+                            <p >Email ID:</p>
+                            <p > {sellerDetails.email || "Not provided"}</p>
+                        </div>
+                        <div className="w-full flex justify-between text-sm font-medium py-3">
+                            <p >GST Number:</p>
+                            <p > {sellerDetails.gstNumber || "Not provided"}</p>
+                        </div>
+                        <div className="w-full flex justify-between text-sm font-medium py-3">
+                            <p >Mobile:</p>
+                            <p > {sellerDetails.mobile || "Not provided"}</p>
+                        </div>
+                        <div className="w-full flex justify-between text-sm font-medium py-3">
+                            <p>Address:</p>
+                            <p>{sellerDetails.address || "Not provided"}</p>
+                        </div>
                     </div>
-                    <div className="flex justify-between font-light">
-                        <p >GST Number:</p>
-                        <p > {sellerDetails.gstNumber || "Not provided"}</p>
-                    </div>
-                    <div className="flex justify-between font-light">
-                        <p >Mobile:</p>
-                        <p > {sellerDetails.mobile || "Not provided"}</p>
-                    </div>
-                    <div className="flex justify-between font-light">
-                        <p>Address:</p>
-                        <p>{sellerDetails.address || "Not provided"}</p>
-                    </div>
-                    <button onClick={() => navigate("/seller/editSellerProfile")} className="bg-green-500 w-96 mt-2">Edit Details</button>
-                    <button onClick={handleLogout} className="bg-green-500 w-96 mt-2">Logout</button>
-                    <button onClick={() => navigate("/seller/addProduct")} className="bg-green-500 w-96 mt-2">Add products</button>
+                    <button onClick={() => navigate("/seller/editSellerProfile")} className="text-white bg-slate-700 w-5/6 border rounded-md mt-2">Edit Details</button>
+                    <button onClick={handleLogout} className="text-white bg-slate-700 w-5/6 border rounded-md mt-2">Logout</button>
+                    <button onClick={() => navigate("/seller/addProduct")} className="text-white bg-slate-700 w-5/6 border rounded-md mt-2">Add products</button>
                 </div>
             </div>
 

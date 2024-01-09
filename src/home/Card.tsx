@@ -23,7 +23,7 @@ const Card: React.FC<{
 
 
     return (
-        <div className="card sm:m-3 overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md">
+        <div className="card sm:m-3 overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md ">
             <div onClick={(e) => {
                 navigate(`/products/${product.id}`) // not working , { state: { name: "mridul", age: 30, son: son, product } }
             }}>
