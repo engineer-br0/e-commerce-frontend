@@ -7,6 +7,7 @@ export interface sellerInterface {
     address?: string;
     sellerToken?: string;
     mobile?: string,
+    products?: { [key: string]: any }[],
     setSellerToken?(token: string): void;
 }
 

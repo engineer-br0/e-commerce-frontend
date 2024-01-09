@@ -4,6 +4,7 @@ import { ContextInit } from "../context/Context";
 import { useNavigate } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import { ContextItems, SellerContext } from "../context/SellerContext";
+import Card from "../home/Card";
 
 const SellerProfile = () => {
     const navigate = useNavigate();
@@ -18,36 +19,57 @@ const SellerProfile = () => {
     }
 
     return (
-        <div className="flex flex-col items-center">
-            <div className=" w-96 text-sm p-5 text-sm">
-                <h1>PROFILE DETAILS</h1>
-                <div className="flex justify-between">
-                    <p className="font-bold">Full Name: </p>
-                    <p className="font-bold">{sellerDetails.name || "Not provided"}</p>
+        <>
+            <div className="flex flex-col items-center">
+                <div className=" w-96 text-sm p-5 text-sm">
+                    <h1>PROFILE DETAILS</h1>
+                    <div className="flex justify-between">
+                        <p className="font-bold">Full Name: </p>
+                        <p className="font-bold">{sellerDetails.name || "Not provided"}</p>
+                    </div>
+                    <div className="flex justify-between font-light">
+                        <p >Email ID:</p>
+                        <p > {sellerDetails.email || "Not provided"}</p>
+                    </div>
+                    <div className="flex justify-between font-light">
+                        <p >GST Number:</p>
+                        <p > {sellerDetails.gstNumber || "Not provided"}</p>
+                    </div>
+                    <div className="flex justify-between font-light">
+                        <p >Mobile:</p>
+                        <p > {sellerDetails.mobile || "Not provided"}</p>
+                    </div>
+                    <div className="flex justify-between font-light">
+                        <p>Address:</p>
+                        <p>{sellerDetails.address || "Not provided"}</p>
+                    </div>
+                    <button onClick={() => navigate("/seller/editSellerProfile")} className="bg-green-500 w-96 mt-2">Edit Details</button>
+                    <button onClick={handleLogout} className="bg-green-500 w-96 mt-2">Logout</button>
+                    <button onClick={() => navigate("/seller/addProduct")} className="bg-green-500 w-96 mt-2">Add products</button>
                 </div>
-                <div className="flex justify-between font-light">
-                    <p >Email ID:</p>
-                    <p > {sellerDetails.email || "Not provided"}</p>
-                </div>
-                <div className="flex justify-between font-light">
-                    <p >GST Number:</p>
-                    <p > {sellerDetails.gstNumber || "Not provided"}</p>
-                </div>
-                <div className="flex justify-between font-light">
-                    <p >Mobile:</p>
-                    <p > {sellerDetails.mobile || "Not provided"}</p>
-                </div>
-                <div className="flex justify-between font-light">
-                    <p>Address:</p>
-                    <p>{sellerDetails.address || "Not provided"}</p>
-                </div>
-                <button onClick={() => navigate("/seller/editSellerProfile")} className="bg-green-500 w-96 mt-2">Edit Details</button>
-                <button onClick={handleLogout} className="bg-green-500 w-96 mt-2">Logout</button>
-                <button onClick={() => navigate("/seller/addProduct")} className="bg-green-500 w-96 mt-2">Add products</button>
-
-
             </div>
-        </div>
+
+
+            <h1>My Products</h1>
+            <div className="flex justify-start wrap ">
+                <div className="flex ">
+                    {
+                        sellerDetails?.products?.map((product) => {
+                            //if (product.title.match(/iphone/i)) {
+                            //if (product.title.match(new RegExp(searchValue, 'i')) && (params?.category ? params.category === product.category : true)) {
+                            //if (product.title.toLowerCase().includes(searchValue))) {
+                            return (
+                                <div key={product.id}>
+                                    <Card product={product} />
+                                </div>
+                            )
+                            //}
+                        })
+                    }
+                </div>
+            </div>
+
+        </>
     );
 }
 

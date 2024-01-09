@@ -2,12 +2,14 @@ import { useContext, useState } from "react";
 import { ContextItems, SellerContext } from "../context/SellerContext";
 import { app } from "../firebase/firebaseConfig"
 import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
+import { useNavigate } from "react-router-dom";
 
 const storage = getStorage(app);
 const storageRef = ref(storage);
 const imagesRef = ref(storage, 'images/')
 
 const AddProduct = () => {
+    const navigate = useNavigate();
     const { sellerDetails } = useContext(SellerContext) as ContextItems;
     const [id, setId] = useState<string>("");
     const [title, setTitle] = useState<string>("");
@@ -100,9 +102,12 @@ const AddProduct = () => {
                     body: JSON.stringify({ product: { title, description, price, rating, category, thumbnail: downloadThumbnailUrl, images: imagesArray } })
                 });
                 const res = await response.json();
-                setLoading(false);
-                console.log(res);
-                alert(res.message)
+                if (response.ok) {
+                    setLoading(false);
+                    console.log(res);
+                    alert(res.message)
+                    navigate("/seller/profile");
+                }
             }
 
         }
@@ -129,11 +134,11 @@ const AddProduct = () => {
                             </div>
                             <div className="flex justify-between">
                                 <h1>Price</h1>
-                                <input type="number" min="0" value={price} onChange={(e) => setPrice(parseFloat(e.target.value))} placeholder='Name*' className='border w-3/4 h-10 p-2' required />
+                                <input type="number" min="0" value={price} onFocus={e => price === 0 && (e.target.value = "")} onChange={(e) => { setPrice(parseFloat(e.target.value)) }} placeholder="Price" className='border w-3/4 h-10 p-2' required />
                             </div>
                             <div className="flex justify-between">
                                 <h1>Rating</h1>
-                                <input value={rating} type="number" min={0} step={0.5} onChange={(e) => setRating(parseFloat(e.target.value))} placeholder='Name*' className='border w-3/4 h-10 p-2' required />
+                                <input value={rating} type="number" min={0} step={0.5} onFocus={e => rating === 0 && (e.target.value = "")} onChange={(e) => setRating(parseFloat(e.target.value))} placeholder='Rating' className='border w-3/4 h-10 p-2' required />
                             </div>
                             <div className="flex justify-between">
                                 <h1>Category</h1>
