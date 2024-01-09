@@ -16,7 +16,7 @@ export default function Home() {
 
     return (
         <Container>
-            <div className="sm:p-10">
+            <div className="sm:p-10 flex flex-col items-center">
                 <div className=" sm:hidden flex justify-center p-5">
                     <SearchBar />
                 </div>
@@ -24,7 +24,7 @@ export default function Home() {
                 <Carousel />
 
                 {/* <HomeBanner /> */}
-                <div className="products">
+                <div className="products border">
                     {
                         products.map((product) => {
                             ////console.log(product);

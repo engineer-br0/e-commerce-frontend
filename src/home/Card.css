@@ -1,7 +1,6 @@
 .card {
   display: flex;
   flex-direction: column;
-  height: 320px;
   width: 180px;
   padding: 10px;
   /* box-sizing: border-box; */
@@ -16,8 +15,8 @@
 }
 
 .imageContainer {
-  height: 200px;
-  width: 150px;
+  height: 110px;
+  /* width: 150px; */
   display: flex;
   justify-content: center;
   align-items: center;

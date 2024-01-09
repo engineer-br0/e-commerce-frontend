@@ -10,9 +10,6 @@ const Carousel = () => {
         <div className=" ">
 
             <img src={images[currentIndex]} className="" />
-
-
-            {/* <button onClick={changeIndex}> Change</button> */}
         </div>
     );
 }
