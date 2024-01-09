@@ -9,25 +9,15 @@ const SellerSignup = () => {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [gstNumber, setGstNumber] = useState<string>("");
-
-    // useEffect(() => {
-    //     if (isLogin) {
-    //         alert("already logged in!!!");
-    //         navigate("/");
-    //     }
-    //     // const cookies = (document.cookie).split(";");
-    //     // cookies.forEach(cookie => {
-    //     //     if (cookie.includes("token=")) {
-    //     //         alert("already logged in!!!");
-    //     //         navigation("/");
-    //     //     }
-    //     // });
-    // }, [])
+    const [loading, setLoading] = useState<boolean>(false);
 
     const handleSignup = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault();
+        setLoading(true);
+
         if (!name || !email || !password || !gstNumber) {
             alert("Fill all the mandatory details!");
+            setLoading(false)
             return;
         }
         try {
@@ -46,6 +36,7 @@ const SellerSignup = () => {
                     })
                 });
             const res = await response.json();
+            setLoading(false)
             //console.log("signup res", res);
             // document.cookie = `token=${res.token};`;
             // //console.log(document.cookie);
@@ -57,6 +48,7 @@ const SellerSignup = () => {
             //navigate("/")
         }
         catch (er) {
+            setLoading(false)
             //console.log("error hai", er);
         }
     }
@@ -64,20 +56,31 @@ const SellerSignup = () => {
     return (
         <>
             <Container>
-                <div className=" flex flex-col gap-10 bg-blue-100 justify-center items-center py-20">
-                    <div className="w-96 border  shadow-2xl backdrop-blur flex flex-col gap-10 bg-white py-10">
-                        <h1>Seller Signup</h1>
-                        <form className=" w-96 flex flex-col items-center">
-                            <div className="flex flex-col w-72 gap-5 ">
-                                <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" className="outline-0 border-b border-gray-400 focus:border-black " />
-                                <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" className="outline-0 border-b border-gray-400 focus:border-black " />
-                                <input value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" className="outline-0 border-b border-gray-400 focus:border-black"></input>
-                                <input value={gstNumber} onChange={(e) => setGstNumber(e.target.value)} placeholder="GST number" className="outline-0 border-b border-gray-400 focus:border-black"></input>
-                            </div>
-                            <button onClick={handleSignup} className="w-2/3 p-2 text-white bg-red-400 hover:bg-red-300 mt-10">Signup</button>
-                            <p>Already registered <Link to='/seller/login' className="text-blue-500">Login here</Link></p>
+                <div className="relative flex justify-center">
+                    <p className="absolute my-20 bg-grey-400 text-xxl">
+                        {loading && <h1>Loading... Please wait!</h1>}
+                    </p>
+                </div>
+                <div className="flex justify-center">
+                    <div className="hidden sm:block w-1/2">
+                        <img src="/signup.jpg" />
+                    </div>
 
-                        </form>
+                    <div className=" flex w-1/2 flex-col gap-10  justify-center items-center py-20 ">
+                        <div className="w-96 border rounded-lg shadow-2xl backdrop-blur flex flex-col gap-10 bg-white py-10 py-15 ">
+                            <h1 className="font-bold">Seller Signup</h1>
+                            <form className=" w-96 flex flex-col items-center ">
+                                <div className="flex flex-col w-72 gap-5 ">
+                                    <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" className="outline-0 border-b border-gray-400 focus:border-black " />
+                                    <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" className="outline-0 border-b border-gray-400 focus:border-black " />
+                                    <input value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" className="outline-0 border-b border-gray-400 focus:border-black"></input>
+                                    <input value={gstNumber} onChange={(e) => setGstNumber(e.target.value)} placeholder="GST number" className="outline-0 border-b border-gray-400 focus:border-black"></input>
+                                </div>
+                                <button onClick={handleSignup} className="w-2/3 p-2 text-white bg-slate-800 hover:bg-red-300 mt-10 mb-2 rounded-md ">Signup</button>
+                                <p>Already registered <Link to='/seller/login' className="text-blue-500">Login here</Link></p>
+
+                            </form>
+                        </div>
                     </div>
                 </div>
             </Container>

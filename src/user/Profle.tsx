@@ -16,7 +16,8 @@ const Profile = () => {
     }, [])
 
 
-    const handleLogout = () => {
+    const handleLogout = (e: any) => {
+        e.preventDefault();
         const cookie = document.cookie;
         //console.log("cookie", cookie);
         document.cookie = `token=; expires=Thu, 01 Jan 1970 00:00:00 UTC;;`;
