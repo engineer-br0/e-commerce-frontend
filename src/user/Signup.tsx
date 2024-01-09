@@ -45,9 +45,9 @@ const Signup = () => {
                     })
                 });
             const res = await response.json();
-            console.log("signup res", res);
+            //console.log("signup res", res);
             document.cookie = `token=${res.token};`;
-            console.log(document.cookie);
+            //console.log(document.cookie);
             alert(res.message)
             setUser(res.user);
             //setIsLogin(false);
@@ -56,7 +56,7 @@ const Signup = () => {
             navigate("/")
         }
         catch (er) {
-            console.log("error hai", er);
+            //console.log("error hai", er);
         }
     }
 

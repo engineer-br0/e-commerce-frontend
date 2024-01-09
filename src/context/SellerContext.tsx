@@ -25,9 +25,9 @@ const SellerContextWrapper: React.FC<{ children: ReactElement }> = ({ children }
     const [sellerDetails, setSellerDetails] = useState<sellerInterface>({});
 
     const getToken = () => {
-        console.log(document.cookie);
+        //console.log(document.cookie);
         const cookieArray = (document.cookie).split(';');
-        console.log(cookieArray);
+        //console.log(cookieArray);
 
         const token = cookieArray.find(cookie => {
             const cookieItems = cookie.split('=');
@@ -36,7 +36,7 @@ const SellerContextWrapper: React.FC<{ children: ReactElement }> = ({ children }
 
         const tokenValue = token?.split("=")[1];
         /// its a wrong way...
-        ////console.log({ ...sellerDetails, sellerToken: tokenValue, sellerToken: tokenValue, sellerToken: tokenValue });
+        //////console.log({ ...sellerDetails, sellerToken: tokenValue, sellerToken: tokenValue, sellerToken: tokenValue });
         // const newSeller = sellerDetails;
         // newSeller.sellerToken = tokenValue;
         // setSellerDetails(newSeller);
@@ -47,11 +47,11 @@ const SellerContextWrapper: React.FC<{ children: ReactElement }> = ({ children }
     }
 
     const fetchSeller = async () => {
-        console.log("inside fetch seller");
-        console.log(document.cookie);
+        //console.log("inside fetch seller");
+        //console.log(document.cookie);
 
         if (sellerDetails.sellerToken) {
-            console.log("inside if");
+            //console.log("inside if");
 
             try {
                 const response = await fetch("http://localhost:4000/seller/details/getSellerDetails", {
@@ -62,11 +62,11 @@ const SellerContextWrapper: React.FC<{ children: ReactElement }> = ({ children }
                     }
                 })
                 const res = await response.json();
-                console.log(res);
+                //console.log(res);
                 setSellerDetails(prev => ({ ...prev, ...res }));
             }
             catch (er) {
-                console.log(er);
+                //console.log(er);
             }
         }
     }
@@ -77,11 +77,11 @@ const SellerContextWrapper: React.FC<{ children: ReactElement }> = ({ children }
 
     useEffect(() => {
         fetchSeller();
-        console.log(sellerDetails);
+        //console.log(sellerDetails);
     }, [sellerLogin, sellerDetails.sellerToken]);
 
     useEffect(() => {
-        console.log(sellerDetails);
+        //console.log(sellerDetails);
     }, [sellerDetails]);
 
 

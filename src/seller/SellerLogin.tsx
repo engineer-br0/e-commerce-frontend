@@ -15,15 +15,15 @@ const SellerLogin = () => {
     const { sellerLogin, setSellerLogin, sellerDetails, setSellerDetails } = context;
 
     const getToken = () => {
-        console.log(document.cookie);
+        //console.log(document.cookie);
         const cookieArray = (document.cookie).split(';');
-        console.log(cookieArray);
+        //console.log(cookieArray);
 
         const token = cookieArray.find(cookie => {
             const cookieItems = cookie.split('=');
             return cookieItems[0].trim() === "sellerToken";
         });
-        console.log(token);
+        //console.log(token);
         const tokenValue = token?.split("=")[1];
 
         return tokenValue || "";
@@ -47,12 +47,12 @@ const SellerLogin = () => {
             });
             if (!response.ok) throw new Error('Something went wrong!');
             const res = await response.json();
-            console.log(res);
+            //console.log(res);
             // document.cookie = `sellerToken=${res.authToken}; expires=Thu, 01 Jan 1970 00:00:00 UTC;`;
             document.cookie = `sellerToken=${res.authToken};`;
             setSellerLogin(true);
             setSellerDetails({ ...res.sellerDetails, sellerToken: getToken() })
-            console.log(getToken());
+            //console.log(getToken());
 
             //setSellerDetails({ ...(res.sellerDetails), sellerToken: ((((document.cookie).split(';')).find(cookie => cookie.split("="))[0] === "sellerToken")?.split("=")[1]) });
             // setSellerDetails((prev: sellerInterface) => {
@@ -60,11 +60,11 @@ const SellerLogin = () => {
             // });
 
             // (((document.cookie).split(';')).map((cookie) => { return cookie.split('=')[0] === "sellerToken" ? cookie.split('=')[0] : ""; }));
-            console.log(sellerDetails, sellerLogin);
-            console.log(document.cookie);
+            //console.log(sellerDetails, sellerLogin);
+            //console.log(document.cookie);
         }
         catch (er) {
-            console.log("errreerer", er);
+            //console.log("errreerer", er);
         }
     }
 

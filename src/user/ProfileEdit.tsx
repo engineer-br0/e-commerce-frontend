@@ -3,7 +3,7 @@ import { ContextInit } from "../context/Context";
 
 const ProfileEdit = () => {
     const { user, token, rerender, setRerender } = ContextInit();
-    console.log(user);
+    //console.log(user);
 
     const [name, setName] = useState<string>(user.name);
     const [gender, setGender] = useState<string>(user.gender);
@@ -23,11 +23,11 @@ const ProfileEdit = () => {
                 body: JSON.stringify({ userData: { name, gender, mobile, address } })
             });
             const res = await response.json();
-            console.log(res);
+            //console.log(res);
             setRerender(!rerender)
         }
         catch (er) {
-            console.log(er);
+            //console.log(er);
         }
     }
 

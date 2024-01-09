@@ -13,7 +13,7 @@ const Login = () => {
     const handleLogin = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault();
         setLoading(true);
-        console.log("handle login clikked");
+        //console.log("handle login clikked");
 
         try {
             const response = await fetch("https://e-commerce-backend-3smn.onrender.com/auth/login",
@@ -30,22 +30,22 @@ const Login = () => {
                 });
             const res = await response.json();
             setLoading(false)
-            console.log("login res", res, response.status);
+            //console.log("login res", res, response.status);
             alert(res.message);
             //localStorage.setItem("token", res.access_token);
             if (response.status === 200) {
                 document.cookie = `token=${res.token};`;
-                console.log(document.cookie);
+                //console.log(document.cookie);
                 setIsLogin(true);
                 setUser(res.user);
-                console.log(res);
+                //console.log(res);
 
                 navigate("/");
             }
         }
         catch (er) {
             setLoading(false)
-            console.log("error hai", er);
+            //console.log("error hai", er);
         }
     }
     return (

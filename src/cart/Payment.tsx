@@ -5,11 +5,11 @@ import TotalPrice from "./TotalPrice";
 const Payment = () => {
     const navigate = useNavigate();
     const { user, cart, products, token, rerender, setRerender } = ContextInit();
-    console.log(token);
+    //console.log(token);
 
     const param = useParams();
     const shippingDetails = JSON.parse(param?.shippingDetails || "");
-    //console.log("shipping !!!", JSON.parse(param?.shippingDetails || ""));
+    ////console.log("shipping !!!", JSON.parse(param?.shippingDetails || ""));
 
     let MRP = 0;
     let totalItems = 0;
@@ -42,15 +42,15 @@ const Payment = () => {
             if (response.ok) {
                 alert("Order placed successfully!");
             }
-            console.log(res);
+            //console.log(res);
             setRerender(!rerender);
-            console.log(cart);
-            console.log(user);
+            //console.log(cart);
+            //console.log(user);
 
             navigate("/")
         }
         catch (er) {
-            console.log(er);
+            //console.log(er);
         }
     }
 
@@ -84,7 +84,7 @@ const Payment = () => {
             image: '../public/a.png',
 
             handler: function (response: any) {
-                console.log(response)
+                //console.log(response)
                 alert("Payment Successfully");
                 //sendMail();
                 //alert("payment id: " + response.razorpay_payment_id)

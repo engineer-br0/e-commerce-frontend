@@ -21,15 +21,15 @@ const EditSellerProfile = () => {
             });
             const res = await response.json();
             //setSellerDetails({ name: "papa" }) // just for invoking the useEffect on sellercontext
-            console.log(res);
+            //console.log(res);
         }
         catch (er) {
-            console.log(er);
+            //console.log(er);
         }
     }
 
     useEffect(() => {
-        console.log(sellerDetails);
+        //console.log(sellerDetails);
 
         setName(sellerDetails.name || "");
         setGstNumber((sellerDetails.gstNumber || ""));

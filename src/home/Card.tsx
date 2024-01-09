@@ -25,12 +25,11 @@ const Card: React.FC<{
     return (
         <div className="card">
             <div onClick={(e) => {
-                product.id ? navigate(`/products/${product.id}`) // not working , { state: { name: "mridul", age: 30, son: son, product } }
-                    : navigate(`/products/${product._id}`)
+                navigate(`/products/${product.id}`) // not working , { state: { name: "mridul", age: 30, son: son, product } }
             }}>
 
                 <div className="imageContainer">
-                    <img className="image" src={product.thumbnail} alt="image" />
+                    <img className="image " src={product.thumbnail} alt="image" />
                 </div>
 
                 <h1 className="text-left text-xs font-bold">{product.title.length > 20 ? product.title.slice(0, 20) + "..." : product.title}</h1>

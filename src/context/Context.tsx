@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { createContext } from "react";
+import Product from "../products/[ProductId]";
 
 interface CartItem {
     productId: number,
@@ -76,7 +77,7 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
             }
         });
         const res = await response.json();
-        console.log("user aya", res);
+        //console.log("user aya", res);
         setUser(res.user)
 
     }
@@ -92,11 +93,11 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
                 }
             });
             const res = await response.json();
-            console.log("orders aya", res);
+            //console.log("orders aya", res);
             setOrders(res.orders)
         }
         catch (er) {
-            console.log("error ocured", er);
+            //console.log("error ocured", er);
 
         }
     }
@@ -122,8 +123,8 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
         }
 
         try {
-            const response = await fetch("https://e-commerce-backend-3smn.onrender.com/manageCart/addToCart", {
-                //const response = await fetch("http://localhost:4000/manageCart/addToCart", {
+            //const response = await fetch("https://e-commerce-backend-3smn.onrender.com/manageCart/addToCart", {
+            const response = await fetch("http://localhost:4000/manageCart/addToCart", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -135,12 +136,12 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
                 })
             });
             const res = await response.json();
-            console.log("cart res", res);
+            //console.log("cart res", res);
             //setCart(res.)
             setRerender(!rerender)
         }
         catch (er) {
-            console.log(`ERROR! ${er}`);
+            //console.log(`ERROR! ${er}`);
         }
         // let itemInCartIndex = cart.findIndex((item: CartItem) => item.id === id);
         // if (itemInCartIndex === -1) setCart([...cart, { id: id, quantity: 1 }]);
@@ -154,8 +155,8 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
 
     const removeFromCart = async (id: number, quantity: number) => {
         try {
-            const response = await fetch("https://e-commerce-backend-3smn.onrender.com/manageCart/removeFromCart", {
-                //const response = await fetch("http://localhost:4000/manageCart/removeFromCart", {
+            //const response = await fetch("https://e-commerce-backend-3smn.onrender.com/manageCart/removeFromCart", {
+            const response = await fetch("http://localhost:4000/manageCart/removeFromCart", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -163,10 +164,12 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
                 },
                 body: JSON.stringify({ productId: id, quantity })
             });
-            const res = response.json();
+            const res = await response.json();
+            //console.log(res);
+
         }
         catch (er) {
-            console.log(er);
+            //console.log(er);
 
         }
         // let itemInCartIndex = cart.findIndex((item: CartItem) => item.productId === id);
@@ -188,11 +191,11 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
                 }
             });
             const res = await response.json();
-            console.log("caart res", res);
+            //console.log("caart res", res);
             if (response.status === 200) setCart(res.products);
         }
         catch (er) {
-            console.log("error in cart fetch", er);
+            //console.log("error in cart fetch", er);
             //alert("Error in cart fetch!");
 
         }
@@ -203,24 +206,26 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
             // fetching from dummy database
             const response = await fetch('https://dummyjson.com/products');
             const res = await response.json();
-            //console.log(res.products);
+            ////console.log(res.products);
             setProducts(res.products);
 
             try {
                 //fetching from mongo
                 const response = await fetch('http://localhost:4000/getProducts');
                 const res = await response.json();
-                console.log(res.products);
-                setProducts(prev => [...prev, ...res.products]);
+                //console.log(res.products);
+                const productRef = res.products;
+                setProducts(prev => [...prev, ...productRef]);
+
             }
             catch (er) {
-                console.log("Error getting products from server");
+                //console.log("Error getting products from server");
 
             }
 
         }
         catch (er) {
-            console.log(er);
+            //console.log(er);
         }
     }
 
@@ -234,6 +239,11 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
         if (isLogin && token) fetchCart();
         if (isLogin && token) getOrders();
     }, [isLogin, rerender, token])
+
+    useEffect(() => {
+        //console.log(products);
+
+    }, [products]);
 
     return (
         <Context.Provider value={{ products, cart, user, setUser, orders, isLogin, setIsLogin, token, addToCart, removeFromCart, searchValue, setSearchValue, rerender, setRerender }}>

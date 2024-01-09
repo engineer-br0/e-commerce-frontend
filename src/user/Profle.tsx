@@ -11,15 +11,15 @@ const Profile = () => {
 
     useEffect(() => {
         setRerender(!rerender)
-        console.log(user);
+        //console.log(user);
     }, [])
 
 
     const handleLogout = () => {
         const cookie = document.cookie;
-        console.log("cookie", cookie);
+        //console.log("cookie", cookie);
         document.cookie = `token=; expires=Thu, 01 Jan 1970 00:00:00 UTC;;`;
-        console.log("cookie", cookie);
+        //console.log("cookie", cookie);
         setIsLogin(false);
     }
     return (

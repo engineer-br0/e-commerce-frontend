@@ -20,7 +20,7 @@ const AddProduct = () => {
     const [thumbnail, setThumbnail] = useState<File | null>(null);
     const [images, setImages] = useState<FileList | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
-    console.log(sellerDetails);
+    //console.log(sellerDetails);
 
 
     const handleThumbnailChange = (e: any) => {
@@ -38,12 +38,12 @@ const AddProduct = () => {
     };
 
     const handleImagesChange = (e: any) => {
-        console.log("hanle images change!!");
+        //console.log("hanle images change!!");
         const selectedImages: FileList = e.target.files;
         if (e.target.files) {
             const maxSize = 1024 * 500; // 500 KB
             selectedImages && Array.from(selectedImages).forEach((image) => {
-                console.log("size", image.size);
+                //console.log("size", image.size);
 
                 if (image.size > maxSize) {
                     alert('All image sizes should be less than 500 KB');
@@ -59,8 +59,8 @@ const AddProduct = () => {
     const AddProduct = async (e: any) => {
         e.preventDefault();
         setLoading(true)
-        console.log(images);
-        console.log(thumbnail);
+        //console.log(images);
+        //console.log(thumbnail);
 
 
         if (!title || !description || !price || !rating || !category || !thumbnail || !images?.length) {
@@ -73,23 +73,23 @@ const AddProduct = () => {
             // Upload image to Firebase Storage
             let imagesArray: string[] = [];
             images && await Promise.all(Array.from(images).map(async (image, index) => {
-                console.log("index", image.name);
+                //console.log("index", image.name);
 
                 const imageRef = ref(storageRef, 'images/' + image.name);
                 const uploadTask = await uploadBytes(imageRef, image);
                 const downloadUrl = await getDownloadURL(imageRef);
-                console.log("index", downloadUrl);
+                //console.log("index", downloadUrl);
 
                 imagesArray.push(downloadUrl)
             }));
             const imageRef = ref(storageRef, 'thumbnails/' + thumbnail?.name);
             const uploadTask = thumbnail && await uploadBytes(imageRef, thumbnail);
             const downloadThumbnailUrl = await getDownloadURL(imageRef);
-            console.log(downloadThumbnailUrl);
-            console.log(imagesArray);
+            //console.log(downloadThumbnailUrl);
+            //console.log(imagesArray);
 
             if (!downloadThumbnailUrl || !imagesArray.length) {
-                console.log("download url not found!")
+                //console.log("download url not found!")
                 setLoading(false);
             }
             else {
@@ -104,7 +104,7 @@ const AddProduct = () => {
                 const res = await response.json();
                 if (response.ok) {
                     setLoading(false);
-                    console.log(res);
+                    //console.log(res);
                     alert(res.message)
                     navigate("/seller/profile");
                 }

@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 const Checkout: React.FC<any> = ({ props }) => {
     const navigate = useNavigate()
     const { cart, products, user, setUser, token, rerender, setRerender } = ContextInit();
-    console.log(user);
+    //console.log(user);
 
     const [name, setName] = useState<string>(user.name);
     const [mobile, setMobile] = useState<string>(user.mobile);
@@ -25,12 +25,12 @@ const Checkout: React.FC<any> = ({ props }) => {
             //     body: JSON.stringify({ name, mobile, address })
             // });
             // const res = await response.json();
-            // console.log(res);
+            // //console.log(res);
             // setRerender(!rerender);
             navigate(`/payment/${JSON.stringify({ name, mobile, address })}`);
         }
         catch (er) {
-            console.log(er);
+            //console.log(er);
         }
     }
 

@@ -24,6 +24,10 @@
   overflow: hidden;
 }
 
+.image {
+  overflow: hidden;
+}
+
 .stars {
   display: flex;
   flex-direction: row;

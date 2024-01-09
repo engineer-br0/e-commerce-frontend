@@ -5,7 +5,7 @@ import Stars from "../utils/Stars";
 const Orders = () => {
     const navigate = useNavigate()
     const { orders, products } = ContextInit();
-    console.log(orders);
+    //console.log(orders);
 
     return (
         <>
@@ -32,7 +32,7 @@ const Orders = () => {
 
                                                         {/* <button className="bg-red-200" onClick={() => {
                                         if (product) removeFromCart(product.id, 1);
-                                        console.log(cart);
+                                        //console.log(cart);
                                     }}>Remove from Cart</button> */}
                                                         <div className="flex">
                                                             <p>Quantity: {prod.quantity}</p>

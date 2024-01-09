@@ -5,24 +5,15 @@ import { Context, ContextInit } from "../context/Context";
 
 const Product = () => {
     const param = useParams();
-    console.log(param);
+    //console.log(param);
     const [product, setProduct] = useState<{ [key: string]: any }>({});
     const { products, cart, addToCart } = ContextInit();
 
     useEffect(() => {
-        const foundProduct = products.find((obj) => Number(obj.id) === Number(param.ProductId));
+
+        const foundProduct = products.find((obj) => (obj.id) == (param.ProductId));
         if (foundProduct) {
             setProduct(foundProduct);
-        }
-        else {
-            console.log("not found");
-
-            const foundProductWith_id = products.find((obj) => (obj._id) === (param.ProductId));
-            if (foundProductWith_id) {
-                console.log("found with _id");
-                console.log(foundProductWith_id);
-                setProduct(foundProductWith_id);
-            }
         }
     }, [products, param.ProductId]);
 
@@ -46,7 +37,7 @@ const Product = () => {
                         <p className="flex justify-start font-bold text-xl"> &#8377;{product.price} </p>
                         <button className="bg-red-400" onClick={() => {
                             addToCart(product.id, 1);
-                            console.log(cart);
+                            //console.log(cart);
                         }}>Add to Cart</button>
                     </div>
                 </div>

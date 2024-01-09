@@ -25,7 +25,7 @@ interface Review {
 }
 
 const Stars = ({ rating }: { rating: number }) => {
-    //console.log(Array.isArray(reviews));
+    ////console.log(Array.isArray(reviews));
 
     // let sum: number = 0;
     // reviews.forEach((review) => {
@@ -35,14 +35,14 @@ const Stars = ({ rating }: { rating: number }) => {
     // sum /= reviews.length > 0 ? reviews.length : 0;
     let stars: JSX.Element[] = []
 
-    //console.log("sum", sum);
+    ////console.log("sum", sum);
     let isDeci: boolean = false;
     if (rating > Math.floor(rating)) isDeci = true;
     //sum = Math.floor(sum);
     rating = Math.floor(rating);
 
     while (!isNaN(rating) && rating-- > 0) {
-        //console.log("hii");
+        ////console.log("hii");
         stars.push(<IoMdStar key={rating} />)
     }
     if (isDeci) stars.push(<FaStarHalf key={rating} />)

@@ -13,8 +13,8 @@ const Carta = () => {
     let MRP: number = 0;
     let totalItems: number = 0;
     const { products, cart, addToCart, removeFromCart } = ContextInit();
-    console.log(products);
-    console.log(cart);
+    //console.log(products);
+    //console.log(cart);
     const navigate = useNavigate();
 
     return (
@@ -42,7 +42,7 @@ const Carta = () => {
 
                                                 {/* <button className="bg-red-200" onClick={() => {
                                         if (product) removeFromCart(product.id, 1);
-                                        console.log(cart);
+                                        //console.log(cart);
                                     }}>Remove from Cart</button> */}
                                                 <div className="flex">
                                                     <label>Quantity : </label>
@@ -62,7 +62,7 @@ const Carta = () => {
                                             </div>
                                             <TiDeleteOutline onClick={() => {
                                                 if (product) removeFromCart(product.id, 1);
-                                                console.log(cart);
+                                                //console.log(cart);
                                             }} className="absolute top-0 right-0 text-3xl cursor-pointer" />
 
                                         </div>

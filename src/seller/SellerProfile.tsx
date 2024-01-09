@@ -9,11 +9,11 @@ import Card from "../home/Card";
 const SellerProfile = () => {
     const navigate = useNavigate();
     const { sellerDetails } = useContext(SellerContext) as ContextItems;
-    console.log(sellerDetails);
+    //console.log(sellerDetails);
 
     const handleLogout = () => {
         document.cookie = "sellerToken=x; expires=1 Jan 1970 0:0:0;";
-        console.log(document.cookie);
+        //console.log(document.cookie);
         alert("Seller logged out successfully!")
         navigate("/seller/login");
     }
@@ -59,7 +59,7 @@ const SellerProfile = () => {
                             //if (product.title.match(new RegExp(searchValue, 'i')) && (params?.category ? params.category === product.category : true)) {
                             //if (product.title.toLowerCase().includes(searchValue))) {
                             return (
-                                <div key={product.id}>
+                                <div key={product._id}>
                                     <Card product={product} />
                                 </div>
                             )

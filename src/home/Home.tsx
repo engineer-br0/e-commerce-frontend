@@ -24,7 +24,7 @@ export default function Home() {
                 <div className="products">
                     {
                         products.map((product) => {
-                            console.log(product);
+                            ////console.log(product);
 
                             //if (product.title.match(/iphone/i)) {
                             if (product.title.match(new RegExp(searchValue, 'i')) && (params?.category ? params.category === product.category : true)) {
