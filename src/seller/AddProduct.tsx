@@ -1,5 +1,11 @@
 import { useContext, useState } from "react";
 import { ContextItems, SellerContext } from "../context/SellerContext";
+import { app } from "../firebase/firebaseConfig"
+import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
+
+const storage = getStorage(app);
+const storageRef = ref(storage);
+const imagesRef = ref(storage, 'images/')
 
 const AddProduct = () => {
     const { sellerDetails } = useContext(SellerContext) as ContextItems;
@@ -13,30 +19,48 @@ const AddProduct = () => {
 
     const AddProduct = async (e: any) => {
         e.preventDefault();
-        if (!title || !description || !price || !rating || !category) {
+        if (!title || !description || !price || !rating || !category || !image) {
             alert("Fill all the mandatory details!");
             return;
         }
+
         try {
-            const response = await fetch("http://localhost:4000/seller/details/addProduct", {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${sellerDetails.sellerToken}`
-                },
-                body: JSON.stringify({ product: { title, description, price, rating, category } })
-            });
-            const res = await response.json();
-            console.log(res);
-            alert(res.message)
+            // Upload image to Firebase Storage
+            console.log(image);
+            const imageRef = ref(storageRef, 'images/' + image.name);
+            const uploadTask = await uploadBytes(imageRef, image);
+            const downloadUrl = await getDownloadURL(imageRef);
+            console.log(downloadUrl);
+
+            if (!downloadUrl) console.log("download url not found!");
+            else {
+                const response = await fetch("http://localhost:4000/seller/details/addProduct", {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${sellerDetails.sellerToken}`
+                    },
+                    body: JSON.stringify({ product: { title, description, price, rating, category, thumbnail: downloadUrl } })
+                });
+                const res = await response.json();
+                console.log(res);
+                alert(res.message)
+            }
 
         }
         catch (er) {
-            console.log("errro rr aa gyy");
-
-            console.log(`Error: ${er}`);
+            console.error(er);
         }
     }
+
+    const [image, setImage] = useState<File | null>(null);
+
+    const handleImageChange = (e: any) => {
+        if (e.target.files) {
+            const selectedImage = e.target.files[0];
+            setImage(selectedImage);
+        }
+    };
 
     return (
         <>
@@ -79,10 +103,11 @@ const AddProduct = () => {
                                     <option value="watches">watches</option>
                                 </select>
                             </div>
-                            {/* <div className="flex justify-between">
-                                <label>Select image</label>
-                                <input type="file" />
-                            </div> */}
+                            <div className="flex justify-between">
+                                <label>Thumbnail:</label>
+                                <input type="file" accept="image/*" onChange={handleImageChange} className="border w-3/4 h-10 p-2" />
+                                {/* {image && <img src={URL.createObjectURL(image)} alt="Selected" />} */}
+                            </div>
 
 
                         </div>
