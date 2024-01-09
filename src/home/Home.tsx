@@ -7,6 +7,7 @@ import { ContextInit } from "../context/Context";
 import { useParams } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import Product from "../products/[ProductId]";
+import Carousel from "./Carousel";
 
 export default function Home() {
     const params = useParams();
@@ -20,7 +21,9 @@ export default function Home() {
                     <SearchBar />
                 </div>
 
-                <HomeBanner />
+                <Carousel />
+
+                {/* <HomeBanner /> */}
                 <div className="products">
                     {
                         products.map((product) => {
