@@ -6,27 +6,12 @@ import { useEffect, useState } from "react";
 import { ContextInit } from "../context/Context";
 import { useParams } from "react-router-dom";
 import SearchBar from "./SearchBar";
+import Product from "../products/[ProductId]";
 
 export default function Home() {
     const params = useParams();
-
-    const [dummyProducts, setDummyProducts] = useState<{ [key: string]: any }[]>([]);
+    const { products } = ContextInit();
     const { searchValue } = ContextInit();
-
-    useEffect(() => {
-        const fetchProducts = async () => {
-            try {
-                const response = await fetch('https://dummyjson.com/products');
-                const res = await response.json();
-                setDummyProducts(res.products);
-            }
-            catch (er) {
-                console.log(er);
-            }
-        }
-
-        fetchProducts();
-    }, [])
 
     return (
         <Container>
@@ -38,7 +23,9 @@ export default function Home() {
                 <HomeBanner />
                 <div className="products">
                     {
-                        dummyProducts.map((product) => {
+                        products.map((product) => {
+                            console.log(product);
+
                             //if (product.title.match(/iphone/i)) {
                             if (product.title.match(new RegExp(searchValue, 'i')) && (params?.category ? params.category === product.category : true)) {
                                 //if (product.title.toLowerCase().includes(searchValue))) {

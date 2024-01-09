@@ -200,11 +200,23 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
 
     const fetchProducts = async () => {
         try {
+            // fetching from dummy database
             const response = await fetch('https://dummyjson.com/products');
             const res = await response.json();
             //console.log(res.products);
             setProducts(res.products);
-            //console.log(dummyProducts);
+
+            try {
+                //fetching from mongo
+                const response = await fetch('http://localhost:4000/getProducts');
+                const res = await response.json();
+                console.log(res.products);
+                setProducts(prev => [...prev, ...res.products]);
+            }
+            catch (er) {
+                console.log("Error getting products from server");
+
+            }
 
         }
         catch (er) {
