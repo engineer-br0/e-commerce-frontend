@@ -15,24 +15,81 @@ const AddProduct = () => {
     const [price, setPrice] = useState<number>(0);
     const [rating, setRating] = useState<number>(0.0);
     const [category, setCategory] = useState<string>("");
+    const [thumbnail, setThumbnail] = useState<File | null>(null);
+    const [images, setImages] = useState<FileList | null>(null);
+    const [loading, setLoading] = useState<boolean>(false);
     console.log(sellerDetails);
+
+
+    const handleThumbnailChange = (e: any) => {
+        if (e.target.files) {
+
+            const selectedImage = e.target.files[0];
+            const maxSize = 1024 * 500; // 500 KB
+            if (selectedImage.size > maxSize) {
+                alert("Thumbnail size must be less than 500 KB");
+                e.target.value = null;
+                return;
+            }
+            else setThumbnail(selectedImage);
+        }
+    };
+
+    const handleImagesChange = (e: any) => {
+        console.log("hanle images change!!");
+        const selectedImages: FileList = e.target.files;
+        if (e.target.files) {
+            const maxSize = 1024 * 500; // 500 KB
+            selectedImages && Array.from(selectedImages).forEach((image) => {
+                console.log("size", image.size);
+
+                if (image.size > maxSize) {
+                    alert('All image sizes should be less than 500 KB');
+                    e.target.value = null;
+                    return;
+                }
+            })
+
+            setImages(selectedImages);
+        }
+    };
 
     const AddProduct = async (e: any) => {
         e.preventDefault();
-        if (!title || !description || !price || !rating || !category || !image) {
+        setLoading(true)
+        console.log(images);
+        console.log(thumbnail);
+
+
+        if (!title || !description || !price || !rating || !category || !thumbnail || !images?.length) {
             alert("Fill all the mandatory details!");
+            setLoading(false)
             return;
         }
 
         try {
             // Upload image to Firebase Storage
-            console.log(image);
-            const imageRef = ref(storageRef, 'images/' + image.name);
-            const uploadTask = await uploadBytes(imageRef, image);
-            const downloadUrl = await getDownloadURL(imageRef);
-            console.log(downloadUrl);
+            let imagesArray: string[] = [];
+            images && await Promise.all(Array.from(images).map(async (image, index) => {
+                console.log("index", image.name);
 
-            if (!downloadUrl) console.log("download url not found!");
+                const imageRef = ref(storageRef, 'images/' + image.name);
+                const uploadTask = await uploadBytes(imageRef, image);
+                const downloadUrl = await getDownloadURL(imageRef);
+                console.log("index", downloadUrl);
+
+                imagesArray.push(downloadUrl)
+            }));
+            const imageRef = ref(storageRef, 'thumbnails/' + thumbnail?.name);
+            const uploadTask = thumbnail && await uploadBytes(imageRef, thumbnail);
+            const downloadThumbnailUrl = await getDownloadURL(imageRef);
+            console.log(downloadThumbnailUrl);
+            console.log(imagesArray);
+
+            if (!downloadThumbnailUrl || !imagesArray.length) {
+                console.log("download url not found!")
+                setLoading(false);
+            }
             else {
                 const response = await fetch("http://localhost:4000/seller/details/addProduct", {
                     method: "POST",
@@ -40,9 +97,10 @@ const AddProduct = () => {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${sellerDetails.sellerToken}`
                     },
-                    body: JSON.stringify({ product: { title, description, price, rating, category, thumbnail: downloadUrl } })
+                    body: JSON.stringify({ product: { title, description, price, rating, category, thumbnail: downloadThumbnailUrl, images: imagesArray } })
                 });
                 const res = await response.json();
+                setLoading(false);
                 console.log(res);
                 alert(res.message)
             }
@@ -50,20 +108,13 @@ const AddProduct = () => {
         }
         catch (er) {
             console.error(er);
+            setLoading(false)
         }
     }
 
-    const [image, setImage] = useState<File | null>(null);
-
-    const handleImageChange = (e: any) => {
-        if (e.target.files) {
-            const selectedImage = e.target.files[0];
-            setImage(selectedImage);
-        }
-    };
-
     return (
         <>
+            {loading && <div>Loading... Please wait</div>}
             <form>
                 <div className="flex justify-center gap-5 flex-wrap p-10">
                     <div className='flex flex-col items-center '>
@@ -105,8 +156,12 @@ const AddProduct = () => {
                             </div>
                             <div className="flex justify-between">
                                 <label>Thumbnail:</label>
-                                <input type="file" accept="image/*" onChange={handleImageChange} className="border w-3/4 h-10 p-2" />
+                                <input type="file" accept="image/*" onChange={handleThumbnailChange} required />
                                 {/* {image && <img src={URL.createObjectURL(image)} alt="Selected" />} */}
+                            </div>
+                            <div className="flex justify-between">
+                                <label>Upload images:</label>
+                                <input type="file" accept="image/*" multiple onChange={handleImagesChange} required />
                             </div>
 
 
