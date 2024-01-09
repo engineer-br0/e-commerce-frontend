@@ -43,12 +43,13 @@ const Card: React.FC<{
                     </span>
 
                 </p>
-                {checkItemInCart ?
-                    <button onClick={() => { removeFromCart(product.id, 1) }} className="flex w-full items-center justify-center rounded-md bg-slate-900 px-2 py-2 text-center text-sm font-medium text-white hover:bg-gray-700 ">Remove from cart</button>
-                    :
-                    <button onClick={() => { addToCart(product.id, 1) }} className="flex w-full items-center justify-center rounded-md bg-slate-900 px-2 py-2 text-center text-sm font-medium text-white hover:bg-gray-700 ">Add to cart</button>
-                }
+
             </div>
+            {checkItemInCart ?
+                <button onClick={() => { removeFromCart(product.id, 1) }} className="flex w-full items-center justify-center rounded-md bg-slate-900 px-2 py-2 text-center text-sm font-medium text-white hover:bg-gray-700 ">Remove from cart</button>
+                :
+                <button onClick={() => { addToCart(product.id, 1) }} className="flex w-full items-center justify-center rounded-md bg-slate-900 px-2 py-2 text-center text-sm font-medium text-white hover:bg-gray-700 ">Add to cart</button>
+            }
         </div>
     );
 }
