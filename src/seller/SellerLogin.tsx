@@ -5,12 +5,13 @@ import { ContextInit } from "../context/Context";
 import { SellerContext } from "../context/SellerContext";
 import { ContextItems } from "../context/SellerContext";
 import { sellerInterface } from "../context/SellerContext"
+import Loading from "../utils/Loading";
 
 const SellerLogin = () => {
     const navigate = useNavigate()
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
-    const [loading, setLoading] = useState<boolean>(false);
+    const { loading, setLoading } = ContextInit();
 
     const context = useContext(SellerContext) as ContextItems;
     const { sellerLogin, setSellerLogin, sellerDetails, setSellerDetails } = context;
@@ -80,11 +81,7 @@ const SellerLogin = () => {
     return (
         <>
             <Container>
-                <div className="relative flex justify-center">
-                    <p className="absolute my-20 bg-grey-400 text-xxl">
-                        {loading && <h1>Loading... Please wait!</h1>}
-                    </p>
-                </div>
+                {loading && <Loading />}
                 <div className="flex justify-center">
 
 

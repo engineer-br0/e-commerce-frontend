@@ -38,6 +38,8 @@ interface ContextItems {
     setIsLogin: (isLogin: boolean) => void,
     token: string,
     searchValue: string,
+    loading: boolean,
+    setLoading: (val: boolean) => void,
     setSearchValue: (str: string) => void,
     setUser: (obj: userInterface) => void,
     //setCart: React.Dispatch<React.SetStateAction<CartItem[]>>,
@@ -64,6 +66,7 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
         address: ""
     });
     const [orders, setOrders] = useState<ordersInterface[]>([]);
+    const [loading, setLoading] = useState<boolean>(false);
 
     const getUserData = async () => {
 
@@ -118,7 +121,6 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
     const addToCart = async (id: number, quantity: number) => {
         if (!isLogin) {
             alert("Login to use cart!")
-
             return;
         }
 
@@ -154,6 +156,10 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
     }
 
     const removeFromCart = async (id: number, quantity: number) => {
+        if (!isLogin) {
+            alert("Login to use cart!")
+            return;
+        }
         try {
             //const response = await fetch("https://e-commerce-backend-3smn.onrender.com/manageCart/removeFromCart", {
             const response = await fetch("http://localhost:4000/manageCart/removeFromCart", {
@@ -246,7 +252,7 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
     }, [products]);
 
     return (
-        <Context.Provider value={{ products, cart, user, setUser, orders, isLogin, setIsLogin, token, addToCart, removeFromCart, searchValue, setSearchValue, rerender, setRerender }}>
+        <Context.Provider value={{ products, cart, user, setUser, orders, isLogin, setIsLogin, token, addToCart, removeFromCart, searchValue, setSearchValue, rerender, setRerender, loading, setLoading }}>
             {children}
             {/* <CustomAlert isOpen={isNotification} message={notification} /> */}
         </Context.Provider>

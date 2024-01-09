@@ -2,13 +2,13 @@ import { Link, useNavigate } from "react-router-dom";
 import Container from "../Container";
 import { useState } from "react";
 import { ContextInit } from "../context/Context";
+import Loading from "../utils/Loading";
 
 const Login = () => {
     const navigate = useNavigate()
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
-    const { isLogin, setIsLogin, setUser } = ContextInit();
-    const [loading, setLoading] = useState<boolean>(false);
+    const { isLogin, setIsLogin, setUser, loading, setLoading } = ContextInit();
 
     const handleLogin = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault();
@@ -52,11 +52,7 @@ const Login = () => {
         <>
 
             <Container>
-                <div className="relative flex justify-center">
-                    <p className="absolute my-20 bg-grey-400 text-xxl">
-                        {loading && <h1>Loading... Please wait!</h1>}
-                    </p>
-                </div>
+                {loading && <Loading />}
                 <div className="flex justify-center">
 
 

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ContextInit } from "../context/Context";
 import Container from "../Container";
+import Loading from "../utils/Loading";
 
 const SellerSignup = () => {
     const navigate = useNavigate();
@@ -9,7 +10,7 @@ const SellerSignup = () => {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [gstNumber, setGstNumber] = useState<string>("");
-    const [loading, setLoading] = useState<boolean>(false);
+    const { loading, setLoading } = ContextInit();
 
     const handleSignup = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault();
@@ -56,11 +57,7 @@ const SellerSignup = () => {
     return (
         <>
             <Container>
-                <div className="relative flex justify-center">
-                    <p className="absolute my-20 bg-grey-400 text-xxl">
-                        {loading && <h1>Loading... Please wait!</h1>}
-                    </p>
-                </div>
+                {loading && <Loading />}
                 <div className="flex justify-center">
                     <div className="hidden sm:block w-1/2">
                         <img src="/signup.jpg" />

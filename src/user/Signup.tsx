@@ -2,14 +2,14 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ContextInit } from "../context/Context";
 import Container from "../Container";
+import Loading from "../utils/Loading";
 
 const Signup = () => {
     const navigate = useNavigate();
     const [name, setName] = useState<string>("");
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
-    const { isLogin, setIsLogin, token, setUser } = ContextInit();
-    const [loading, setLoading] = useState<boolean>(false);
+    const { isLogin, setIsLogin, token, setUser, loading, setLoading } = ContextInit();
 
     useEffect(() => {
         if (isLogin) {
@@ -27,8 +27,10 @@ const Signup = () => {
 
     const handleSignup = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault();
+        setLoading(true);
         if (!name || !email || !password) {
             alert("Fill all the mandatory details!");
+            setLoading(false);
             return;
         }
         try {
@@ -46,6 +48,7 @@ const Signup = () => {
                     })
                 });
             const res = await response.json();
+            setLoading(false);
             //console.log("signup res", res);
             document.cookie = `token=${res.token};`;
             //console.log(document.cookie);
@@ -57,6 +60,7 @@ const Signup = () => {
             navigate("/")
         }
         catch (er) {
+            setLoading(false);
             //console.log("error hai", er);
         }
     }
@@ -64,6 +68,7 @@ const Signup = () => {
     return (
         <>
             <Container>
+                {loading && <Loading />}
                 <div className="relative flex justify-center">
                     <p className="absolute my-20 bg-grey-400 text-xxl">
                         {loading && <h1>Loading... Please wait!</h1>}
