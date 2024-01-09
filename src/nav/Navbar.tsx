@@ -69,8 +69,9 @@ const Navbar = () => {
                         </Dropdown>
                     </div>
 
+                    {/*  for small sizes mobile view... */}
                     <div className="sm:hidden text-2xl mr-4 z-20" >
-                        <Dropdown toggleFunc={toggleNavList} arr={[{ field: "My cart", path: "/cart" }, { field: "Wishlisht", path: "/" }, { field: "Signup", path: "/signup" }, { field: "Login", path: "/login" }, { field: "Profile", path: "/profile" }, { field: "Orders", path: "/profile/orders" }]}>
+                        <Dropdown toggleFunc={toggleNavList} arr={[{ field: "User Login", path: "/login" }, { field: "My cart", path: "/cart" }, { field: "User Profile", path: "/profile" }, { field: "My Orders", path: "/profile/orders" }, { field: "Seller", path: "/seller/login" }]}>
                             <FaListUl />
                         </Dropdown>
 

@@ -1,5 +1,4 @@
 import Container from "../Container";
-import HomeBanner from "./HomeBanner";
 import Card from "./Card";
 import "./Home.css"
 import { useEffect, useState } from "react";

@@ -13,6 +13,11 @@ const Login = () => {
     const handleLogin = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault();
         setLoading(true);
+        if (!email || !password) {
+            alert("Fill all the mandatory details!");
+            setLoading(false);
+            return;
+        }
         //console.log("handle login clikked");
 
         try {
@@ -60,7 +65,7 @@ const Login = () => {
                         <img src="/login.jpg" />
                     </div>
 
-                    <div className=" flex w-1/2 flex-col gap-10  justify-center items-center py-20">
+                    <div className=" flex w-1/2 flex-col gap-10  justify-center items-center py-20 relative z-0">
                         <div className="w-96 h-96 border rounded-lg shadow-2xl backdrop-blur flex flex-col gap-10 bg-white py-10">
                             <h1>Login</h1>
                             <form className=" w-96 flex flex-col items-center">
