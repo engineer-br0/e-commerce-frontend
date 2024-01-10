@@ -138,8 +138,8 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
         }
         setLoading(true);
         try {
-            //const response = await fetch("https://e-commerce-backend-3smn.onrender.com/manageCart/addToCart", {
-            const response = await fetch("http://localhost:4000/manageCart/addToCart", {
+            const response = await fetch("https://e-commerce-backend-3smn.onrender.com/manageCart/addToCart", {
+                //const response = await fetch("http://localhost:4000/manageCart/addToCart", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -177,8 +177,8 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
         }
         setLoading(true);
         try {
-            //const response = await fetch("https://e-commerce-backend-3smn.onrender.com/manageCart/removeFromCart", {
-            const response = await fetch("http://localhost:4000/manageCart/removeFromCart", {
+            const response = await fetch("https://e-commerce-backend-3smn.onrender.com/manageCart/removeFromCart", {
+                //const response = await fetch("http://localhost:4000/manageCart/removeFromCart", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -207,8 +207,8 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
     const fetchCart = async () => {
         setLoading(true);
         try {
-            const response = await fetch("http://localhost:4000/manageCart/getCart", {
-                //const response = await fetch("https://e-commerce-backend-3smn.onrender.com/manageCart/getCart", {
+            //const response = await fetch("http://localhost:4000/manageCart/getCart", {
+            const response = await fetch("https://e-commerce-backend-3smn.onrender.com/manageCart/getCart", {
                 method: "GET",
                 headers: {
                     'Content-Type': 'application/json',
@@ -240,7 +240,8 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
 
             try {
                 //fetching from mongo
-                const response = await fetch('http://localhost:4000/getProducts');
+                // const response = await fetch('http://localhost:4000/getProducts');
+                const response = await fetch('https://e-commerce-backend-3smn.onrender.com/getProducts');
                 const res = await response.json();
                 setLoading(false)
                 //console.log(res.products);

@@ -22,8 +22,8 @@ const Login = () => {
         //console.log("handle login clikked");
 
         try {
-            //const response = await fetch("https://e-commerce-backend-3smn.onrender.com/auth/login",
-            const response = await fetch("http://localhost:4000/auth/login",
+            const response = await fetch("https://e-commerce-backend-3smn.onrender.com/auth/login",
+                //const response = await fetch("http://localhost:4000/auth/login",
                 {
                     method: "POST",
                     headers: {

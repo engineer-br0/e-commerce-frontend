@@ -74,7 +74,9 @@ const SellerContextWrapper: React.FC<{ children: ReactElement }> = ({ children }
             console.log("inside if");
 
             try {
-                const response = await fetch("http://localhost:4000/seller/details/getSellerDetails", {
+                // const response = await fetch("http://localhost:4000/seller/details/getSellerDetails", {
+                const response = await fetch("https://e-commerce-backend-3smn.onrender.com/seller/details/getSellerDetails", {
+
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",

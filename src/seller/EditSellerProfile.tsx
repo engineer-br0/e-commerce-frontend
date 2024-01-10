@@ -14,7 +14,8 @@ const EditSellerProfile = () => {
         e.preventDefault();
         setLoading(true);
         try {
-            const response = await fetch("http://localhost:4000/seller/details/updateSellerDetails", {
+            //const response = await fetch("http://localhost:4000/seller/details/updateSellerDetails", {
+            const response = await fetch("https://e-commerce-backend-3smn.onrender.com/seller/details/updateSellerDetails", {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

@@ -18,7 +18,8 @@ const ProductCard: React.FC<{
         e.preventDefault();
         setLoading(true);
         try {
-            const response = await fetch("http://localhost:4000/seller/details/deleteProduct", {
+            //const response = await fetch("http://localhost:4000/seller/details/deleteProduct", {
+            const response = await fetch("https://e-commerce-backend-3smn.onrender.com/seller/details/deleteProduct", {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
