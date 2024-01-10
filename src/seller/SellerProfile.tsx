@@ -7,26 +7,26 @@ import { ContextItems, SellerContext } from "../context/SellerContext";
 import Card from "../home/Card";
 import { FaRegUser } from "react-icons/fa";
 import Seller404 from "./Seller404";
+import ProductCard from "./ProductCard";
 
 const SellerProfile = () => {
     const navigate = useNavigate();
-    const { sellerDetails, sellerLogin } = useContext(SellerContext) as ContextItems;
-    //console.log(sellerDetails);
+    const { sellerDetails, sellerLogin, setSellerLogin } = useContext(SellerContext) as ContextItems;
+    console.log(sellerDetails);
+
 
     const handleLogout = () => {
         document.cookie = "sellerToken=x; expires=1 Jan 1970 0:0:0;";
         //console.log(document.cookie);
         alert("Seller logged out successfully!")
+        setSellerLogin(false);
         navigate("/seller/login");
     }
 
     useEffect(() => {
-        console.log("seller login", sellerLogin);
+        console.log("rerender ho rha profile ", sellerDetails);
+        console.log(sellerLogin);
 
-        if (!sellerLogin) {
-            alert("Login to see Profile!")
-            //navigate('/seller/login');
-        }
     }, [sellerLogin])
 
     return (
@@ -72,22 +72,21 @@ const SellerProfile = () => {
 
 
                     <h1>My Products</h1>
-                    <div className="flex justify-start wrap ">
-                        <div className="flex ">
-                            {
-                                sellerDetails?.products?.map((product) => {
-                                    //if (product.title.match(/iphone/i)) {
-                                    //if (product.title.match(new RegExp(searchValue, 'i')) && (params?.category ? params.category === product.category : true)) {
-                                    //if (product.title.toLowerCase().includes(searchValue))) {
-                                    return (
-                                        <div key={product._id}>
-                                            <Card product={product} />
-                                        </div>
-                                    )
-                                    //}
-                                })
-                            }
-                        </div>
+                    <div className="flex justify-start flex-wrap ">
+                        {
+                            sellerDetails?.products?.map((product) => {
+                                //if (product.title.match(/iphone/i)) {
+                                //if (product.title.match(new RegExp(searchValue, 'i')) && (params?.category ? params.category === product.category : true)) {
+                                //if (product.title.toLowerCase().includes(searchValue))) {
+                                return (
+                                    <div key={product._id} className="">
+                                        {/* <Card product={product} /> */}
+                                        <ProductCard product={product} />
+                                    </div>
+                                )
+                                //}
+                            })
+                        }
                     </div>
                 </div>
 

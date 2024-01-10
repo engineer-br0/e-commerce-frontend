@@ -73,6 +73,10 @@ const SellerContextWrapper: React.FC<{ children: ReactElement }> = ({ children }
                 console.log(er);
             }
         }
+        else {
+            setSellerDetails({})
+            setSellerLogin(false)
+        }
     }
 
     useEffect(() => {
