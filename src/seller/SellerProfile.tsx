@@ -73,14 +73,14 @@ const SellerProfile = () => {
 
 
                     <h1>My Products</h1>
-                    <div className="flex justify-start flex-wrap ">
+                    <div className="flex justify-around flex-wrap ">
                         {
                             sellerDetails?.products?.map((product) => {
                                 //if (product.title.match(/iphone/i)) {
                                 //if (product.title.match(new RegExp(searchValue, 'i')) && (params?.category ? params.category === product.category : true)) {
                                 //if (product.title.toLowerCase().includes(searchValue))) {
                                 return (
-                                    <div key={product._id} className="">
+                                    <div key={product.id} className="">
                                         {/* <Card product={product} /> */}
                                         <ProductCard product={product} />
                                     </div>
@@ -88,6 +88,16 @@ const SellerProfile = () => {
                                 //}
                             })
                         }
+
+                        {/* Blank cards  */}
+                        <div className="card sm:m-3 overflow-hidden bg-white ">
+                        </div>
+                        <div className="card sm:m-3 overflow-hidden bg-white ">
+                        </div>
+                        <div className="card sm:m-3 overflow-hidden bg-white ">
+                        </div>
+                        <div className="card sm:m-3 overflow-hidden bg-white ">
+                        </div>
                     </div>
                 </div>
 
