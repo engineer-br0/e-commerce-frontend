@@ -40,6 +40,7 @@ interface ContextItems {
     searchValue: string,
     loading: boolean,
     setLoading: (val: boolean) => void,
+    setToken: (str: string) => void,
     setSearchValue: (str: string) => void,
     setUser: (obj: userInterface) => void,
     //setCart: React.Dispatch<React.SetStateAction<CartItem[]>>,
@@ -107,15 +108,18 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
 
     const getCookie = () => {
         const cookies = (document.cookie)?.split(";");
-        if (!cookies || !cookies[0]) return false;
-        cookies.forEach(cookie => {
-            if (cookie.includes("token=")) {
-                let tokenValue = cookie.replace("token=", "").trim();
-                if (tokenValue.length === 0) return false;
-                setIsLogin(true);
-                setToken(cookie.split("=")[1]);
-            }
-        })
+        if (!cookies || !cookies[0]) setToken("");
+        else {
+            cookies.forEach(cookie => {
+                if (cookie.includes("token=")) {
+                    let tokenValue = cookie.replace("token=", "").trim();
+                    if (tokenValue.length === 0) return false;
+                    setIsLogin(true);
+                    setToken(cookie.split("=")[1]);
+                }
+                else setToken("");
+            })
+        }
     }
 
     const addToCart = async (id: number, quantity: number) => {
@@ -188,8 +192,8 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
 
     const fetchCart = async () => {
         try {
-            //const response = await fetch("http://localhost:4000/manageCart/getCart", {
-            const response = await fetch("https://e-commerce-backend-3smn.onrender.com/manageCart/getCart", {
+            const response = await fetch("http://localhost:4000/manageCart/getCart", {
+                //const response = await fetch("https://e-commerce-backend-3smn.onrender.com/manageCart/getCart", {
                 method: "GET",
                 headers: {
                     'Content-Type': 'application/json',
@@ -197,8 +201,9 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
                 }
             });
             const res = await response.json();
-            //console.log("caart res", res);
+            console.log("caart res", res);
             if (response.status === 200) setCart(res.products);
+            else setCart([]);
         }
         catch (er) {
             //console.log("error in cart fetch", er);
@@ -236,13 +241,18 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
     }
 
     useEffect(() => {
+        console.log("line 240");
+
         fetchProducts();
-    }, []);
+    }, [isLogin]);
 
     useEffect(() => {
+        console.log("line 243");
+
         getCookie();
         (token && getUserData());
-        if (isLogin && token) fetchCart();
+        fetchCart();
+        console.log("line 248");
         if (isLogin && token) getOrders();
     }, [isLogin, rerender, token])
 
@@ -252,7 +262,7 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
     }, [products]);
 
     return (
-        <Context.Provider value={{ products, cart, user, setUser, orders, isLogin, setIsLogin, token, addToCart, removeFromCart, searchValue, setSearchValue, rerender, setRerender, loading, setLoading }}>
+        <Context.Provider value={{ products, cart, user, setUser, orders, isLogin, setIsLogin, token, addToCart, removeFromCart, searchValue, setSearchValue, rerender, setRerender, loading, setLoading, setToken }}>
             {children}
             {/* <CustomAlert isOpen={isNotification} message={notification} /> */}
         </Context.Provider>

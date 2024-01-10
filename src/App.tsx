@@ -39,7 +39,7 @@ function App() {
           <Route path='/cart' element={isLogin ? <Carta /> : <Login />} />
           <Route path='/products/:ProductId' element={<Product />} />
           <Route path='/login' element={<Login />} />
-          <Route path='/signup' element={isLogin ? <Home /> : <Signup />} />
+          <Route path='/signup' element={<Signup />} />
           <Route path='/profile' element={isLogin ? <Profile /> : <Login />} />
           <Route path='/checkout' element={isLogin ? <Checkout /> : <Login />} />
           <Route path='/profile/edit' element={isLogin ? <ProfileEdit /> : <Login />} />

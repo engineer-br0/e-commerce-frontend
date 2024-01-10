@@ -4,11 +4,12 @@ import { ContextInit } from "../context/Context";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { FaRegUser } from "react-icons/fa";
+import logout from "./logout";
 
 
 const Profile = () => {
     const navigate = useNavigate();
-    const { setIsLogin, user, rerender, setRerender } = ContextInit();
+    const { setIsLogin, user, rerender, setRerender, setToken } = ContextInit();
 
     useEffect(() => {
         setRerender(!rerender)
@@ -18,11 +19,13 @@ const Profile = () => {
 
     const handleLogout = (e: any) => {
         e.preventDefault();
-        const cookie = document.cookie;
-        //console.log("cookie", cookie);
-        document.cookie = `token=; expires=Thu, 01 Jan 1970 00:00:00 UTC;;`;
-        //console.log("cookie", cookie);
-        setIsLogin(false);
+        if (logout()) {
+            alert("Successfully Logged out!");
+            setIsLogin(false);
+            setToken("");
+        }
+        else alert("error occured!")
+
     }
     return (
         <div className="flex justify-center">
@@ -57,6 +60,7 @@ const Profile = () => {
                     </div>
                 </div>
                 <button onClick={() => navigate("/profile/edit")} className="text-white bg-slate-700 w-5/6 border rounded-md mt-2">Edit Details</button>
+                <button onClick={() => navigate("/profile/orders")} className="text-white bg-slate-700 w-5/6 border rounded-md mt-2">My orders</button>
                 <button onClick={handleLogout} className="text-white bg-slate-700 w-5/6 rounded-md mt-2">Logout</button>
 
 

@@ -21,8 +21,8 @@ const Login = () => {
         //console.log("handle login clikked");
 
         try {
-            const response = await fetch("https://e-commerce-backend-3smn.onrender.com/auth/login",
-                //const response = await fetch("http://localhost:4000/auth/login",
+            //const response = await fetch("https://e-commerce-backend-3smn.onrender.com/auth/login",
+            const response = await fetch("http://localhost:4000/auth/login",
                 {
                     method: "POST",
                     headers: {
@@ -75,7 +75,7 @@ const Login = () => {
                                 </div>
                                 <button onClick={handleLogin} className="w-2/3 p-2 text-white bg-slate-800 hover:bg-red-300 mt-10 mb-2 rounded-md">Login</button>
                                 <p>Forgot password <Link to='/signup' className="text-blue-500">Register here</Link></p>
-
+                                <p className="text-xs font-light text-yellow-700">Testing email: test1@gmail.com (Password : test1)</p>
                             </form>
                         </div>
                     </div>

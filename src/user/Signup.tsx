@@ -13,16 +13,9 @@ const Signup = () => {
 
     useEffect(() => {
         if (isLogin) {
-            alert("already logged in!!!");
-            navigate("/");
+            alert("already logged in! Logout to signup with another email.");
+            navigate("/profile");
         }
-        // const cookies = (document.cookie).split(";");
-        // cookies.forEach(cookie => {
-        //     if (cookie.includes("token=")) {
-        //         alert("already logged in!!!");
-        //         navigation("/");
-        //     }
-        // });
     }, [])
 
     const handleSignup = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {

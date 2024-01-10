@@ -12,14 +12,19 @@ const Card: React.FC<{
     }
 }> = ({ product }) => {
     const navigate = useNavigate();
-    const { cart, addToCart, removeFromCart } = ContextInit();
+    const { cart, addToCart, removeFromCart, isLogin } = ContextInit();
     const [checkItemInCart, setCheck] = useState<boolean>(false);
 
     useEffect(() => {
-        if (cart.find(item => item.productId == product.id)) setCheck(true);
-        else setCheck(false)
+        //console.log("checking cards", cart);
+        if (!cart.length) setCheck(false);
+        else {
+            if (cart.find(item => item?.productId == product.id)) setCheck(true);
+            else setCheck(false)
+            //console.log(checkItemInCart);
+        }
 
-    }, [cart])
+    }, [cart, isLogin])
 
 
     return (
@@ -45,10 +50,11 @@ const Card: React.FC<{
                 </p>
 
             </div>
-            {checkItemInCart ?
-                <button onClick={() => { removeFromCart(product.id, 1) }} className="flex w-full items-center justify-center rounded-md bg-slate-900 px-2 py-2 text-center text-sm font-medium text-white hover:bg-gray-700 ">Remove from cart</button>
-                :
-                <button onClick={() => { addToCart(product.id, 1) }} className="flex w-full items-center justify-center rounded-md bg-slate-900 px-2 py-2 text-center text-sm font-medium text-white hover:bg-gray-700 ">Add to cart</button>
+            {
+                checkItemInCart ?
+                    <button onClick={() => { removeFromCart(product.id, 1) }} className="flex w-full items-center justify-center rounded-md bg-slate-900 px-2 py-2 text-center text-sm font-medium text-white hover:bg-gray-700 ">Remove from cart</button>
+                    :
+                    <button onClick={() => { addToCart(product.id, 1) }} className="flex w-full items-center justify-center rounded-md bg-slate-900 px-2 py-2 text-center text-sm font-medium text-white hover:bg-gray-700 ">Add to cart</button>
             }
         </div>
     );
