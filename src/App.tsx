@@ -28,6 +28,7 @@ import User404 from './user/User404';
 function App() {
   const { isLogin } = ContextInit();
   const { sellerLogin } = useContext(SellerContext) as ContextItems;
+  console.log(sellerLogin);
 
   return (
     <div className="App " >

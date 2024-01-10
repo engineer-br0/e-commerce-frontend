@@ -27,33 +27,50 @@ const SellerContextWrapper: React.FC<{ children: ReactElement }> = ({ children }
     const [sellerDetails, setSellerDetails] = useState<sellerInterface>({});
     const [sellerRerender, setSellerRerender] = useState<boolean>(false);
 
-    const getToken = () => {
-        //console.log(document.cookie);
+    // const getToken = () => {
+    //     console.log("get token k andar");
+
+    //     //console.log(document.cookie);
+    //     const cookieArray = (document.cookie).split(';');
+    //     //console.log(cookieArray);
+
+    //     const token = cookieArray.find(cookie => {
+    //         const cookieItems = cookie.split('=');
+    //         return cookieItems[0].trim() === "sellerToken";
+    //     });
+    //     console.log(token);
+
+    //     const tokenValue = token?.split("=")[1];
+    //     /// its a wrong way...
+    //     //////console.log({ ...sellerDetails, sellerToken: tokenValue, sellerToken: tokenValue, sellerToken: tokenValue });
+    //     // const newSeller = sellerDetails;
+    //     // newSeller.sellerToken = tokenValue;
+    //     // setSellerDetails(newSeller);
+    //     setSellerDetails(prevSellerDetails => ({
+    //         ...prevSellerDetails,
+    //         sellerToken: tokenValue
+    //     }));
+    // }
+
+    const fetchSeller = async () => {
+        console.log("inside fetch seller");
+
         const cookieArray = (document.cookie).split(';');
-        //console.log(cookieArray);
 
         const token = cookieArray.find(cookie => {
             const cookieItems = cookie.split('=');
             return cookieItems[0].trim() === "sellerToken";
         });
+        console.log(token);
 
         const tokenValue = token?.split("=")[1];
-        /// its a wrong way...
-        //////console.log({ ...sellerDetails, sellerToken: tokenValue, sellerToken: tokenValue, sellerToken: tokenValue });
-        // const newSeller = sellerDetails;
-        // newSeller.sellerToken = tokenValue;
-        // setSellerDetails(newSeller);
         setSellerDetails(prevSellerDetails => ({
             ...prevSellerDetails,
             sellerToken: tokenValue
         }));
-    }
 
-    const fetchSeller = async () => {
-        console.log("inside fetch seller");
-        console.log(document.cookie);
 
-        if (sellerDetails.sellerToken) {
+        if (token) {
             console.log("inside if");
 
             try {
@@ -61,7 +78,7 @@ const SellerContextWrapper: React.FC<{ children: ReactElement }> = ({ children }
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
-                        "Authorization": `Bearer ${sellerDetails.sellerToken}`
+                        "Authorization": `Bearer ${tokenValue}`
                     }
                 })
                 const res = await response.json();
@@ -79,9 +96,9 @@ const SellerContextWrapper: React.FC<{ children: ReactElement }> = ({ children }
         }
     }
 
-    useEffect(() => {
-        getToken();
-    }, [sellerLogin])
+    // useEffect(() => {
+    //     getToken();
+    // }, [sellerLogin])
 
     useEffect(() => {
         fetchSeller();
