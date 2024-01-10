@@ -54,12 +54,14 @@ const SellerLogin = () => {
                 alert('Something went wrong!');
             }
             const res = await response.json();
-            //console.log(res);
+            console.log(res);
+            alert("Seller login successfully!");
             // document.cookie = `sellerToken=${res.authToken}; expires=Thu, 01 Jan 1970 00:00:00 UTC;`;
             document.cookie = `sellerToken=${res.authToken};`;
             setSellerLogin(true);
             setSellerDetails({ ...res.sellerDetails, sellerToken: getToken() })
             setLoading(false);
+            navigate("/seller/profile")
             //console.log(getToken());
 
             //setSellerDetails({ ...(res.sellerDetails), sellerToken: ((((document.cookie).split(';')).find(cookie => cookie.split("="))[0] === "sellerToken")?.split("=")[1]) });

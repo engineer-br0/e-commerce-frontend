@@ -14,6 +14,8 @@ export interface sellerInterface {
 export interface ContextItems {
     sellerLogin: boolean;
     setSellerLogin(value: boolean): void;
+    sellerRerender: boolean;
+    setSellerRerender(value: boolean): void;
     sellerDetails: sellerInterface;
     setSellerDetails: (arg: sellerInterface) => void;
 }
@@ -23,6 +25,7 @@ export const SellerContext = createContext<ContextItems | undefined>(undefined);
 const SellerContextWrapper: React.FC<{ children: ReactElement }> = ({ children }: { children: ReactElement }) => {
     const [sellerLogin, setSellerLogin] = useState<boolean>(false);
     const [sellerDetails, setSellerDetails] = useState<sellerInterface>({});
+    const [sellerRerender, setSellerRerender] = useState<boolean>(false);
 
     const getToken = () => {
         //console.log(document.cookie);
@@ -47,11 +50,11 @@ const SellerContextWrapper: React.FC<{ children: ReactElement }> = ({ children }
     }
 
     const fetchSeller = async () => {
-        //console.log("inside fetch seller");
-        //console.log(document.cookie);
+        console.log("inside fetch seller");
+        console.log(document.cookie);
 
         if (sellerDetails.sellerToken) {
-            //console.log("inside if");
+            console.log("inside if");
 
             try {
                 const response = await fetch("http://localhost:4000/seller/details/getSellerDetails", {
@@ -62,11 +65,12 @@ const SellerContextWrapper: React.FC<{ children: ReactElement }> = ({ children }
                     }
                 })
                 const res = await response.json();
-                //console.log(res);
+                console.log(res);
                 setSellerDetails(prev => ({ ...prev, ...res }));
+                setSellerLogin(true);
             }
             catch (er) {
-                //console.log(er);
+                console.log(er);
             }
         }
     }
@@ -78,7 +82,7 @@ const SellerContextWrapper: React.FC<{ children: ReactElement }> = ({ children }
     useEffect(() => {
         fetchSeller();
         //console.log(sellerDetails);
-    }, [sellerLogin, sellerDetails.sellerToken]);
+    }, [sellerRerender, sellerLogin, sellerDetails.sellerToken]);
 
     useEffect(() => {
         //console.log(sellerDetails);
@@ -86,7 +90,7 @@ const SellerContextWrapper: React.FC<{ children: ReactElement }> = ({ children }
 
 
     return (
-        <SellerContext.Provider value={{ sellerLogin, setSellerLogin, sellerDetails, setSellerDetails }}>
+        <SellerContext.Provider value={{ sellerLogin, setSellerLogin, sellerDetails, setSellerDetails, sellerRerender, setSellerRerender }}>
             {children}
         </SellerContext.Provider>
     )

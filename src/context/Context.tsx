@@ -244,7 +244,7 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
         console.log("line 240");
 
         fetchProducts();
-    }, [isLogin]);
+    }, [rerender]);
 
     useEffect(() => {
         console.log("line 243");

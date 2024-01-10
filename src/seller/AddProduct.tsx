@@ -3,6 +3,7 @@ import { ContextItems, SellerContext } from "../context/SellerContext";
 import { app } from "../firebase/firebaseConfig"
 import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 import { useNavigate } from "react-router-dom";
+import { Context, ContextInit } from "../context/Context";
 
 const storage = getStorage(app);
 const storageRef = ref(storage);
@@ -10,7 +11,8 @@ const imagesRef = ref(storage, 'images/')
 
 const AddProduct = () => {
     const navigate = useNavigate();
-    const { sellerDetails } = useContext(SellerContext) as ContextItems;
+    const { rerender, setRerender } = ContextInit();
+    const { sellerDetails, sellerRerender, setSellerRerender } = useContext(SellerContext) as ContextItems;
     const [id, setId] = useState<string>("");
     const [title, setTitle] = useState<string>("");
     const [description, setDescription] = useState<string>("");
@@ -106,6 +108,8 @@ const AddProduct = () => {
                     setLoading(false);
                     //console.log(res);
                     alert(res.message)
+                    setRerender(!rerender);
+                    setSellerRerender(!sellerRerender)
                     navigate("/seller/profile");
                 }
             }
