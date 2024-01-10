@@ -70,8 +70,8 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
     const [loading, setLoading] = useState<boolean>(false);
 
     const getCookie = () => {
-        console.log("get cookie k andar hu!");
-        console.log(document.cookie);
+        // console.log("get cookie k andar hu!");
+        // console.log(document.cookie);
 
         const cookies = (document.cookie)?.split(";");
         if (!cookies || !cookies[0]) {
@@ -95,12 +95,12 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
 
     const getUserData = async () => {
         setLoading(true);
-        console.log("get userdata k andar hu!");
-        console.log("current", token);
+        // console.log("get userdata k andar hu!");
+        // console.log("current", token);
 
         if (token) {
             try {
-                console.log("token hai", token);
+                //console.log("token hai", token);
 
                 //const response = await fetch("http://localhost:4000/user/getUserData", {
                 const response = await fetch("https://e-commerce-backend-3smn.onrender.com/user/getUserData", {
@@ -112,7 +112,7 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
                 });
                 const res = await response.json();
                 setLoading(false)
-                console.log("user aya", res);
+                //console.log("user aya", res);
                 setUser(res.user)
             }
             catch (er) {
@@ -223,6 +223,8 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
 
     const fetchCart = async () => {
         setLoading(true);
+        //console.log(token);
+
         try {
             //const response = await fetch("http://localhost:4000/manageCart/getCart", {
             const response = await fetch("https://e-commerce-backend-3smn.onrender.com/manageCart/getCart", {
@@ -253,24 +255,16 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
             const response = await fetch('https://dummyjson.com/products');
             const res = await response.json();
             ////console.log(res.products);
-            setProducts(res.products);
+            //setProducts(res.products);
 
-            try {
-                //fetching from mongo
-                // const response = await fetch('http://localhost:4000/getProducts');
-                const response = await fetch('https://e-commerce-backend-3smn.onrender.com/getProducts');
-                const res = await response.json();
-                setLoading(false)
-                //console.log(res.products);
-                const productRef = res.products;
-                setProducts(prev => [...prev, ...productRef]);
+            //fetching from mongo
+            // const response = await fetch('http://localhost:4000/getProducts');
+            const response2 = await fetch('https://e-commerce-backend-3smn.onrender.com/getProducts');
+            const res2 = await response2.json();
+            setLoading(false)
+            //console.log(res.products);
+            setProducts(prev => [...res.products, ...res2.products]);
 
-            }
-            catch (er) {
-                setLoading(false)
-                console.log("Error getting products from server");
-
-            }
 
         }
         catch (er) {
@@ -281,7 +275,14 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
 
     useEffect(() => {
         fetchProducts();
+        //console.log(products);
+
     }, [rerender]);
+
+    // useEffect(() => {
+    //     console.log(products);
+
+    // }, [products])
 
     useEffect(() => {
         console.log("getting cookie");
@@ -294,9 +295,10 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
     }, [token]);
 
     useEffect(() => {
-        fetchCart();
-        console.log("line 248");
-        if (isLogin && token) getOrders();
+        if (isLogin && token) {
+            fetchCart();
+            getOrders();
+        }
     }, [isLogin, rerender, token])
 
     useEffect(() => {

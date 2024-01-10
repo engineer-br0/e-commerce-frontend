@@ -16,7 +16,7 @@ const Carta = () => {
     let totalItems: number = 0;
     const { products, cart, addToCart, removeFromCart } = ContextInit();
     //console.log(products);
-    console.log(cart);
+    // console.log(cart);
     const navigate = useNavigate();
 
     return (

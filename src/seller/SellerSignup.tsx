@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ContextInit } from "../context/Context";
 import Container from "../Container";
 import Loading from "../utils/Loading";
+import { ContextItems, SellerContext, sellerInterface } from "../context/SellerContext";
 
 const SellerSignup = () => {
     const navigate = useNavigate();
@@ -11,6 +12,7 @@ const SellerSignup = () => {
     const [password, setPassword] = useState<string>("");
     const [gstNumber, setGstNumber] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(false);
+    const { setSellerDetails, setSellerLogin } = useContext(SellerContext) as ContextItems;
 
     const handleSignup = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault();
@@ -22,8 +24,8 @@ const SellerSignup = () => {
             return;
         }
         try {
-            const response = await fetch("https://e-commerce-backend-3smn.onrender.com/auth/signup",
-                //const response = await fetch("http://localhost:4000/seller/auth/signup",
+            //const response = await fetch("https://e-commerce-backend-3smn.onrender.com/auth/signup",
+            const response = await fetch("http://localhost:4000/seller/auth/signup",
                 {
                     method: "POST",
                     headers: {
@@ -38,15 +40,16 @@ const SellerSignup = () => {
                 });
             const res = await response.json();
             setLoading(false)
-            //console.log("signup res", res);
-            // document.cookie = `token=${res.token};`;
-            // //console.log(document.cookie);
-            alert(res.message)
-            //setUser(res.user);
-            //setIsLogin(false);
-            //setIsLogin(true)
-            //alert("User Signup successful!")
-            //navigate("/")
+            if (response.ok) {
+                setLoading(false);
+                console.log(res);
+                alert("Seller login successfully!");
+                // document.cookie = `sellerToken=${res.authToken}; expires=Thu, 01 Jan 1970 00:00:00 UTC;`;
+                document.cookie = `sellerToken=${res.authToken};`;
+                setSellerLogin(true);
+                setSellerDetails({ ...res.sellerDetails, sellerToken: res.authToken })
+                navigate("/seller/profile")
+            }
         }
         catch (er) {
             setLoading(false)
