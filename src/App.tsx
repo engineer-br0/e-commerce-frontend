@@ -39,7 +39,7 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/:category' element={<Home />} />
           <Route path='/cart' element={isLogin ? <Carta /> : <User404 />} />
-          <Route path='/products/:ProductId' element={isLogin ? <Product /> : <User404 />} />
+          <Route path='/products/:ProductId' element={<Product />} />
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<Signup />} />
           <Route path='/profile' element={isLogin ? <Profile /> : <User404 />} />
