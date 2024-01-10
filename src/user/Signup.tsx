@@ -9,7 +9,8 @@ const Signup = () => {
     const [name, setName] = useState<string>("");
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
-    const { isLogin, setIsLogin, token, setUser, loading, setLoading } = ContextInit();
+    const { isLogin, setIsLogin, token, setUser } = ContextInit();
+    const [loading, setLoading] = useState<boolean>(false);
 
     useEffect(() => {
         if (isLogin) {

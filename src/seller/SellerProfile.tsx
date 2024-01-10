@@ -2,12 +2,13 @@ import Container from "../Container";
 import { HiOutlineUserCircle } from "react-icons/hi2";
 import { ContextInit } from "../context/Context";
 import { useNavigate } from "react-router-dom";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ContextItems, SellerContext } from "../context/SellerContext";
 import Card from "../home/Card";
 import { FaRegUser } from "react-icons/fa";
 import Seller404 from "./Seller404";
 import ProductCard from "./ProductCard";
+import Loading from "../utils/Loading";
 
 const SellerProfile = () => {
     const navigate = useNavigate();

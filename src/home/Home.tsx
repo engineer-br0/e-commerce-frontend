@@ -7,14 +7,16 @@ import { useParams } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import Product from "../products/[ProductId]";
 import Carousel from "./Carousel";
+import Loading from "../utils/Loading";
 
 export default function Home() {
     const params = useParams();
-    const { products } = ContextInit();
+    const { products, loading } = ContextInit();
     const { searchValue } = ContextInit();
 
     return (
         <Container>
+            {loading && <Loading />}
             <div className="sm:p-10 flex flex-col items-center">
                 <div className=" sm:hidden flex justify-center p-5">
                     <SearchBar />

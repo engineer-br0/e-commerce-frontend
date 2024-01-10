@@ -70,23 +70,30 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
     const [loading, setLoading] = useState<boolean>(false);
 
     const getUserData = async () => {
+        setLoading(true);
+        try {
+            //const response = await fetch("http://localhost:4000/user/getUserData", {
+            const response = await fetch("https://e-commerce-backend-3smn.onrender.com/user/getUserData", {
+                method: 'GET',
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "Content-Type": "application/json"
+                }
+            });
+            const res = await response.json();
+            setLoading(false)
+            //console.log("user aya", res);
+            setUser(res.user)
+        }
+        catch (er) {
+            setLoading(false)
+            console.log(er);
 
-
-        //const response = await fetch("http://localhost:4000/user/getUserData", {
-        const response = await fetch("https://e-commerce-backend-3smn.onrender.com/user/getUserData", {
-            method: 'GET',
-            headers: {
-                "Authorization": `Bearer ${token}`,
-                "Content-Type": "application/json"
-            }
-        });
-        const res = await response.json();
-        //console.log("user aya", res);
-        setUser(res.user)
-
+        }
     }
 
     const getOrders = async () => {
+        setLoading(true);
         try {
             //const response = await fetch("http://localhost:4000/orders/getOrders", {
             const response = await fetch("https://e-commerce-backend-3smn.onrender.com/orders/getOrders", {
@@ -97,11 +104,13 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
                 }
             });
             const res = await response.json();
+            setLoading(false)
             //console.log("orders aya", res);
             setOrders(res.orders)
         }
         catch (er) {
-            //console.log("error ocured", er);
+            setLoading(false)
+            console.log("error ocured", er);
 
         }
     }
@@ -127,7 +136,7 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
             alert("Login to use cart!")
             return;
         }
-
+        setLoading(true);
         try {
             //const response = await fetch("https://e-commerce-backend-3smn.onrender.com/manageCart/addToCart", {
             const response = await fetch("http://localhost:4000/manageCart/addToCart", {
@@ -142,12 +151,14 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
                 })
             });
             const res = await response.json();
+            setLoading(false)
             //console.log("cart res", res);
             //setCart(res.)
             setRerender(!rerender)
         }
         catch (er) {
-            //console.log(`ERROR! ${er}`);
+            setLoading(false)
+            console.log(`ERROR! ${er}`);
         }
         // let itemInCartIndex = cart.findIndex((item: CartItem) => item.id === id);
         // if (itemInCartIndex === -1) setCart([...cart, { id: id, quantity: 1 }]);
@@ -164,6 +175,7 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
             alert("Login to use cart!")
             return;
         }
+        setLoading(true);
         try {
             //const response = await fetch("https://e-commerce-backend-3smn.onrender.com/manageCart/removeFromCart", {
             const response = await fetch("http://localhost:4000/manageCart/removeFromCart", {
@@ -175,11 +187,13 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
                 body: JSON.stringify({ productId: id, quantity })
             });
             const res = await response.json();
+            setLoading(false)
             //console.log(res);
 
         }
         catch (er) {
-            //console.log(er);
+            setLoading(false)
+            console.log(er);
 
         }
         // let itemInCartIndex = cart.findIndex((item: CartItem) => item.productId === id);
@@ -191,6 +205,7 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
     }
 
     const fetchCart = async () => {
+        setLoading(true);
         try {
             const response = await fetch("http://localhost:4000/manageCart/getCart", {
                 //const response = await fetch("https://e-commerce-backend-3smn.onrender.com/manageCart/getCart", {
@@ -201,18 +216,21 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
                 }
             });
             const res = await response.json();
+            setLoading(false)
             console.log("caart res", res);
             if (response.status === 200) setCart(res.products);
             else setCart([]);
         }
         catch (er) {
-            //console.log("error in cart fetch", er);
+            setLoading(false)
+            console.log("error in cart fetch", er);
             //alert("Error in cart fetch!");
 
         }
     }
 
     const fetchProducts = async () => {
+        setLoading(true);
         try {
             // fetching from dummy database
             const response = await fetch('https://dummyjson.com/products');
@@ -224,19 +242,22 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
                 //fetching from mongo
                 const response = await fetch('http://localhost:4000/getProducts');
                 const res = await response.json();
+                setLoading(false)
                 //console.log(res.products);
                 const productRef = res.products;
                 setProducts(prev => [...prev, ...productRef]);
 
             }
             catch (er) {
-                //console.log("Error getting products from server");
+                setLoading(false)
+                console.log("Error getting products from server");
 
             }
 
         }
         catch (er) {
-            //console.log(er);
+            setLoading(false)
+            console.log(er);
         }
     }
 

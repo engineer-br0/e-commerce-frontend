@@ -10,7 +10,7 @@ const SellerSignup = () => {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [gstNumber, setGstNumber] = useState<string>("");
-    const { loading, setLoading } = ContextInit();
+    const [loading, setLoading] = useState<boolean>(false);
 
     const handleSignup = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault();

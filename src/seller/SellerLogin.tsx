@@ -11,7 +11,7 @@ const SellerLogin = () => {
     const navigate = useNavigate()
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
-    const { loading, setLoading } = ContextInit();
+    const [loading, setLoading] = useState<boolean>(false);
 
     const context = useContext(SellerContext) as ContextItems;
     const { sellerLogin, setSellerLogin, sellerDetails, setSellerDetails } = context;
@@ -49,19 +49,20 @@ const SellerLogin = () => {
                     email, password
                 })
             });
-            if (!response.ok) {
-                setLoading(false);
-                alert('Something went wrong!');
-            }
             const res = await response.json();
-            console.log(res);
-            alert("Seller login successfully!");
-            // document.cookie = `sellerToken=${res.authToken}; expires=Thu, 01 Jan 1970 00:00:00 UTC;`;
-            document.cookie = `sellerToken=${res.authToken};`;
-            setSellerLogin(true);
-            setSellerDetails({ ...res.sellerDetails, sellerToken: getToken() })
+            alert(res.message);
+            if (response.ok) {
+                setLoading(false);
+                console.log(res);
+                alert("Seller login successfully!");
+                // document.cookie = `sellerToken=${res.authToken}; expires=Thu, 01 Jan 1970 00:00:00 UTC;`;
+                document.cookie = `sellerToken=${res.authToken};`;
+                setSellerLogin(true);
+                setSellerDetails({ ...res.sellerDetails, sellerToken: getToken() })
+
+                navigate("/seller/profile")
+            }
             setLoading(false);
-            navigate("/seller/profile")
             //console.log(getToken());
 
             //setSellerDetails({ ...(res.sellerDetails), sellerToken: ((((document.cookie).split(';')).find(cookie => cookie.split("="))[0] === "sellerToken")?.split("=")[1]) });
@@ -75,7 +76,7 @@ const SellerLogin = () => {
         }
         catch (er) {
             setLoading(true);
-            //console.log("errreerer", er);
+            console.log("errreerer", er);
         }
     }
 

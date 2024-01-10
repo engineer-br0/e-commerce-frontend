@@ -8,7 +8,8 @@ const Login = () => {
     const navigate = useNavigate()
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
-    const { isLogin, setIsLogin, setUser, loading, setLoading } = ContextInit();
+    const [loading, setLoading] = useState<boolean>(false);
+    const { isLogin, setIsLogin, setUser } = ContextInit();
 
     const handleLogin = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault();

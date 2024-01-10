@@ -10,17 +10,17 @@ import Loading from "../utils/Loading";
 
 const Carta = () => {
     const [quant, setQuant] = useState<number>(1);
+
     //const [MRP, setMRP] = useState<number>(0);
     let MRP: number = 0;
     let totalItems: number = 0;
-    const { loading, setLoading, products, cart, addToCart, removeFromCart } = ContextInit();
+    const { products, cart, addToCart, removeFromCart } = ContextInit();
     //console.log(products);
     console.log(cart);
     const navigate = useNavigate();
 
     return (
         <>
-            {loading && <Loading />}
             <div className="min-h-screen flex flex-col items-center gap-1 p-10 bg-gray-100 py-12 sm:py-16 lg:py-20">
                 <div className="flex items-center justify-center">
                     <h1 className="text-2xl font-semibold text-gray-900">Your Cart</h1>

@@ -4,6 +4,7 @@ import { app } from "../firebase/firebaseConfig"
 import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 import { useNavigate } from "react-router-dom";
 import { Context, ContextInit } from "../context/Context";
+import Loading from "../utils/Loading";
 
 const storage = getStorage(app);
 const storageRef = ref(storage);
@@ -26,6 +27,7 @@ const AddProduct = () => {
 
 
     const handleThumbnailChange = (e: any) => {
+        setLoading(true);
         if (e.target.files) {
 
             const selectedImage = e.target.files[0];
@@ -33,13 +35,15 @@ const AddProduct = () => {
             if (selectedImage.size > maxSize) {
                 alert("Thumbnail size must be less than 500 KB");
                 e.target.value = null;
-                return;
+
             }
             else setThumbnail(selectedImage);
+            setLoading(false)
         }
     };
 
     const handleImagesChange = (e: any) => {
+        setLoading(true);
         //console.log("hanle images change!!");
         const selectedImages: FileList = e.target.files;
         if (e.target.files) {
@@ -50,12 +54,12 @@ const AddProduct = () => {
                 if (image.size > maxSize) {
                     alert('All image sizes should be less than 500 KB');
                     e.target.value = null;
-                    return;
                 }
             })
 
             setImages(selectedImages);
         }
+        setLoading(false);
     };
 
     const AddProduct = async (e: any) => {
@@ -123,7 +127,7 @@ const AddProduct = () => {
 
     return (
         <>
-            {loading && <div>Loading... Please wait</div>}
+            {loading && <Loading />}
             <form>
                 <div className="flex justify-center gap-5 flex-wrap p-10">
                     <div className='flex flex-col items-center '>

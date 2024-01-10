@@ -63,7 +63,7 @@ const Navbar = () => {
                     </div>
 
                     <div className="hidden sm:block text-2xl mr-4">
-                        <Dropdown toggleFunc={toggleUserDropdown} arr={[{ field: "Signup", path: "/seller/signup" }, { field: "Login", path: "seller/login" }, { field: "Profile", path: "/seller/profile" }, { field: "Orders", path: "/profile/orders" }]} >
+                        <Dropdown toggleFunc={toggleUserDropdown} arr={[{ field: "Signup", path: "/seller/signup" }, { field: "Login", path: "seller/login" }, { field: "Profile", path: "/seller/profile" }]} >
                             <CiShop className="text-2xl" />
                             <p className="text-base text-black font-bold">Become a Seller</p>
                         </Dropdown>
