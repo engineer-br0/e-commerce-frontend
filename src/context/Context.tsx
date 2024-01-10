@@ -69,27 +69,60 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
     const [orders, setOrders] = useState<ordersInterface[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
 
+    const getCookie = () => {
+        console.log("get cookie k andar hu!");
+        console.log(document.cookie);
+
+        const cookies = (document.cookie)?.split(";");
+        if (!cookies || !cookies[0]) {
+            console.log("if (!cookies || !cookies[0]) ");
+
+            setToken("");
+        }
+        else {
+            console.log("else {cookies.forEach(cookie => {");
+
+            cookies.forEach(cookie => {
+                const cookieArray = cookie.split('=');
+                if (cookieArray[0].trim() == 'token') {
+                    setToken(cookieArray[1]);
+                    setIsLogin(true);
+                    return;
+                }
+            })
+        }
+    }
+
     const getUserData = async () => {
         setLoading(true);
-        try {
-            //const response = await fetch("http://localhost:4000/user/getUserData", {
-            const response = await fetch("https://e-commerce-backend-3smn.onrender.com/user/getUserData", {
-                method: 'GET',
-                headers: {
-                    "Authorization": `Bearer ${token}`,
-                    "Content-Type": "application/json"
-                }
-            });
-            const res = await response.json();
-            setLoading(false)
-            //console.log("user aya", res);
-            setUser(res.user)
-        }
-        catch (er) {
-            setLoading(false)
-            console.log(er);
+        console.log("get userdata k andar hu!");
+        console.log("current", token);
 
+        if (token) {
+            try {
+                console.log("token hai", token);
+
+                //const response = await fetch("http://localhost:4000/user/getUserData", {
+                const response = await fetch("https://e-commerce-backend-3smn.onrender.com/user/getUserData", {
+                    method: 'GET',
+                    headers: {
+                        "Authorization": `Bearer ${token}`,
+                        "Content-Type": "application/json"
+                    }
+                });
+                const res = await response.json();
+                setLoading(false)
+                console.log("user aya", res);
+                setUser(res.user)
+            }
+            catch (er) {
+                setLoading(false)
+                console.log(er);
+
+            }
         }
+        else console.log("token nahi hai bhai!!!");
+
     }
 
     const getOrders = async () => {
@@ -112,22 +145,6 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
             setLoading(false)
             console.log("error ocured", er);
 
-        }
-    }
-
-    const getCookie = () => {
-        const cookies = (document.cookie)?.split(";");
-        if (!cookies || !cookies[0]) setToken("");
-        else {
-            cookies.forEach(cookie => {
-                if (cookie.includes("token=")) {
-                    let tokenValue = cookie.replace("token=", "").trim();
-                    if (tokenValue.length === 0) return false;
-                    setIsLogin(true);
-                    setToken(cookie.split("=")[1]);
-                }
-                else setToken("");
-            })
         }
     }
 
@@ -263,16 +280,20 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
     }
 
     useEffect(() => {
-        console.log("line 240");
-
         fetchProducts();
     }, [rerender]);
 
     useEffect(() => {
-        console.log("line 243");
-
+        console.log("getting cookie");
         getCookie();
-        (token && getUserData());
+    }, [isLogin]);
+
+    useEffect(() => {
+        console.log("getting userdata");
+        getUserData();
+    }, [token]);
+
+    useEffect(() => {
         fetchCart();
         console.log("line 248");
         if (isLogin && token) getOrders();

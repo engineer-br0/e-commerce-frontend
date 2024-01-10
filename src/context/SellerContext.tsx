@@ -53,7 +53,7 @@ const SellerContextWrapper: React.FC<{ children: ReactElement }> = ({ children }
     // }
 
     const fetchSeller = async () => {
-        console.log("inside fetch seller");
+        //console.log("inside fetch seller");
 
         const cookieArray = (document.cookie).split(';');
 
@@ -61,7 +61,7 @@ const SellerContextWrapper: React.FC<{ children: ReactElement }> = ({ children }
             const cookieItems = cookie.split('=');
             return cookieItems[0].trim() === "sellerToken";
         });
-        console.log(token);
+        //console.log(token);
 
         const tokenValue = token?.split("=")[1];
         setSellerDetails(prevSellerDetails => ({
@@ -70,8 +70,8 @@ const SellerContextWrapper: React.FC<{ children: ReactElement }> = ({ children }
         }));
 
 
-        if (token) {
-            console.log("inside if");
+        if (tokenValue) {
+            //console.log("inside if");
 
             try {
                 // const response = await fetch("http://localhost:4000/seller/details/getSellerDetails", {
@@ -84,7 +84,7 @@ const SellerContextWrapper: React.FC<{ children: ReactElement }> = ({ children }
                     }
                 })
                 const res = await response.json();
-                console.log(res);
+                //console.log(res);
                 setSellerDetails(prev => ({ ...prev, ...res }));
                 setSellerLogin(true);
             }

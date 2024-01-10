@@ -15,7 +15,7 @@ const Profile = () => {
 
     useEffect(() => {
         setRerender(!rerender)
-        //console.log(user);
+        console.log(user);
     }, [])
 
 
