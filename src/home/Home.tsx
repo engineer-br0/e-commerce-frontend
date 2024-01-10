@@ -41,6 +41,17 @@ export default function Home() {
                             }
                         })
                     }
+
+                    {/* Blank cards  */}
+                    <div className="card sm:m-3 overflow-hidden bg-white ">
+                    </div>
+                    <div className="card sm:m-3 overflow-hidden bg-white ">
+                    </div>
+                    <div className="card sm:m-3 overflow-hidden bg-white ">
+                    </div>
+                    <div className="card sm:m-3 overflow-hidden bg-white ">
+                    </div>
+
                 </div>
             </div>
         </Container>
