@@ -226,8 +226,8 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
         //console.log(token);
 
         try {
-            //const response = await fetch("http://localhost:4000/manageCart/getCart", {
-            const response = await fetch("https://e-commerce-backend-3smn.onrender.com/manageCart/getCart", {
+            const response = await fetch("http://localhost:4000/manageCart/getCart", {
+                //const response = await fetch("https://e-commerce-backend-3smn.onrender.com/manageCart/getCart", {
                 method: "GET",
                 headers: {
                     'Content-Type': 'application/json',
