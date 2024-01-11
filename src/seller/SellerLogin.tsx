@@ -16,21 +16,6 @@ const SellerLogin = () => {
     const context = useContext(SellerContext) as ContextItems;
     const { sellerLogin, setSellerLogin, sellerDetails, setSellerDetails } = context;
 
-    const getToken = () => {
-        //console.log(document.cookie);
-        const cookieArray = (document.cookie).split(';');
-        //console.log(cookieArray);
-
-        const token = cookieArray.find(cookie => {
-            const cookieItems = cookie.split('=');
-            return cookieItems[0].trim() === "sellerToken";
-        });
-        //console.log(token);
-        const tokenValue = token?.split("=")[1];
-
-        return tokenValue || "";
-    }
-
     const handleLogin = async (e: any) => {
         e.preventDefault();
         setLoading(true);
@@ -40,8 +25,8 @@ const SellerLogin = () => {
             return;
         }
         try {
-            //const response = await fetch("http://localhost:4000/seller/auth/login", {
-            const response = await fetch("https://e-commerce-backend-3smn.onrender.com/seller/auth/login", {
+            const response = await fetch("http://localhost:4000/seller/auth/login", {
+                //const response = await fetch("https://e-commerce-backend-3smn.onrender.com/seller/auth/login", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -59,7 +44,7 @@ const SellerLogin = () => {
                 // document.cookie = `sellerToken=${res.authToken}; expires=Thu, 01 Jan 1970 00:00:00 UTC;`;
                 document.cookie = `sellerToken=${res.authToken};`;
                 setSellerLogin(true);
-                setSellerDetails({ ...res.sellerDetails, sellerToken: getToken() })
+                setSellerDetails({ ...res.sellerDetails, sellerToken: res.authToken })
 
                 navigate("/seller/profile")
             }
