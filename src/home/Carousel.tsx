@@ -1,15 +1,21 @@
 import { useContext, useEffect, useState } from "react";
-import { CarouselContext } from "../context/CarouselContext";
-import { FaArrowAltCircleLeft } from "react-icons/fa";
-import { FaArrowAltCircleRight } from "react-icons/fa";
+import { CarouselContext, carouselInterface } from "../context/CarouselContext";
 
 const Carousel = () => {
-    const { currentIndex, images } = useContext(CarouselContext);
+    const { currentIndex, setCurrentIndex, images } = useContext(CarouselContext) as carouselInterface;
 
     return (
-        <div className=" ">
+        <div>
+            <div className="relative flex items-center justify-center">
 
-            <img src={images[currentIndex]} className="" />
+                <img src={images[currentIndex]} className="" />
+
+
+
+
+            </div>
+
+
         </div>
     );
 }

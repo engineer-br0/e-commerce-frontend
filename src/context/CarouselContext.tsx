@@ -4,9 +4,10 @@ import { createContext } from "react";
 export interface carouselInterface {
     currentIndex: number;
     images: string[];
+    setCurrentIndex: (index: number) => void;
 }
 
-export const CarouselContext = createContext<carouselInterface>({ currentIndex: 0, images: [] });
+export const CarouselContext = createContext<carouselInterface | undefined>(undefined);
 
 const CarouselWrapper = ({ children }: { children: React.ReactNode }) => {
     const [currentIndex, setCurrentIndex] = useState<number>(0);
@@ -25,7 +26,7 @@ const CarouselWrapper = ({ children }: { children: React.ReactNode }) => {
     }, [])
 
     return (
-        <CarouselContext.Provider value={{ currentIndex, images }}>
+        <CarouselContext.Provider value={{ currentIndex, images, setCurrentIndex }}>
             {children}
         </CarouselContext.Provider>
     )
