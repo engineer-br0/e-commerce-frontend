@@ -37,7 +37,8 @@ const Navbar = () => {
 
     return (
         <Container>
-            <div className="Navbar h-20 border-b border-black-300 flex flex-row justify-between items-center">
+            {/* IF YOU WANT TO SHOW DROPDOWN ABOVE ALL OTHER COMPONENTS THEN GIVE Z INDEX TO NAV  */}
+            <div className="Navbar relative z-50 h-20 border-b border-black-300 flex flex-row justify-between items-center">
                 {/* <div className="border border-blue-400" style={{ display: "flex", justifyContent: "space-between" }}> */}
                 <Link to='/' className="logo">
                     <p className="font-sans font-bold"> <p className="text-sm">Mridul Bhai ka</p> Amazon</p>
