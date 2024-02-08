@@ -54,50 +54,56 @@ const Payment = () => {
         }
     }
 
-    const loadScript = (src: any) => {
-        return new Promise((resovle) => {
-            const script = document.createElement('script');
-            script.src = src;
-            script.onload = () => {
-                resovle(true)
-            }
-            script.onerror = () => {
-                resovle(false)
-            }
-            document.body.appendChild(script)
-        });
-    }
+    // const loadScript = (src: any) => {
+    //     return new Promise((resovle) => {
+    //         const script = document.createElement('script');
+    //         script.src = src;
+    //         script.onload = () => {
+    //             resovle(true)
+    //         }
+    //         script.onerror = () => {
+    //             resovle(false)
+    //         }
+    //         document.body.appendChild(script)
+    //     });
+    // }
     const razorPay = async () => {
-        const res: any = await loadScript("https://checkout.razorpay.com/v1/checkout.js")
+        const amount = 5000;
+        const order = await fetch("http://localhost:4000/payment/createOrder", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ amount })
+        });
+        const orderRes = await order.json();
+        console.log(orderRes);
 
-        if (!res) {
-            alert('You are offline... Failed to load Razorpay SDK');
-            return;
-        }
 
         const options = {
-            key: "rzp_test_l7uJveL5gevgqk",
+            amount: "50000", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+            key: "rzp_test_9WveOYwfSoAOYe", // Enter the Key ID generated from the Dashboard
             currency: "INR",
-            amount: MRP * 100,
-            name: "Amazon",
-            description: `Ordering ${totalItems} Items`,
-            image: '../public/a.png',
-
-            handler: function (response: any) {
-                //console.log(response)
-                alert("Payment Successfully");
-                //sendMail();
-                //alert("payment id: " + response.razorpay_payment_id)
-                addNewProduct();
+            name: "MRIDUL BHAI KA AMAZON", //your business name
+            description: "Test Transaction",
+            image: "https://example.com/your_logo",
+            order_id: orderRes.order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+            callback_url: "http://localhost:4000/payment/paymentVerification",
+            prefill: { //We recommend using the prefill parameter to auto-fill customer's contact information especially their phone number
+                name: "Gaurav Kumar", //your customer's name
+                email: "gaurav.kumar@example.com",
+                contact: "9000090000" //Provide the customer's phone number for better conversion rates 
             },
-            prefill: {
-                name:
-                    "Amazon"
+            address: "Razorpay Corporate Office",
+            notes: {
+            },
+            color: "#3399cc",
+            theme: {
             }
         };
 
-        const paymentObject = (window as any).Razorpay(options)
-        paymentObject.open()
+        const paymentObject = new (window as any).Razorpay(options);
+        paymentObject.open();
     }
 
 
