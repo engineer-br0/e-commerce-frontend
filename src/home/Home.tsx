@@ -26,7 +26,7 @@ export default function Home() {
 
 
 
-    //console.log("fil", filteredProducts);
+    console.log("prod", products);
 
     useEffect(() => {
 

@@ -45,10 +45,10 @@ const Card: React.FC<{
                     <p className="stars"><Stars rating={product.rating} /></p>
 
                     <p className="flex justify-between">
-                        <span>
-                            <span className="text-xl font-bold text-slate-900">&#8377;{product.price} </span>
-                            <span className="text-sm text-slate-900 line-through">&#8377;{product.price + product.price * 0.2}</span>
-                        </span>
+                        <div className=" w-full">
+                            <div className="text-xl font-bold text-center text-slate-900">&#8377;{product.price} </div>
+                            <div className="text-sm text-slate-900 line-through w-full text-center ">&#8377;{(product.price + product.price * 0.2).toFixed(2)}</div>
+                        </div>
 
                     </p>
 
