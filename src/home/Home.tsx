@@ -17,6 +17,46 @@ export default function Home() {
     const { products, loading } = ContextInit();
     const { searchValue } = ContextInit();
     const { images, currentIndex, setCurrentIndex } = useContext(CarouselContext) as carouselInterface;
+    const [filteredProducts, setFilteredProducts] = useState(products);
+    const [sortFilter, setSortFilter] = useState("");
+    // console.log("ser val", searchValue);
+    // console.log("price,val", sortFilter);
+
+
+
+
+
+    //console.log("fil", filteredProducts);
+
+    useEffect(() => {
+
+        setFilteredProducts(products.filter((product) => {
+
+            return (product.title.match(new RegExp(searchValue, 'i'))
+                && (params?.category ? params.category === product.category : true)
+            )
+        }))
+        if (sortFilter) {
+            const sortedProducts = [...filteredProducts].sort((a, b) => {
+                if (sortFilter === "Price Low to High")
+                    return a.price - b.price;
+                else if (sortFilter === "Price High to Low")
+                    return b.price - a.price;
+                else if (sortFilter === "Title A to Z") {
+                    return a.title[0].charCodeAt(0) - b.title[0].charCodeAt(0);
+                }
+                else if (sortFilter === "Title Z to A") {
+                    return b.title.localeCompare(a.title);
+                }
+                return 0;
+            })
+            setFilteredProducts(sortedProducts)
+        }
+
+        console.log("after", filteredProducts);
+
+    }, [sortFilter])
+
 
     return (
         <Container>
@@ -26,6 +66,7 @@ export default function Home() {
                     <SearchBar />
                 </div>
 
+                {/* <HomeBanner /> */}
                 <div className="relative flex justify-center items-center">
                     <Carousel />
                     <div className="absolute bottom-0 flex items-center">
@@ -44,38 +85,67 @@ export default function Home() {
                     <IoIosArrowDropright onClick={() => setCurrentIndex((currentIndex + 1) % images.length)} className="absolute right-0 bg-white text-5xl" />
                 </div>
 
-                {/* <HomeBanner /> */}
-                <div className="products border">
-                    {
-                        products.map((product) => {
-                            ////console.log(product);
+                {/* PRODUCTS */}
+                <div className="flex border mt-10">
+                    <div className="bg-red-100 border p-4">
+                        <label>Sort By </label>
+                        <select value={sortFilter} onChange={(e) => setSortFilter(e.target.value)}>
+                            <option value="Price Low to High">Price Low to High</option>
+                            <option value="Price High to Low">Price High to Low</option>
+                            <option value="Title A to Z">Title A to Z</option>
+                            <option value="Title Z to A">Title Z to A</option>
+                        </select>
+                        <label>Price</label>
+                        <select>
+                            <option>Min</option>
+                            <option>1</option>
+                            <option>10</option>
+                            <option>100</option>
+                            <option>1000</option>
+                        </select>
+                        <p>to</p>
+                        <select>
+                            <option>Max</option>
+                            <option>1</option>
+                            <option>10</option>
+                            <option>100</option>
+                            <option>1000</option>
+                        </select>
 
-                            //if (product.title.match(/iphone/i)) {
-                            if (product.title.match(new RegExp(searchValue, 'i')) && (params?.category ? params.category === product.category : true)) {
+                    </div>
+                    <div className="products ">
+
+                        {
+                            filteredProducts.map((product) => {
+                                ////console.log(product);
+
+                                //if (product.title.match(/iphone/i)) {
+                                //if (product.title.match(new RegExp(searchValue, 'i')) && (params?.category ? params.category === product.category : true)) {
                                 //if (product.title.toLowerCase().includes(searchValue))) {
                                 return (
                                     <div key={product.id}>
                                         <Card product={product} />
                                     </div>
                                 )
-                            }
-                        })
-                    }
+                                //}
+                            })
+                        }
 
-                    {/* Blank cards  */}
-                    <div className="card sm:m-3 overflow-hidden bg-white ">
-                    </div>
-                    <div className="card sm:m-3 overflow-hidden bg-white ">
-                    </div>
-                    <div className="card sm:m-3 overflow-hidden bg-white ">
-                    </div>
-                    <div className="card sm:m-3 overflow-hidden bg-white ">
-                    </div>
-                    <div className="card sm:m-3 overflow-hidden bg-white ">
-                    </div>
-                    <div className="card sm:m-3 overflow-hidden bg-white ">
-                    </div>
+                        {/* Blank cards  */}
+                        <div className="card sm:m-3 overflow-hidden bg-white ">
+                        </div>
+                        <div className="card sm:m-3 overflow-hidden bg-white ">
+                        </div>
+                        <div className="card sm:m-3 overflow-hidden bg-white ">
+                        </div>
+                        <div className="card sm:m-3 overflow-hidden bg-white ">
+                        </div>
+                        <div className="card sm:m-3 overflow-hidden bg-white ">
+                        </div>
+                        <div className="card sm:m-3 overflow-hidden bg-white ">
+                        </div>
 
+                    </div>
                 </div>
             </div>
         </Container>
