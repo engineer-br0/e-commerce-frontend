@@ -275,7 +275,7 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
 
     useEffect(() => {
         fetchProducts();
-        //console.log(products);
+        console.log("products", products);
 
     }, [rerender]);
 

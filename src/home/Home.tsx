@@ -19,12 +19,6 @@ export default function Home() {
     const { images, currentIndex, setCurrentIndex } = useContext(CarouselContext) as carouselInterface;
     const [filteredProducts, setFilteredProducts] = useState(products);
     const [sortFilter, setSortFilter] = useState("");
-    // console.log("ser val", searchValue);
-    // console.log("price,val", sortFilter);
-
-
-
-
 
     console.log("prod", products);
 
@@ -88,29 +82,35 @@ export default function Home() {
                 {/* PRODUCTS */}
                 <div className="flex border mt-10">
                     <div className="bg-red-100 border p-4">
-                        <label>Sort By </label>
-                        <select value={sortFilter} onChange={(e) => setSortFilter(e.target.value)}>
-                            <option value="Price Low to High">Price Low to High</option>
-                            <option value="Price High to Low">Price High to Low</option>
-                            <option value="Title A to Z">Title A to Z</option>
-                            <option value="Title Z to A">Title Z to A</option>
-                        </select>
-                        <label>Price</label>
-                        <select>
-                            <option>Min</option>
-                            <option>1</option>
-                            <option>10</option>
-                            <option>100</option>
-                            <option>1000</option>
-                        </select>
-                        <p>to</p>
-                        <select>
-                            <option>Max</option>
-                            <option>1</option>
-                            <option>10</option>
-                            <option>100</option>
-                            <option>1000</option>
-                        </select>
+                        <div className="border my-2 py-2 bg-gray-200">
+                            <label>Sort By </label>
+                            <select value={sortFilter} onChange={(e) => setSortFilter(e.target.value)}>
+                                <option value="Default">Default</option>
+                                <option value="Price Low to High">Price Low to High</option>
+                                <option value="Price High to Low">Price High to Low</option>
+                                <option value="Title A to Z">Title A to Z</option>
+                                <option value="Title Z to A">Title Z to A</option>
+                            </select>
+                        </div>
+                        <div className="border my-2 py-2 bg-gray-200">
+                            <label>Price</label>
+                            <select>
+                                <option>Min</option>
+                                <option>1</option>
+                                <option>10</option>
+                                <option>100</option>
+                                <option>1000</option>
+                            </select>
+
+                            <p>to</p>
+                            <select>
+                                <option>Max</option>
+                                <option>1</option>
+                                <option>10</option>
+                                <option>100</option>
+                                <option>1000</option>
+                            </select>
+                        </div>
 
                     </div>
                     <div className="products ">
