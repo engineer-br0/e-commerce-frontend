@@ -1,0 +1,14 @@
+1. Increase Timeout
+Sometimes, the request might be taking longer to respond. You can increase the timeout settings in your frontend code.
+
+axios.get(apiUrl, { timeout: 10000 }) // timeout in milliseconds
+  .then(response => {
+    console.log(response.data);
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
+
+2. Use curl to test the API endpoint:
+
+curl -v http://your-api-endpoint.com/resource

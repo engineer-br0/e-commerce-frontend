@@ -44,7 +44,8 @@ export default function Home() {
                 }
                 return 0;
             })
-            setFilteredProducts(sortedProducts)
+            setFilteredProducts(sortedProducts);
+            if (sortFilter === "Default") setFilteredProducts(products);
         }
 
         console.log("after", filteredProducts);
@@ -79,10 +80,11 @@ export default function Home() {
                     <IoIosArrowDropright onClick={() => setCurrentIndex((currentIndex + 1) % images.length)} className="absolute right-0 bg-white text-5xl" />
                 </div>
 
-                {/* PRODUCTS */}
-                <div className="flex border mt-10">
-                    <div className="bg-red-100 border p-4">
-                        <div className="border my-2 py-2 bg-gray-200">
+                <div className="flex flex-col sm:flex-row border mt-10">
+                    {/* FILTERS */}
+                    <div className="bg-red-100 border p-4 flex flex-row sm:flex-col gap-4">
+                        Filters
+                        <div className="border py-2 bg-gray-200">
                             <label>Sort By </label>
                             <select value={sortFilter} onChange={(e) => setSortFilter(e.target.value)}>
                                 <option value="Default">Default</option>
@@ -92,7 +94,7 @@ export default function Home() {
                                 <option value="Title Z to A">Title Z to A</option>
                             </select>
                         </div>
-                        <div className="border my-2 py-2 bg-gray-200">
+                        {/* <div className="border my-2 py-2 bg-gray-200">
                             <label>Price</label>
                             <select>
                                 <option>Min</option>
@@ -110,14 +112,15 @@ export default function Home() {
                                 <option>100</option>
                                 <option>1000</option>
                             </select>
-                        </div>
+                        </div> */}
 
                     </div>
 
+                    {/* PRODUCTS */}
                     <div className="products ">
                         {
                             products.length ?
-                                products.map((product) => {
+                                filteredProducts.map((product) => {
                                     ////console.log(product);
 
                                     //if (product.title.match(/iphone/i)) {
