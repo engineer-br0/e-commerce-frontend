@@ -81,7 +81,7 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
             setToken("");
         }
         else {
-            console.log("else {cookies.forEach(cookie => {");
+            //console.log("else {cookies.forEach(cookie => {");
 
             cookies.forEach(cookie => {
                 const cookieArray = cookie.split('=');
@@ -250,7 +250,7 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
     }
 
     const fetchProducts = async () => {
-        console.log("inside fethc produ!!!!");
+        //console.log("inside fethc produ!!!!");
 
         setLoading(true);
         try {
@@ -285,10 +285,10 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
     }
 
     useEffect(() => {
-        console.log("outside fetchproducts!!!!");
+        //console.log("outside fetchproducts!!!!");
 
         fetchProducts();
-        console.log("products", products);
+        //console.log("products", products);
 
     }, [rerender]);
 
@@ -298,12 +298,12 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
     // }, [products])
 
     useEffect(() => {
-        console.log("getting cookie");
+        //console.log("getting cookie");
         getCookie();
     }, [isLogin]);
 
     useEffect(() => {
-        console.log("getting userdata");
+        //console.log("getting userdata");
         getUserData();
     }, [token]);
 

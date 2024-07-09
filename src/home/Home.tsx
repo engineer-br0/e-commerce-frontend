@@ -20,12 +20,10 @@ export default function Home() {
     const [filteredProducts, setFilteredProducts] = useState(products);
     const [sortFilter, setSortFilter] = useState("");
 
-    console.log("prod", products);
+    //console.log("prod", products, filteredProducts);
 
     useEffect(() => {
-
         setFilteredProducts(products.filter((product) => {
-
             return (product.title.match(new RegExp(searchValue, 'i'))
                 && (params?.category ? params.category === product.category : true)
             )
@@ -45,12 +43,9 @@ export default function Home() {
                 return 0;
             })
             setFilteredProducts(sortedProducts);
-            if (sortFilter === "Default") setFilteredProducts(products);
         }
 
-        console.log("after", filteredProducts);
-
-    }, [sortFilter])
+    }, [sortFilter, products])  // if you use a variable in useEffect, declare it in the useEffect dependency array
 
 
     return (

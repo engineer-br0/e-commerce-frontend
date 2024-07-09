@@ -12,3 +12,6 @@ axios.get(apiUrl, { timeout: 10000 }) // timeout in milliseconds
 2. Use curl to test the API endpoint:
 
 curl -v http://your-api-endpoint.com/resource
+
+3. The rule of thumb is that if you use a variable in useEffect,
+ you must declare it in the useEffect dependency array (or omit the array entirely). So in your example handleScroll should be in the array.
