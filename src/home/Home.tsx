@@ -82,9 +82,9 @@ export default function Home() {
 
                 <div className="flex flex-col sm:flex-row border mt-10">
                     {/* FILTERS */}
-                    <div className="bg-red-100 border p-4 flex flex-row sm:flex-col gap-4">
+                    <div className="bg-gray-100 border p-4 flex flex-row sm:flex-col gap-4">
                         Filters
-                        <div className="border py-2 bg-gray-200">
+                        <div className="border p-2 bg-gray-200">
                             <label>Sort By </label>
                             <select value={sortFilter} onChange={(e) => setSortFilter(e.target.value)}>
                                 <option value="Default">Default</option>
