@@ -113,22 +113,25 @@ export default function Home() {
                         </div>
 
                     </div>
+
                     <div className="products ">
-
                         {
-                            filteredProducts.map((product) => {
-                                ////console.log(product);
+                            products.length ?
+                                products.map((product) => {
+                                    ////console.log(product);
 
-                                //if (product.title.match(/iphone/i)) {
-                                //if (product.title.match(new RegExp(searchValue, 'i')) && (params?.category ? params.category === product.category : true)) {
-                                //if (product.title.toLowerCase().includes(searchValue))) {
-                                return (
-                                    <div key={product.id}>
-                                        <Card product={product} />
-                                    </div>
-                                )
-                                //}
-                            })
+                                    //if (product.title.match(/iphone/i)) {
+                                    //if (product.title.match(new RegExp(searchValue, 'i')) && (params?.category ? params.category === product.category : true)) {
+                                    //if (product.title.toLowerCase().includes(searchValue))) {
+                                    return (
+                                        <div key={product.id}>
+                                            <Card product={product} />
+                                        </div>
+                                    )
+                                    //}
+                                })
+                                :
+                                "Fetching products from server... Please wait..."
                         }
 
                         {/* Blank cards  */}

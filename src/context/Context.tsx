@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { createContext } from "react";
 import Product from "../products/[ProductId]";
+import axios from "axios";
 
 interface CartItem {
     productId: number,
@@ -249,20 +250,30 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
     }
 
     const fetchProducts = async () => {
+        console.log("inside fethc produ!!!!");
+
         setLoading(true);
         try {
             // fetching from dummy database
-            const response = await fetch('https://dummyjson.com/products');
-            const res = await response.json();
-            ////console.log(res.products);
+            const response = await axios.get('https://dummyjson.com/products', {
+                timeout: 10000 // Timeout in milliseconds
+            });
+            const res = response.data; // Axios automatically parses JSON
+            //console.log(res);
+            //console.log("dummy", res.products);
             //setProducts(res.products);
 
             //fetching from mongo
             // const response = await fetch('http://localhost:4000/getProducts');
-            const response2 = await fetch('https://e-commerce-backend-3smn.onrender.com/getProducts');
-            const res2 = await response2.json();
+            // const response2 = await fetch('https://e-commerce-backend-3smn.onrender.com/getProducts');
+            // const res2 = await response2.json();
+            const response2 = await axios.get('https://e-commerce-backend-3smn.onrender.com/getProducts', {
+                timeout: 10000  /// IMPORTANT !!!
+            });
+            const res2 = await response2.data;
             setLoading(false)
-            //console.log(res.products);
+            //console.log("origin products:", res.products);
+            //setProducts(prev => [...res2.products]);
             setProducts(prev => [...res.products, ...res2.products]);
 
 
@@ -274,6 +285,8 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
     }
 
     useEffect(() => {
+        console.log("outside fetchproducts!!!!");
+
         fetchProducts();
         console.log("products", products);
 
